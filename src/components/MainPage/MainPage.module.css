@@ -1,0 +1,29 @@
+.MainPage{
+    background-color: #6d6875;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 100vw;
+    position: absolute;
+    top: 40%;
+}
+
+.buttonMainPage {
+    margin-bottom: 15px;
+    height: 60px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: #4a4e69;
+    color: #ede0d4;
+    /* font-family: 'Comfortaa', cursive; */
+    font-family: 'Seymour One', sans-serif;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.buttonMainPage:hover{
+    background-color: #f2e9e4;
+    color: #4a4e69;
+}

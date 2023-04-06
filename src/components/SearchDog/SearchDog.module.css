@@ -1,0 +1,32 @@
+.SearchDog {
+    /* width: 100vw; */
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.input{
+    width: 500px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.buttonToSearch {
+    background-color: white;
+    height: 37px;
+}
+
+.buttonSearchAll {
+    width: 100px;
+    height: 35px;
+    margin-right: 20px;
+    background-color: #4a4e69;
+    color: #ede0d4;
+    border-radius: 10px;
+}
+
+.buttonSearchAll:hover {
+    background-color: #f2e9e4;
+    color: #4a4e69;
+}

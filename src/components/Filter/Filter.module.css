@@ -1,0 +1,83 @@
+.Filter{
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo{
+    font-size: 26px;
+}
+
+.addTemperament{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    height: 71px;
+}
+
+.addTemperament label{
+    height: 20px;
+}
+
+.place{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin: 15px;
+    justify-content: center;
+}
+
+.place label{
+    width: 100%;
+    height: 20px;
+}
+
+.botonFiltrar{
+    margin-bottom: 15px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #4a4e69;
+    color: #ede0d4;
+    font-family: 'Comfortaa', cursive;
+}
+
+.botonFiltrar:hover{
+    background-color: #f2e9e4;
+    color: #4a4e69;
+}
+
+.botonAddTemperament{
+    background-color: #90be6d;
+    border: 0px;
+    height: 30px;
+}
+
+.inputAddTemperament{
+    width: 195px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.divParaFiltrar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.filtradoTemperamentos{
+    background-color: #e56b6f;
+    display: inline;
+    margin: 5px;
+}
+
+.botonCancelarFiltrado{
+    background-color: #dc2f02;
+    border: 0px;
+    outline: none;
+}
+
+.showFiltrado{
+    margin-bottom: 20px;
+}

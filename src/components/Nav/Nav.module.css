@@ -1,0 +1,62 @@
+.Nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #6d6875;
+    margin-bottom: 20px;
+    padding: 10px;
+    /* padding-bottom: 25px; */
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.links {
+    height: 100%;
+}
+
+.imagen {
+    width: 100px;
+}
+
+.label {
+    background-image: "../../../img/home.png";
+    width: 60px;
+    height: 60px;
+}
+
+.buttonHome {
+    /* background-image:url("https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-house-icon-png-image_695726.jpg"); */
+    /* background-repeat:no-repeat; */
+    height:50px;
+    width:50px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/25/25694.png");
+    background-size: cover;
+    /* background-color: #d4a373; */
+    background-color: #edede9;
+    border-radius: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+    /* background-position:center; */
+    /* background-image: url('../../../img/home.png') */
+    /* background-image: url("F:\cursos\Henry\CursoHenry\PI-Dogs-main\client\public\img\home.png"); */
+}
+
+.buttonHome:hover {
+    background-color: #9a8c98;;
+}
+
+.buttonDog {
+    height:50px;
+    width:50px;
+    background-image: url("https://aux.iconspalace.com/uploads/dog-paw-icon-256.png");
+    background-size: cover;
+    background-color: #edede9;
+    border-radius: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.buttonDog:hover{
+    background-color: #9a8c98;
+}

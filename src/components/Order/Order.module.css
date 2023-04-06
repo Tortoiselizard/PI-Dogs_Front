@@ -1,0 +1,22 @@
+.Order {
+    display: flex;
+    flex-direction: column;
+}
+
+.sentido {
+    margin-top: 15px;
+}
+
+.botonOrdenar{
+    margin-top: 15px;
+    background-color: #4a4e69;
+    color: #ede0d4;
+    font-family: 'Comfortaa', cursive;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.botonOrdenar:hover{
+    background-color: #f2e9e4;
+    color: #4a4e69;
+}

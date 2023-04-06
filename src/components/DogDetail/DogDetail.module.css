@@ -1,0 +1,68 @@
+.DogDetail{
+    display: grid;
+    grid-template-columns: auto 500px;
+    /* grid-template-areas: "imagen imagen nombre nombre"
+    "imagen imagen peso alto"
+    "imagen imagen temperamento years"; */
+    /* margin: 25px; */
+    /* background-color: #6d6875; */
+    min-width: 1200px;
+    width: 90vw;
+    font-size: 21px;
+    color: white;
+    border-radius: 20px;
+    /* box-shadow: 0 0 20px black; */
+    justify-content: space-between;
+}
+
+.DogDetail div{
+    grid-template-areas: "nombre nombre"
+    "peso alto"
+    "temperamento years";
+    background-color: #6d6875;
+    box-shadow: 0 0 20px black;
+    border-radius: 30px;
+}
+
+.DogDetail label {
+    font-weight: 700;
+    /* border-radius: 10px; */
+}
+
+label{
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.imagen {
+    grid-area: imagen;
+    width: 700px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px black;
+    margin: 30px;
+}
+
+.name {
+    grid-area: nombre;
+    font-family: 'Seymour One', sans-serif;
+    /* margin: 20px; */
+}
+
+.temperamentos {
+    grid-area: temperamento;
+}
+
+.alto {
+    grid-area: alto;
+}
+
+.peso {
+    grid-area: peso;
+}
+
+.years {
+    grid-area: years;
+}

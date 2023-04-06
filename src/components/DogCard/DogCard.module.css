@@ -1,0 +1,39 @@
+.DogCard {
+    display: flex;
+    flex-direction: column;
+    background-color: #6d6875;
+    width: 250px;
+    height: 460px;
+    border-radius: 7px;
+    margin: 20px;
+    box-shadow: 0 0 20px black;
+    font-family: 'Comfortaa', cursive;
+}
+
+.imagen {
+    width: 250px;
+}
+
+.name {
+    color: #cfe1b9;
+    font-size: 18px;
+    font-family: 'Prosto One', cursive;
+}
+
+.parrafos{
+    margin: 0px;
+    padding: 5px;
+    text-align: left;
+    background-color: #d8e2dc;
+    color: black;
+    border: 1px solid black;
+}
+
+.textoDogCard{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.encabezadoTexto{
+    font-weight: 700;
+}
