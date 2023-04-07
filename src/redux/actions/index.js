@@ -53,6 +53,39 @@ export const getAllDogs = (name) => {
     }
 }
 
+export const getAllDogs2 = (name) => {
+
+    if (!name) {
+        return function (dispatch) {
+            return fetch(`${PATH}/dogs`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (typeof(data) === "string") {
+                    console.log("Entre en if")
+                    return alert(data)
+                }
+                else if (data.length) {
+                    dispatch({ type: GET_ALL_DOGS, payload: data})
+                }
+            });
+        }
+    }
+
+    else {
+        return function (dispatch) {
+            return fetch(`${PATH}/dogs?name=${name}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (typeof(data) === "string") {return alert(data)}
+                else if (!data.length) {
+                    dispatch({ type: GET_ALL_DOGS, payload: data})
+                }
+            })
+            .catch(data => alert("Ha ocurrido un problema en el enlace con el servidor de la aplicación"))
+        }
+    }
+}
+
 export const getDogsForLocation = (location, dogs) => {
     if (!dogs) {    
         return function (dispatch) {

@@ -23,12 +23,6 @@ function MainPage() {
         dispatch(updateTemperaments())
         dispatch(getAllTemperaments())
         dispatch(getAllDogs2())
-        // const dogs = await getAllDogs()
-        // if (typeof(dogs.payload)==="string") {alert(dogs.payload)}
-        // else {
-        //     await dispatch(dogs)
-        //     await dispatch(keepDogs(dogs.payload))
-        // }
     }, [])
 
     return <div className={styles.MainPage}>
