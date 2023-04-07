@@ -201,19 +201,19 @@ function Order() {
         <p>Ordenar por: </p>
 
         <div>
-            <label for="inputOrderAbc">Alfaveticamente</label>
+            <label htmlFor="inputOrderAbc">Alfaveticamente</label>
             <input type="radio" name="inputOrder" value="abc" id="inputOrderAbc"></input>
             <br></br>
-            <label for="inputOrderWeight">Peso</label>
+            <label htmlFor="inputOrderWeight">Peso</label>
             <input type="radio" name="inputOrder" value="weight" id="inputOrderWeight"></input>
         </div>
 
         <div className={style.sentido}>
         <p>Sentido: </p>
-        <label for="inputOrderAsc">Ascendente</label>
+        <label htmlFor="inputOrderAsc">Ascendente</label>
         <input type="radio" id="inputOrderAsc" name="inputOrderSence" value="asc"></input>
         <br></br>
-        <label for="inputOrderDes">Descendente</label>
+        <label htmlFor="inputOrderDes">Descendente</label>
         <input type="radio" id="inputOrderDes" name="inputOrderSence" value="des"></input>
         </div>
         
