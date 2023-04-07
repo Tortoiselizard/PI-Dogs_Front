@@ -7,6 +7,8 @@ import style from "./CreateDog.module.css"
 const regexName = /[^A-Za-zÁ-Úá-úñ ]/
 const regexNumber = /[^0-9.]/
 const regexURL = /^https:\/\/[^\0]+\.jpg|png$/
+// const PATH = "http://localhost:3001"
+const PATH = "https://pi-dogs-back-90f5.onrender.com"
 
 function validate(inputs) {
     const errors = {
@@ -196,7 +198,7 @@ const CreateDog = () => {
                 body: JSON.stringify(newDog)
             }
 
-            const response = await fetch(`http://localhost:3001/dogs`, data)
+            const response = await fetch(`${PATH}/dogs`, data)
                 .then((data) => data.json())
                 .then(data => data)
                 .catch(error => error.message);
@@ -238,7 +240,7 @@ const CreateDog = () => {
         //     body: JSON.stringify(newDog)
         // }
 
-        // fetch(`http://localhost:3001/dogs`, data)
+        // fetch(`${PATH}/dogs`, data)
         //     .then((data) => data.json())
         //     .then(data => {alert("La raza fue creada exitosamente")}).catch(data => {alert(data)});
     }
