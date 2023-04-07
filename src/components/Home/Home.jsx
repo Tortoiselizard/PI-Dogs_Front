@@ -1,11 +1,8 @@
-// import './home.css';
-import React, { Component } from 'react';
+import React from 'react';
 import DogCard from "../DogCard/DogCard"
 import { useSelector, useDispatch } from "react-redux"
-import SearchDog from '../SearchDog/SearchDog';
 import Filter from '../Filter/Filter';
 import Order from "../Order/Order"
-import * as actions from "../../redux/actions/index"
 import style from "./Home.module.css"
 
 function Home() {
