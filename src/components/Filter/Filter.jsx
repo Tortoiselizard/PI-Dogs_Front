@@ -179,7 +179,7 @@ function Filter() {
                 {
                     <label>{globalState.searchBar}</label>
                 }
-            </div>:null
+            </div>:null 
         }
         <h3 className={style.titulo}>Filtrar</h3>
         <div className={style.showFiltrado}>        
@@ -239,11 +239,11 @@ function Filter() {
             <label>Por Ubicación: </label>
             <div>
                 <input type="radio" name="inputFilterLocation" id="inputFilterForAPI" value="API"></input>
-                <label for="inputFilterForAPI">API </label>
+                <label htmlFor="inputFilterForAPI">API </label>
             </div>
             <div>
                 <input type="radio" name="inputFilterLocation" id="inputFilterForDB" value="DB"></input>
-                <label for="inputFilterForDB">DB </label>
+                <label htmlFor="inputFilterForDB">DB </label>
             </div>
         </div>
 
