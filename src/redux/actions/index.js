@@ -16,16 +16,18 @@ export const UPDATE_SEARCHBAR = "UPDATE_SEARCHBAR"
 export const UPDATE_ORDER = "UPDATE_ORDER"
 export const ORDER_WEIGHT_TOTAL = "ORDER_WEIGHT_TOTAL"
 export const ORDER_ABC_TOTAL = "ORDER_ABC_TOTAL"
+// const PATH = "http://localhost:3001"
+const PATH = "https://pi-dogs-back-90f5.onrender.com"
 
 // export const probando = () => {
-//     return fetch('http://localhost:3001/dogs')
+//     return fetch(`${PATH}/dogs`)
 //         .then((response) => response.json())
 //         .then((data) => ({ type: GET_ALL_DOGS, payload: data}))
 // }
 
 export const getAllDogs = (name) => {
     if (!name) {
-        return fetch(`http://localhost:3001/dogs`)
+        return fetch(`${PATH}/dogs`)
             .then(data => data.json())
             .then(data => {
                 if (typeof(data) === "string") {
@@ -37,7 +39,7 @@ export const getAllDogs = (name) => {
             })      
     }
     else {
-        return fetch(`http://localhost:3001/dogs?name=${name}`)
+        return fetch(`${PATH}/dogs?name=${name}`)
             .then((response) => response.json())
             .then((data) => { 
                 // console.log("lo que me retorno el servidor", data)
@@ -54,7 +56,7 @@ export const getAllDogs = (name) => {
 export const getDogsForLocation = (location, dogs) => {
     if (!dogs) {    
         return function (dispatch) {
-            return fetch(`http://localhost:3001/dogs?location=${location}`)
+            return fetch(`${PATH}/dogs?location=${location}`)
             .then((response) => response.json())
             .then((data) => ({ type: GET_ALL_DOGS, payload: data}));
         }
@@ -74,7 +76,7 @@ export const getDogsForLocation = (location, dogs) => {
     }
     // let dogsFiltered
     // if (!dogs) {    
-    //     dogsFiltered = await fetch(`http://localhost:3001/dogs?location=${location}`)
+    //     dogsFiltered = await fetch(`${PATH}/dogs?location=${location}`)
     //         .then((response) => response.json())
     //         .then((data) => data);
     // } 
@@ -93,12 +95,12 @@ export const getDogsForLocation = (location, dogs) => {
 }
 
 export const getDogDetail = (raza_perro) => {
-    // return fetch(`http://localhost:3001/dogs/${raza_perro}`)
+    // return fetch(`${PATH}/dogs/${raza_perro}`)
     //     .then((response) => response.json())
     //     .then(data => ({ type: GET_DOG_DETAILS, payload: data}))
     //     .catch(error => ({ payload:"Ha ocurrido un problema en el enlace con el servidor de la aplicación"}));
     return function(dispatch) {
-        fetch(`http://localhost:3001/dogs/${raza_perro}`)
+        fetch(`${PATH}/dogs/${raza_perro}`)
             .then((response) => response.json())
             .then(data => {
                 if (typeof(data) === "string") {throw new Error(data)}
@@ -121,11 +123,11 @@ export const createDog = (dog) => {
         body: JSON.stringify(dog)
     }
     // return function (dispatch) {
-    //     return fetch(`http://localhost:3001/dogs`, newDog)
+    //     return fetch(`${PATH}/dogs`, newDog)
     //     .then((data) => data.json())
     //     .then((data) => dispatch({ type: GET_DOG_DETAILS, payload: data}));
     //     }
-    return fetch(`http://localhost:3001/dogs`, newDog)
+    return fetch(`${PATH}/dogs`, newDog)
         .then((data) => data.json())
         .then((data) => {
             // console.log(data)
@@ -136,7 +138,7 @@ export const createDog = (dog) => {
 
 export const getAllTemperaments = () => {
     return function (dispatch) {
-        return fetch('http://localhost:3001/temperaments')
+        return fetch(`${PATH}/temperaments`)
         .then((response) => response.json())
         .then((data) => {
             if (typeof(data) === "string") {return alert(data)}
@@ -149,7 +151,7 @@ export const getAllTemperaments = () => {
 
 export const updateTemperaments = () => {
     return function(dispatch) {
-        return fetch(`http://localhost:3001/temperaments?add=update`, {method: "Post", headers: {"Content-type": "application/json"}})
+        return fetch(`${PATH}/temperaments?add=update`, {method: "Post", headers: {"Content-type": "application/json"}})
         .then(response => response.json())
         .then(data => {
             if (typeof(data) === "string") {return alert(data)}
@@ -162,7 +164,7 @@ export const updateTemperaments = () => {
 export const getDogsForTemperaments = (filter, dogs) => {
     if (!dogs) {
         return function (dispatch) {
-            return fetch('http://localhost:3001/dogs')
+            return fetch(`${PATH}/dogs`)
             .then((response) => response.json())
             .then((data) => data.filter(dog => {
                 const temperamentsDog = dog.temperament? dog.temperament.split(", "):"null"
