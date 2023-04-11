@@ -25,10 +25,17 @@ function Home() {
         } else if (!globalState.dogs.length) {
             dispatch(keepDogs(globalState.totaDogs))
         } else if (globalState.dogs.length) {
-            setShowDogs({
-                list: globalState.dogs.slice(0,8),
-                start: 0
-            })
+            console.log(Object.keys(globalState.showDogs).length)
+            if (!Object.keys(globalState.showDogs).length) {
+                setShowDogs({
+                    list: globalState.dogs.slice(0,8),
+                    start: 0
+                })
+            }
+            else {
+                console.log("entre en el else")
+                setShowDogs(globalState.showDogs)
+            }
         }
     }, [globalState.totaDogs, globalState.dogs])
 
