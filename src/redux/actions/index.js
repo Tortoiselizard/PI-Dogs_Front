@@ -16,6 +16,8 @@ export const UPDATE_SEARCHBAR = "UPDATE_SEARCHBAR"
 export const UPDATE_ORDER = "UPDATE_ORDER"
 export const ORDER_WEIGHT_TOTAL = "ORDER_WEIGHT_TOTAL"
 export const ORDER_ABC_TOTAL = "ORDER_ABC_TOTAL"
+export const UPDATE_SHOWDOGS = "UPDATE_SHOWDOGS"
+
 // const PATH = "http://localhost:3001"
 const PATH = "https://pi-dogs-back-90f5.onrender.com"
 
@@ -83,6 +85,12 @@ export const getAllDogs2 = (name) => {
             })
             .catch(data => alert("Ha ocurrido un problema en el enlace con el servidor de la aplicación"))
         }
+    }
+}
+
+export const updateShowDogs = (object) => {
+    return function (dispatch) {
+        return dispatch({type: UPDATE_SHOWDOGS, payload: object})
     }
 }
 
