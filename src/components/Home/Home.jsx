@@ -3,57 +3,68 @@ import DogCard from "../DogCard/DogCard"
 import { useSelector, useDispatch } from "react-redux"
 import Filter from '../Filter/Filter';
 import Order from "../Order/Order"
+import {keepDogs, getAllDogs2, updateShowDogs} from "../../redux/actions/index"
 import style from "./Home.module.css"
 
 function Home() {
 
+    const globalState = useSelector(state => state)
+    const dispatch = useDispatch()
+    
     const [showDogs, setShowDogs] = React.useState({
         start: 0,
         list: []
     })
-    const dogsGlobalState = useSelector((state) => state.dogs)
-    const dispatch = useDispatch()
+
+    const currentShowDogs = React.useRef(showDogs)
+    
+    //Cuando se carga la página por 1ra vez desde /home se modifica la lista de perros
+    React.useEffect(() => {
+        if (!globalState.totaDogs.length) {
+            dispatch(getAllDogs2())
+        } else if (!globalState.dogs.length) {
+            dispatch(keepDogs(globalState.totaDogs))
+        } else if (globalState.dogs.length) {
+            setShowDogs({
+                list: globalState.dogs.slice(0,8),
+                start: 0
+            })
+        }
+    }, [globalState.totaDogs, globalState.dogs])
 
     React.useEffect(() => {
-        setShowDogs((showDogs) => ({
-            ...showDogs,
-            list: dogsGlobalState.slice(showDogs.start, showDogs.start + 8)
-        }))
-    }, [dogsGlobalState, showDogs.start])
+        return function() {
+            dispatch(updateShowDogs(currentShowDogs.current))
+        }
+    }, [])
 
-    React.useEffect(() => {
-        setShowDogs((showDogs) => ({
-            ...showDogs,
-            start: 0
-        }))
-    }, [dogsGlobalState])
-
-    function changeDogs(event) {
+    function handlePaging(event) {
         switch (event.target.name) {
             case "siguiente":
-                if (dogsGlobalState.length > showDogs.start + 8) {
+                if (globalState.dogs.length > showDogs.start + 8) {
                     setShowDogs(showDogs => ({
-                        ...showDogs,
+                        list: globalState.dogs.slice(showDogs.start+8, showDogs.start + 16),
                         start: showDogs.start + 8,
-
                     }))
+                    currentShowDogs.current={
+                        list: globalState.dogs.slice(showDogs.start+8, showDogs.start + 16),
+                        start: showDogs.start + 8,
+                    }
                 }
-
                 break
             case "anterior":
                 if (showDogs.start - 8 >= 0) {
                     setShowDogs(showDogs => ({
-                        ...showDogs,
-                        start: showDogs.start - 8,
-
+                        list: globalState.dogs.slice(showDogs.start-8, showDogs.start),
+                        start: showDogs.start - 8
                     }))
+                    currentShowDogs.current={
+                        list: globalState.dogs.slice(showDogs.start-8, showDogs.start),
+                        start: showDogs.start - 8
+                    }
                 }
                 break
         }
-        setShowDogs(showDogs => ({
-            ...showDogs,
-            list: dogsGlobalState.slice(showDogs.start, showDogs.start + 9)
-        }))
     }
 
     return <div className={style.Home}>
@@ -65,9 +76,9 @@ function Home() {
         </div>
         <div className={style.DogCards}>
             {
-                dogsGlobalState.length > 8 ? <div className={style.ContenedorBotones}>
-                    <button className={style.botonesIzquierda} name='anterior' onClick={changeDogs}></button>
-                    <button className={style.botonesDerecha} name='siguiente' onClick={changeDogs}></button>
+                globalState.dogs.length > 8 ? <div className={style.ContenedorBotones}>
+                    <button className={style.botonesIzquierda} name='anterior' onClick={handlePaging}></button>
+                    <button className={style.botonesDerecha} name='siguiente' onClick={handlePaging}></button>
                 </div> : null
             }
             {
@@ -81,9 +92,9 @@ function Home() {
                 />) : null
             }
             {
-                dogsGlobalState.length > 8 ? <div className={style.ContenedorBotones}>
-                    <button className={style.botonesIzquierda} name='anterior' onClick={changeDogs}></button>
-                    <button className={style.botonesDerecha} name='siguiente' onClick={changeDogs}></button>
+                globalState.dogs.length > 8 ? <div className={style.ContenedorBotones}>
+                    <button className={style.botonesIzquierda} name='anterior' onClick={handlePaging}></button>
+                    <button className={style.botonesDerecha} name='siguiente' onClick={handlePaging}></button>
                 </div> : null
             }
         </div>
