@@ -41,7 +41,11 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "engines": {
+=======
+  "engies": {
+>>>>>>> 0ea6c2ba552fe6dde9a9a5c08fba334e070285b8
     "node": "16.x"
   }
 }
