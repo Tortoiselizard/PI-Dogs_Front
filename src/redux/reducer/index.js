@@ -1,8 +1,9 @@
-import {GET_ALL_DOGS, GET_DOG_DETAILS, CLEAN_DETAIL, CREATE_DOG, GET_TEMPERAMENTS, UPDATE_TEMPERAMENTS, GET_DOGS_FOR_TEMPERAMENTS, ADD_TEMPERAMENT_FILTER, ORDER_ABC, ORDER_WEIGHT, KEE_DOGS, UPDATE_FILTERS, UPDATE_SEARCHBAR, UPDATE_ORDER, ORDER_ABC_TOTAL, ORDER_WEIGHT_TOTAL} from "../actions/index"
+import {GET_ALL_DOGS, GET_DOG_DETAILS, CLEAN_DETAIL, CREATE_DOG, GET_TEMPERAMENTS, UPDATE_TEMPERAMENTS, GET_DOGS_FOR_TEMPERAMENTS, ADD_TEMPERAMENT_FILTER, ORDER_ABC, ORDER_WEIGHT, KEE_DOGS, UPDATE_FILTERS, UPDATE_SEARCHBAR, UPDATE_ORDER, ORDER_ABC_TOTAL, ORDER_WEIGHT_TOTAL, UPDATE_SHOWDOGS} from "../actions/index"
 
 const initialState = {
     totaDogs: [],
     dogs: [],
+    showDogs: {},
     searchBar: "",
     filters: {},
     order: {},
@@ -94,6 +95,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 order: payload
             }
+            case UPDATE_SHOWDOGS:
+                return {
+                    ...state,
+                    showDogs: payload
+                }
         default:
             return state
     }
