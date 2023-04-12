@@ -25,7 +25,6 @@ function Home() {
         } else if (!globalState.dogs.length) {
             dispatch(keepDogs(globalState.totaDogs))
         } else if (globalState.dogs.length) {
-            console.log(Object.keys(globalState.showDogs).length)
             if (!Object.keys(globalState.showDogs).length) {
                 setShowDogs({
                     list: globalState.dogs.slice(0,8),
@@ -33,7 +32,6 @@ function Home() {
                 })
             }
             else {
-                console.log("entre en el else")
                 setShowDogs(globalState.showDogs)
             }
         }
