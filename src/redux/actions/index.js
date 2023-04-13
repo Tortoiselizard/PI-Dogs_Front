@@ -32,26 +32,26 @@ export const getAllDogs = (name) => {
         return fetch(`${PATH}/dogs`)
             .then(data => data.json())
             .then(data => {
-                if (typeof(data) === "string") {
-                    return ({payload: data})
+                if (typeof (data) === "string") {
+                    return ({ payload: data })
                 }
                 else {
-                    return {type: GET_ALL_DOGS, payload:data}
+                    return { type: GET_ALL_DOGS, payload: data }
                 }
-            })      
+            })
     }
     else {
         return fetch(`${PATH}/dogs?name=${name}`)
             .then((response) => response.json())
-            .then((data) => { 
+            .then((data) => {
                 // console.log("lo que me retorno el servidor", data)
-                return {type: GET_ALL_DOGS, payload: data}
+                return { type: GET_ALL_DOGS, payload: data }
             })
             .catch(data => {
                 // console.log("en caso de no un error en el action-generator retorno", data)
-                return {payload: "Ha ocurrido un problema en el enlace con el servidor de la aplicación"}
+                return { payload: "Ha ocurrido un problema en el enlace con el servidor de la aplicación" }
             });
-            
+
     }
 }
 
@@ -60,60 +60,63 @@ export const getAllDogs2 = (name) => {
     if (!name) {
         return function (dispatch) {
             return fetch(`${PATH}/dogs`)
-            .then((response) => response.json())
-            .then((data) => {
-                if (typeof(data) === "string") {
-                    console.log("Entre en if")
-                    return alert(data)
-                }
-                else if (data.length) {
-                    dispatch({ type: GET_ALL_DOGS, payload: data})
-                }
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    if (typeof (data) === "string") {
+                        return alert(data)
+                    }
+                    else if (data.length) {
+                        dispatch({ type: GET_ALL_DOGS, payload: data })
+                    }
+                });
         }
     }
 
     else {
         return function (dispatch) {
-            return fetch(`${PATH}/dogs?name=${name}`)
-            .then((response) => response.json())
-            .then((data) => {
-                if (typeof(data) === "string") {return alert(data)}
-                else if (!data.length) {
-                    dispatch({ type: GET_ALL_DOGS, payload: data})
-                }
-            })
-            .catch(data => alert("Ha ocurrido un problema en el enlace con el servidor de la aplicación"))
+            return fetch(`${PATH}/dogs/${name}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("la data fue:", data)
+                    if (typeof (data) === "string") { alert(data) }
+                    else if (data.length) {
+                        dispatch({ type: GET_ALL_DOGS, payload: data })
+                        dispatch(keepDogs(data))
+                        dispatch(updateAll(name))
+                    }
+                })
+                .catch(data => alert("Ha ocurrido un problema en el enlace con el servidor de la aplicación"))
         }
     }
 }
 
 export const updateShowDogs = (object) => {
     return function (dispatch) {
-        return dispatch({type: UPDATE_SHOWDOGS, payload: object})
+        return dispatch({ type: UPDATE_SHOWDOGS, payload: object })
     }
 }
 
 export const getDogsForLocation = (location, dogs) => {
-    if (!dogs) {    
+    if (!dogs) {
         return function (dispatch) {
             return fetch(`${PATH}/dogs?location=${location}`)
-            .then((response) => response.json())
-            .then((data) => ({ type: GET_ALL_DOGS, payload: data}));
+                .then((response) => response.json())
+                .then((data) => ({ type: GET_ALL_DOGS, payload: data }));
         }
-    } 
-    else  {
+    }
+    else {
         let dogsFiltered
         if (location === "API") {
             dogsFiltered = dogs.filter(dog => {
-                return !dog.id.toString().includes("db")? true:null 
+                return !dog.id.toString().includes("db") ? true : null
             })
         }
         else if (location === "DB") {
             dogsFiltered = dogs.filter(dog => {
-                return dog.id.toString().includes("db")? true:null 
-        })}
-        return { type: GET_ALL_DOGS, payload: dogsFiltered}
+                return dog.id.toString().includes("db") ? true : null
+            })
+        }
+        return { type: GET_ALL_DOGS, payload: dogsFiltered }
     }
     // let dogsFiltered
     // if (!dogs) {    
@@ -140,19 +143,19 @@ export const getDogDetail = (raza_perro) => {
     //     .then((response) => response.json())
     //     .then(data => ({ type: GET_DOG_DETAILS, payload: data}))
     //     .catch(error => ({ payload:"Ha ocurrido un problema en el enlace con el servidor de la aplicación"}));
-    return function(dispatch) {
+    return function (dispatch) {
         fetch(`${PATH}/dogs/${raza_perro}`)
             .then((response) => response.json())
             .then(data => {
-                if (typeof(data) === "string") {throw new Error(data)}
-                else {dispatch({type: GET_DOG_DETAILS, payload:data})}
+                if (typeof (data) === "string") { throw new Error(data) }
+                else { dispatch({ type: GET_DOG_DETAILS, payload: data }) }
             })
             .catch(error => alert(error.message))
     }
 };
 
 export const cleanDetail = () => {
-    return {type: CLEAN_DETAIL, payload:{}}
+    return { type: CLEAN_DETAIL, payload: {} }
 }
 
 export const createDog = (dog) => {
@@ -172,7 +175,7 @@ export const createDog = (dog) => {
         .then((data) => data.json())
         .then((data) => {
             // console.log(data)
-            return {type: GET_DOG_DETAILS, payload: data}
+            return { type: GET_DOG_DETAILS, payload: data }
         })
         .catch(error => alert(error.message));
 };
@@ -180,25 +183,25 @@ export const createDog = (dog) => {
 export const getAllTemperaments = () => {
     return function (dispatch) {
         return fetch(`${PATH}/temperaments`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (typeof(data) === "string") {return alert(data)}
-            if (!data.length) {return alert("No se ha encontrado ningun temperamento en la base de datos")}
-            let arrayData = data.map(temperament => temperament.name)
-            dispatch({ type: GET_TEMPERAMENTS, payload: arrayData})
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                if (typeof (data) === "string") { return alert(data) }
+                if (!data.length) { return alert("No se ha encontrado ningun temperamento en la base de datos") }
+                let arrayData = data.map(temperament => temperament.name)
+                dispatch({ type: GET_TEMPERAMENTS, payload: arrayData })
+            });
     }
 }
 
 export const updateTemperaments = () => {
-    return function(dispatch) {
-        return fetch(`${PATH}/temperaments?add=update`, {method: "Post", headers: {"Content-type": "application/json"}})
-        .then(response => response.json())
-        .then(data => {
-            if (typeof(data) === "string") {return alert(data)}
-            return dispatch({type: UPDATE_TEMPERAMENTS, payload: data})
+    return function (dispatch) {
+        return fetch(`${PATH}/temperaments?add=update`, { method: "Post", headers: { "Content-type": "application/json" } })
+            .then(response => response.json())
+            .then(data => {
+                if (typeof (data) === "string") { return alert(data) }
+                return dispatch({ type: UPDATE_TEMPERAMENTS, payload: data })
             }
-        )
+            )
     }
 }
 
@@ -206,32 +209,32 @@ export const getDogsForTemperaments = (filter, dogs) => {
     if (!dogs) {
         return function (dispatch) {
             return fetch(`${PATH}/dogs`)
-            .then((response) => response.json())
-            .then((data) => data.filter(dog => {
-                const temperamentsDog = dog.temperament? dog.temperament.split(", "):"null"
-                for (let temperamentFilter of filter) {
-                    if (temperamentsDog.includes(temperamentFilter)) continue
-                    else return false
-                }
-                return true
-            }))
-            .then((data) => ({ type: GET_DOGS_FOR_TEMPERAMENTS, payload: data}));
+                .then((response) => response.json())
+                .then((data) => data.filter(dog => {
+                    const temperamentsDog = dog.temperament ? dog.temperament.split(", ") : "null"
+                    for (let temperamentFilter of filter) {
+                        if (temperamentsDog.includes(temperamentFilter)) continue
+                        else return false
+                    }
+                    return true
+                }))
+                .then((data) => ({ type: GET_DOGS_FOR_TEMPERAMENTS, payload: data }));
         }
     } else {
         const dogsFiltered = dogs.filter(dog => {
-            const temperamentsDog = dog.temperament? dog.temperament.split(", "):"null"
-                for (let temperamentFilter of filter) {
-                    if (temperamentsDog.includes(temperamentFilter)) continue
-                    else return false
-                }
-                return true
+            const temperamentsDog = dog.temperament ? dog.temperament.split(", ") : "null"
+            for (let temperamentFilter of filter) {
+                if (temperamentsDog.includes(temperamentFilter)) continue
+                else return false
+            }
+            return true
         })
-        return {type: GET_DOGS_FOR_TEMPERAMENTS, payload: dogsFiltered }
+        return { type: GET_DOGS_FOR_TEMPERAMENTS, payload: dogsFiltered }
     }
 }
 
 export const addTemperamentsFilter = (temperament) => {
-    return {type: ADD_TEMPERAMENT_FILTER, payload: temperament}
+    return { type: ADD_TEMPERAMENT_FILTER, payload: temperament }
 }
 
 export const orderAlfabetic = (data) => {
@@ -244,11 +247,11 @@ export const orderAlfabetic = (data) => {
     //     }
     //     return 0
     // })
-    return {type: ORDER_ABC, payload: data}
+    return { type: ORDER_ABC, payload: data }
 }
 
 export const orderAlfabeticTotal = (data) => {
-    return {type: ORDER_ABC_TOTAL, payload: data}
+    return { type: ORDER_ABC_TOTAL, payload: data }
 }
 
 export const orderWeight = (data) => {
@@ -259,25 +262,40 @@ export const orderWeight = (data) => {
     //     else if ((rangeA[0]>rangeB[0])) return 1
     //     else {return rangeA[1]-rangeB[1]}
     // })
-    return {type: ORDER_WEIGHT, payload: data}
+    return { type: ORDER_WEIGHT, payload: data }
 }
 
 export const orderWeightTotal = (data) => {
-    return {type: ORDER_WEIGHT_TOTAL, payload: data}
+    return { type: ORDER_WEIGHT_TOTAL, payload: data }
 }
 
 export const keepDogs = (dogs) => {
-    return {type: KEE_DOGS, payload: dogs}
+    return { type: KEE_DOGS, payload: dogs }
 }
 
 export const updateFilters = (filters) => {
-    return {type: UPDATE_FILTERS, payload: filters}
+    return { type: UPDATE_FILTERS, payload: filters }
 }
 
 export const updateSearchBar = (input) => {
-    return {type: UPDATE_SEARCHBAR, payload: input}
+    return { type: UPDATE_SEARCHBAR, payload: input }
 }
 
 export const updateOrder = (input) => {
-    return {type: UPDATE_ORDER, payload: input}
+    return { type: UPDATE_ORDER, payload: input }
+}
+
+export const updateAll = (name) => {
+    return function (dispatch) {
+        dispatch(updateFilters({
+            temperamentsToFilter: [],
+            temperamentsFiltered: [],
+            locationToFilter: ""
+        }))
+        dispatch(updateSearchBar(name))
+        dispatch(updateOrder({
+            type: "",
+            sense: ""
+        }))
+    }
 }
