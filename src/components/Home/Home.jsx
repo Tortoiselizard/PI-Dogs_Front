@@ -92,7 +92,7 @@ function Home() {
                 </div> : null
             }
             {
-                showDogs.list.length ? showDogs.list.map((dog, index) => <DogCard
+                showDogs.list.length ? showDogs.list.filter(dog => dog.image).map((dog, index) => <DogCard
                     name={dog.name}
                     image={dog.image}
                     temperament={dog.temperament}
