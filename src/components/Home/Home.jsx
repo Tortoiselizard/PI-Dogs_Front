@@ -30,9 +30,14 @@ function Home() {
                     list: globalState.dogs.slice(0,8),
                     start: 0
                 })
+                currentShowDogs.current={
+                    list: globalState.dogs.slice(0, 8),
+                    start: 0
+                }
             }
             else {
                 setShowDogs(globalState.showDogs)
+                currentShowDogs.current=globalState.showDogs
             }
         }
     }, [globalState.totaDogs, globalState.dogs])
