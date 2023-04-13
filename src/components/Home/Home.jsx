@@ -25,10 +25,20 @@ function Home() {
         } else if (!globalState.dogs.length) {
             dispatch(keepDogs(globalState.totaDogs))
         } else if (globalState.dogs.length) {
-            setShowDogs({
-                list: globalState.dogs.slice(0,8),
-                start: 0
-            })
+            if (!Object.keys(globalState.showDogs).length) {
+                setShowDogs({
+                    list: globalState.dogs.slice(0,8),
+                    start: 0
+                })
+                currentShowDogs.current={
+                    list: globalState.dogs.slice(0, 8),
+                    start: 0
+                }
+            }
+            else {
+                setShowDogs(globalState.showDogs)
+                currentShowDogs.current=globalState.showDogs
+            }
         }
     }, [globalState.totaDogs, globalState.dogs])
 
@@ -82,7 +92,7 @@ function Home() {
                 </div> : null
             }
             {
-                showDogs.list.length ? showDogs.list.map((dog, index) => <DogCard
+                showDogs.list.length ? showDogs.list.filter(dog => dog.image).map((dog, index) => <DogCard
                     name={dog.name}
                     image={dog.image}
                     temperament={dog.temperament}

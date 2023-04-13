@@ -30,14 +30,14 @@ function DogDetail() {
         {/* <h1>Estoy en el detalle del perro DogDetail</h1> */}
         {Object.keys(dogDetail).length?<div className={style.DogDetail}>
             <label>
-                <img className={style.imagen} src={dogDetail.image} alt={dogDetail.name}></img>
+                <img className={style.imagen} src={dogDetail[0].image} alt={dogDetail.name}></img>
             </label>
             <div>
-                <h1 className={style.name}>{dogDetail.name}</h1>
-                <label className={style.temperamentos}><span>Temperaments: </span><p>{dogDetail.temperament}</p></label>
-                <label className={style.alto}><span>Height (In): </span><p>{dogDetail.height}</p></label>
-                <label className={style.peso}><span>Weight (Lb): </span><p>{dogDetail.weight}</p></label>
-                <label className={style.years}><span>years: </span><p>{dogDetail.life_span}</p></label>        
+                <h1 className={style.name}>{dogDetail[0].name}</h1>
+                <label className={style.temperamentos}><span>Temperaments: </span><p>{dogDetail[0].temperament}</p></label>
+                <label className={style.alto}><span>Height (In): </span><p>{dogDetail[0].height}</p></label>
+                <label className={style.peso}><span>Weight (Lb): </span><p>{dogDetail[0].weight}</p></label>
+                <label className={style.years}><span>years: </span><p>{dogDetail[0].life_span}</p></label>        
             </div>
         </div>:null}
     </div>

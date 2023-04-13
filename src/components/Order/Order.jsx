@@ -201,7 +201,7 @@ function Order() {
         <p>Ordenar por: </p>
 
         <div>
-            <label htmlFor="inputOrderAbc">Alfaveticamente</label>
+            <label htmlFor="inputOrderAbc">Alfabeticamente</label>
             <input type="radio" name="inputOrder" value="abc" id="inputOrderAbc"></input>
             <br></br>
             <label htmlFor="inputOrderWeight">Peso</label>
