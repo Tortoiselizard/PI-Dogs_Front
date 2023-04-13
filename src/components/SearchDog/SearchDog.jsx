@@ -74,7 +74,7 @@ function SearchDog() {
     }
 
     return <div className={style.SearchDog}>
-        <button className={style.buttonSearchAll} onClick={showAllDogs}>All Dogs</button>
+        <button className={style.buttonSearchAll} onClick={showAllDogs}>More Popular</button>
         <input type="text" onChange={handleChange} value={input.search} placeholder="Search..." onKeyPress={(event) => {if (event.key === "Enter") searchDispatch()}} className={style.input}></input>
         <button onClick={searchDispatch} className={style.buttonToSearch}>🔍</button>
     </div>
