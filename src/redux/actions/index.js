@@ -18,8 +18,8 @@ export const ORDER_WEIGHT_TOTAL = "ORDER_WEIGHT_TOTAL"
 export const ORDER_ABC_TOTAL = "ORDER_ABC_TOTAL"
 export const UPDATE_SHOWDOGS = "UPDATE_SHOWDOGS"
 
-const PATH = "http://localhost:3001"
-// const PATH = "https://pi-dogs-back-90f5.onrender.com"
+// const PATH = "http://localhost:3001"
+const PATH = "https://pi-dogs-back-90f5.onrender.com"
 
 // export const probando = () => {
 //     return fetch(`${PATH}/dogs`)
