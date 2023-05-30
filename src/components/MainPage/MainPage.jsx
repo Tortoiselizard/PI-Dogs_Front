@@ -20,7 +20,7 @@ function MainPage() {
     // }, [dispatch])
 
     React.useEffect(() => {
-        dispatch(updateTemperaments())
+        // dispatch(updateTemperaments())
         dispatch(getAllTemperaments())
         dispatch(getAllDogs2())
     }, [])
