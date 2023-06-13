@@ -9,25 +9,16 @@ function DogDetail() {
     const dogDetail = useSelector(state => state.dogDetail)
 
     const {raza_perro} = useParams()
-    // const params = useParams()
-    // console.log(raza_perro)
     const dispatch = useDispatch()
 
     React.useEffect(()=> {
-        // console.log(id)
-        // console.log(raza_perro)
-        // const action = await getDogDetail(raza_perro)
-        // console.log(action.payload)
-        // if (typeof(action.payload) === "string") {return alert(action.payload)}
-        // else {dispatch(action)}
         dispatch(getDogDetail(raza_perro))
         return function() {
             dispatch(cleanDetail())
         }
-    },[raza_perro])
+    },[raza_perro, dispatch])
 
     return <div>
-        {/* <h1>Estoy en el detalle del perro DogDetail</h1> */}
         {Object.keys(dogDetail).length?<div className={style.DogDetail}>
             <label>
                 <img className={style.imagen} src={dogDetail[0].image} alt={dogDetail.name}></img>

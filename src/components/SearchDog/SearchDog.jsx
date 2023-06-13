@@ -1,7 +1,6 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import {getAllDogs, getAllDogs2, keepDogs, updateSearchBar, updateFilters, updateOrder} from "../../redux/actions/index"
-import { useLocation } from "react-router-dom";
 import style from "./SearchDog.module.css"
 
 function SearchDog() {
@@ -9,7 +8,6 @@ function SearchDog() {
         search:""
     })
 
-    const totalDogs = useSelector(state => state.totaDogs)
     const dispatch = useDispatch()
 
     function handleChange(event) {
@@ -17,43 +15,10 @@ function SearchDog() {
     }
 
     async function searchDispatch() {
-        // const action = await getAllDogs(input.search)
-        // const actionTotalDogs = await getAllDogs()
-
-        // if (Array.isArray(action.payload)) {
-        //     await dispatch(updateFilters({
-        //         temperamentsToFilter: [],
-        //         temperamentsFiltered: [],
-        //         locationToFilter:""
-        //     }))
-        //     await dispatch(updateSearchBar(input.search))
-        //     await dispatch(updateOrder({
-        //         type: "",
-        //         sense: "",
-        //     }))
-        //     dispatch(keepDogs(action.payload))
-        //     dispatch(actionTotalDogs)
-        // }
-        // else {alert(action.payload)}
-        // setInput({search:""})
         dispatch(getAllDogs2(input.search))
     }
     
     async function showAllDogs(){
-        // if (totalDogs.length) {
-        //     await dispatch(updateFilters({
-        //         temperamentsToFilter: [],
-        //         temperamentsFiltered: [],
-        //         locationToFilter:""
-        //     }))
-        //     await dispatch(updateSearchBar(""))
-        //     await dispatch(updateOrder({
-        //         type: "",
-        //         sense: "",
-        //     }))
-        //     await dispatch(keepDogs(totalDogs))
-        // }
-        // else {
             const allDogs = await getAllDogs()
             if (typeof(allDogs.payload)=== "string") {return alert(allDogs.payload)}
             else {
@@ -70,7 +35,6 @@ function SearchDog() {
                 await dispatch(allDogs)
                 await dispatch(keepDogs(allDogs.payload))
         }
-        // }
     }
 
     return <div className={style.SearchDog}>
