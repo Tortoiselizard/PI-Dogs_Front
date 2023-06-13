@@ -1,8 +1,5 @@
-//import './bandCard.css';
 import React from 'react';
-import {getDogDetail} from "./../../redux/actions"
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import style from "./DogCard.module.css"
 
 const DogCard = (props) => {
