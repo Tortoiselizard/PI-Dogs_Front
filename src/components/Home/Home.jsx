@@ -18,7 +18,6 @@ function Home() {
 
     const currentShowDogs = React.useRef(showDogs)
     
-    //Cuando se carga la página por 1ra vez desde /home se modifica la lista de perros
     React.useEffect(() => {
         if (!globalState.totaDogs.length) {
             dispatch(getAllDogs2())
@@ -40,13 +39,13 @@ function Home() {
                 currentShowDogs.current=globalState.showDogs
             }
         }
-    }, [globalState.totaDogs, globalState.dogs])
+    }, [globalState.totaDogs, globalState.dogs, globalState.showDogs, dispatch])
 
     React.useEffect(() => {
         return function() {
             dispatch(updateShowDogs(currentShowDogs.current))
         }
-    }, [])
+    }, [dispatch])
 
     function handlePaging(event) {
         switch (event.target.name) {
@@ -74,6 +73,8 @@ function Home() {
                     }
                 }
                 break
+            default:
+                return null
         }
     }
 
