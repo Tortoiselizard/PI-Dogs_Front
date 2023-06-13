@@ -15,22 +15,32 @@ function Order() {
         sense: "",
     })
 
-    const [dogsState, setDogsState] = React.useState(dogs)
-
     const dispatch = useDispatch()
 
     React.useEffect(() => {
         if (Object.keys(orderGS).length) {
             setOrderState(orderGS)
+            function changeInputChecked() {
+                const inputsOrder = document.getElementsByName("inputOrder")
+                const inputSence = document.getElementsByName("inputOrderSence")
+                for (let input of inputsOrder) {
+                    if (input.value === orderGS.type) {
+                        input.checked = true
+                    } else {
+                        input.checked = false
+                    }
+                }
+                for (let input of inputSence) {
+                    if (input.value === orderGS.sense) {
+                        input.checked = true
+                    } else {
+                        input.checked = false
+                    }
+                }
+            }
             changeInputChecked()
         }
     }, [orderGS])
-
-    // React.useEffect(() => {
-    //     if ((!dogs.every((n, index) => n===dogsState[index]) && orderState.type!=="" && orderState.sense!=="")) {
-    //         orderDispatch()
-    //     }
-    // },[dogs])
     
     const mergeSort = (array) => {
         const pivote = Math.round(array.length/2)
@@ -100,28 +110,16 @@ function Order() {
                 break
             }
         }
-        // console.log("tipo:",inputCheckedOrder && inputCheckedOrder.value, "sentido:", inputCheckedSence && inputCheckedSence.value)
         if (inputCheckedOrder && inputCheckedOrder.value === "weight") {
-            // const sortData = [dogs[1]]
             let sortData = mergeSort(data)
             let sortTotalDgos = mergeSort(totalDogs)
-            // data.sort((a,b) => {
-            //     if ((regNumber.test(a.weight.metric.split(" - ")[0])? null: Number(a.weight.metric.split(" - ")[0]))-(regNumber.test(b.weight.metric.split(" - ")[0])? null:Number(b.weight.metric.split(" - ")[0])) === 0) {
-            //         return (regNumber.test(a.weight.metric.split(" - ")[1])? null:Number(a.weight.metric.split(" - ")[1]))-(regNumber.test(b.weight.metric.split(" - ")[1])? null:Number(b.weight.metric.split(" - ")[1]))
-            //     }
-            //     return (regNumber.test(a.weight.metric.split(" - ")[0])? null:Number(a.weight.metric.split(" - ")[0]))-(regNumber.test(b.weight.metric.split(" - ")[0])? null:Number(b.weight.metric.split(" - ")[0]))
-            // })
+            
             if (inputCheckedSence && inputCheckedSence.value==="des") {
-                // console.log("entre")
                 sortData = sortData.reverse()
                 sortTotalDgos = sortTotalDgos.reverse()
             }
-            // console.log("dogs:", [...dogs])
-            // console.log("sortData", sortData)
-            // console.log(Boolean(!sortData.every((n, index) => n===[...dogs][index])))
             if (!dogs.every((n, index) => n===sortData[index])) {
-                // console.log(sortData)
-                setDogsState(sortData)
+                
                 dispatch(orderWeight(sortData))
                 dispatch(orderWeightTotal(sortTotalDgos))
             }
@@ -136,6 +134,7 @@ function Order() {
                     }
                     return (a.name? a.name.charCodeAt(i):null)-(b.name? b.name.charCodeAt(i):null)
                 }
+                return null
             })
             sortTotalDgos.sort((a,b) => {
                 for (let i = 0; i<(a.name.length<b.name.length?b.name.length:a.name.length); i++) {
@@ -144,23 +143,14 @@ function Order() {
                     }
                     return (a.name? a.name.charCodeAt(i):null)-(b.name? b.name.charCodeAt(i):null)
                 }
+                return null
             })
-            // const sortData = dogs.sort((a,b) => {
-            //     const wordA = a.name.toLowerCase()
-            //     const wordB = b.name.toLowerCase()
-            //     for (let i = 0; i < (wordA.length<wordB.length?wordA.length:wordB.length) ; i++) {
-            //         if (wordA.charCodeAt(i)<wordB.charCodeAt(i)) return -1
-            //         else if (wordA.charCodeAt(i)>wordB.charCodeAt(i)) return 1
-            //     }
-            //     return 0
-            // })
+           
             if (inputCheckedSence && inputCheckedSence.value==="des") {
                 sortData = sortData.reverse()
                 sortTotalDgos = sortTotalDgos.reverse()
             }
             if (!dogs.every((n, index) => n===sortData[index])) {
-                // console.log(sortData)
-                setDogsState(sortData)
                 dispatch(orderAlfabetic(sortData))
                 dispatch(orderAlfabeticTotal(sortTotalDgos))
             }
@@ -177,25 +167,7 @@ function Order() {
         }))
     }
 
-    function changeInputChecked() {
-        const inputsOrder = document.getElementsByName("inputOrder")
-        const inputSence = document.getElementsByName("inputOrderSence")
-        for (let input of inputsOrder) {
-            if (input.value === orderGS.type) {
-                input.checked = true
-            } else {
-                input.checked = false
-            }
-        }
-        for (let input of inputSence) {
-            if (input.value === orderGS.sense) {
-                input.checked = true
-            } else {
-                input.checked = false
-            }
-        }
     
-    }
 
     return <div className={style.Order}>
         <p>Ordenar por: </p>

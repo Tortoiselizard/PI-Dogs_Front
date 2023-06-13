@@ -19,7 +19,7 @@ function validate(inputs) {
         image:"",
         temperaments:""
     }
-    const {name, height, weight, life_span, image, temperaments} = inputs
+    const {name, height, weight, life_span, image} = inputs
 
     if (name[0] === " ") {errors.name = "El nombre debe comenzar por una letra"}
     else if (regexName.test(name)) {errors.name = "El nombre solo puede contener letras y/o espacios"}
@@ -170,18 +170,6 @@ const CreateDog = () => {
             }
         }
         if (allGood) {
-            // const action = await actions.createDog(inputs.name)
-            // const action = await actions.createDog({
-            //     name: inputs.name,
-            //     height: inputs.height.min + " - " + inputs.height.max.length? " - " + inputs.height.max:"",
-            //     weight: inputs.weight.min + inputs.weight.max.length? " - " +  inputs.weight.max: "",
-            //     life_span: inputs.life_span.min + inputs.life_span.max.length? " - " + inputs.life_span.max: "",
-            //     image: inputs.image,
-            //     temperaments: inputs.temperaments.length? inputs.temperaments.join(", ") :null
-            // })
-            // // console.log( "la action payload es ",action.payload)
-            // if (typeof(action.payload) === "string") {return alert(`La raza de perro ${action.payload.name} ya existe`)}
-            // const temperaments = inputs.temperaments.map(temperament => temperamentsGS.indexOf(temperament)+1)
             const newDog = {
                     name: inputs.name.includes(" ")? 
                         inputs.name.split(" ").map(nombre => nombre[0].toUpperCase() + nombre.slice(1).toLowerCase()).join(" "):
@@ -225,24 +213,6 @@ const CreateDog = () => {
         } else {
             alert("Debes corregir los errores antes de crear el nuevo perro")
         }
-        
-        // const newDog = {
-        //     name: "Gladys",
-        //     height: "1.25",
-        //     weight: "15.2",
-        //     life_span: 10,
-        //     image: "https://cdn.britannica.com/78/232778-050-D3701AB1/English-bulldog-dog.jpg",
-        //     temperaments: [1,4,6]
-        //   }
-        // const data = {
-        //     method: "Post",
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify(newDog)
-        // }
-
-        // fetch(`${PATH}/dogs`, data)
-        //     .then((data) => data.json())
-        //     .then(data => {alert("La raza fue creada exitosamente")}).catch(data => {alert(data)});
     }
 
     return <div className={style.CreateDog}>

@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux"
-import {getAllTemperaments, getDogsForTemperaments, addTemperamentsFilter, getDogsForLocation, getAllDogs, probando, keepDogs, updateTemperaments, updateFilters} from "../../redux/actions/index"
+import {getAllTemperaments, getDogsForTemperaments, getDogsForLocation, keepDogs, updateFilters} from "../../redux/actions/index"
 import style from "./Filter.module.css"
 
 function Filter() {
@@ -15,18 +15,21 @@ function Filter() {
     
     const dispatch = useDispatch()
 
-    React.useEffect(async () => {
-        await dispatch(updateTemperaments())
-        await dispatch(getAllTemperaments())
+    React.useEffect(() => {
+        dispatch(getAllTemperaments())
+        function changeInputChecked() {
+            var input
+            if (stateFilter.locationToFilter === "API") {
+                input = document.querySelector("#inputFilterForAPI")
+            }
+            else if (stateFilter.locationToFilter === "DB") {
+                input = document.querySelector("#inputFilterForDB")
+            }
+            else return
+            input.checked=true
+        }
         changeInputChecked()
-    }, [dispatch])
-
-    // React.useEffect(() => {
-    //     setStateFilter(stateFilter => ({
-    //         ...stateFilter,
-    //         searchBar: globalState.filters.searchBar
-    //     }))
-    // }, [globalState])
+    }, [dispatch, stateFilter.locationToFilter])
 
     React.useEffect(() => {
         if(Object.keys(globalState.filters).length) setStateFilter(globalState.filters)
@@ -69,21 +72,14 @@ function Filter() {
             } 
             return [{payload: listDogs}, state]
         }
-        // setStateFilter(state => ({...state}))
-        // dispatch(keepDogs(listDogs))
-        // console.log(listDogs)
         return [{payload: listDogs}, state]
     }
 
     async function filterForLocation(listDogs, state) {
-        // console.log(state)
-        // console.log(listDogs)
         const dogsToFilter = [...listDogs]
         const inputsLocation = document.getElementsByName("inputFilterLocation")
-        // console.log(inputsLocation)
         let inputChecked
         inputsLocation.forEach(input => {if (input.checked) inputChecked = input})
-        // console.log(inputChecked)
         if (inputChecked !== undefined) {
             state = {
                 ...state,
@@ -91,27 +87,19 @@ function Filter() {
             }
             if (dogsToFilter.length) {
                 const action = await getDogsForLocation(inputChecked.value, dogsToFilter)
-                // console.log(action)
-                // dispatch(action)
                 return [action, state]
             }
             return [{payload: listDogs}, state]
         }
-        // setStateFilter(state => ({...state}))
-        // console.log("no entre en el inputChecked y retorno todo el listDogs")
-        // dispatch(keepDogs(listDogs))
         return [{payload: listDogs}, state]
     }
 
     async function filter(state = stateFilter, dogsGS = globalState.totaDogs) {
-        // const actionTotalDogs = await getAllDogs(globalState.searchBar)
-        // dogsGS = actionTotalDogs.payload
-        dogsGS = dogsGS.filter(dog => {
-            if (dog.name.toLowerCase().includes(globalState.searchBar.toLowerCase())) return true
-        })
+        let dogs = [...dogsGS]
+        dogs = dogs.filter(dog => dog.name.toLowerCase().includes(globalState.searchBar.toLowerCase()) ? true : false)
         const arrayFilter = [filterForLocation, filterForTemperament]
         let action
-        for (let i=0, acc=[{payload: dogsGS}, state]; i<arrayFilter.length; i++) {
+        for (let i=0, acc=[{payload: dogs}, state]; i<arrayFilter.length; i++) {
             const listDogsFiltered = await arrayFilter[i](acc[0].payload, acc[1])
             acc = listDogsFiltered
             action = acc
@@ -119,21 +107,9 @@ function Filter() {
         setStateFilter(action[1])
         dispatch(updateFilters(action[1]))
         dispatch(keepDogs(action[0].payload))
-
-        // const arrayFiltered = [filterForTemperament, filterForLocation].reduce( async (acc, cur) => {
-        //     console.log(acc.payload)
-        //     const action = await cur(acc.payload)
-        //     console.log(action)
-        //     return action
-        // }, {payload: globalState.dogs})
-        // console.log(arrayFiltered.payload)
     }
 
     async function goBack(event) {
-        // const actionAllDogs = await getAllDogs(globalState.searchBar)
-        // const dogsGS = globalState.totaDogs.filter(dog => {
-        //     if (dog.name.toLowerCase().includes(globalState.searchBar.toLowerCase())) return true
-        // })
         const buttonCloseFiltered = event.target.name.slice(19)
         if (buttonCloseFiltered[0]==="T") {
             const newTemperamentsFiltered = [...stateFilter.temperamentsFiltered]
@@ -146,30 +122,18 @@ function Filter() {
             filter(newState)
         }
         else if (buttonCloseFiltered[0]==="L") {
-            // console.log("entre en L")
             const inputsLocation = document.getElementsByName("inputFilterLocation")
             inputsLocation.forEach(input => input.checked = false)
             const newState = {
                 ...stateFilter,
                 locationToFilter: ""
             }
-            // console.log(newState)
             setStateFilter(state=> newState)
             filter(newState)
         }
     }
 
-    function changeInputChecked() {
-        var input
-        if (stateFilter.locationToFilter === "API") {
-            input = document.querySelector("#inputFilterForAPI")
-        }
-        else if (stateFilter.locationToFilter === "DB") {
-            input = document.querySelector("#inputFilterForDB")
-        }
-        else return
-        input.checked=true
-    }
+    
 
     return <div className={style.Filter}>
         {
@@ -246,9 +210,6 @@ function Filter() {
                 <label htmlFor="inputFilterForDB">DB </label>
             </div>
         </div>
-
-        {/* <input type="radio" name="inputFilterLocation" id="inputFilterForTD" value="TD"></input>
-        <label for="inputFilterForTD">TODOS </label> */}
 
         <button className={style.botonFiltrar} onClick={() => {
             filter({...stateFilter, temperamentsToFilter:[], temperamentsFiltered: [...stateFilter.temperamentsFiltered, ...stateFilter.temperamentsToFilter]})}}>Filtrar</button>
