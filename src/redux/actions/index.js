@@ -54,6 +54,7 @@ export const getAllDogs2 = (name) => {
             dispatch({ type: GET_ALL_DOGS, payload: data })
           }
         })
+        .catch(error => console.log(error.message))
     }
   } else {
     return function (dispatch) {
@@ -141,6 +142,7 @@ export const getAllTemperaments = () => {
         const arrayData = data.map(temperament => temperament.name)
         dispatch({ type: GET_TEMPERAMENTS, payload: arrayData })
       })
+      .catch(error => console.log(error.message))
   }
 }
 
