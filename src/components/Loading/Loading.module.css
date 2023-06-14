@@ -1,0 +1,22 @@
+.Loading {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: rgba(0, 0,0, 0.7);
+}
+
+.Loading div {
+    background-color: white;
+    border-radius: 10px;
+    width: 320px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
