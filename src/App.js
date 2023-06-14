@@ -1,25 +1,25 @@
-import React from 'react';
-import { Route, Routes, useLocation} from "react-router-dom"
-import MainPage from './components/MainPage/MainPage.jsx';
-import Home from "./components/Home/Home.jsx"
-import DogDetail from "./components/DogDetail/DogDetail.jsx";
-import CreateDog from "./components/CreateDog/CreateDog";
+import React from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import MainPage from './components/MainPage/MainPage.jsx'
+import Home from './components/Home/Home.jsx'
+import DogDetail from './components/DogDetail/DogDetail.jsx'
+import CreateDog from './components/CreateDog/CreateDog'
 import Nav from './components/Nav/Nav.jsx'
-import './App.css';
+import './App.css'
 
-function App() {
+function App () {
   const location = useLocation()
   return (
-    <div className="App">
-      {location.pathname !== "/"? <Nav></Nav>: null}
+    <div className='App'>
+      {location.pathname !== '/' ? <Nav /> : null}
       <Routes>
-        <Route path='/' element={<MainPage/>}></Route>
-        <Route path="/home" element={<Home></Home>}></Route>
-        <Route path="/dog/:raza_perro" element={<DogDetail></DogDetail>}></Route>
-        <Route path="/dog/create" element={<CreateDog></CreateDog>}></Route>
+        <Route path='/' element={<MainPage />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/dog/:raza_perro' element={<DogDetail />} />
+        <Route path='/dog/create' element={<CreateDog />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
