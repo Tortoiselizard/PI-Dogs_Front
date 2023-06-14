@@ -43,7 +43,7 @@
     ]
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "devDependencies": {
     "standard": "^17.1.0"
