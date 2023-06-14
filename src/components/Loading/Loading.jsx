@@ -10,24 +10,36 @@ function Loading () {
   })
 
   useEffect(() => {
-    if (!totalDogs.length) window.setTimeout(showLoading, 3000)
+    let isMounted = true
+    if (!totalDogs.length && isMounted) window.setTimeout(() => { showLoading(isMounted) }, 3000)
+    return () => {
+      isMounted = false
+    }
   }, [totalDogs.length])
 
   useEffect(() => {
-    function handleMessage () {
-      setMessage({
-        title: 'Ups, something is wrong!',
-        comment: 'Please, refresh the page to reload again the information',
-        button: ['Refresh', refreshPage]
-      })
+    let isMounted = true
+    function handleMessage (isMounted) {
+      if (isMounted) {
+        setMessage({
+          title: 'Ups, something is wrong!',
+          comment: 'Please, refresh the page to reload again the information',
+          button: ['Refresh', refreshPage]
+        })
+      }
     }
-    if (showLoad) {
-      window.setTimeout(handleMessage, 420000)
+    if (showLoad && isMounted) {
+      window.setTimeout(() => { handleMessage(isMounted) }, 60000)
+    }
+    return () => {
+      isMounted = false
     }
   }, [showLoad])
 
-  function showLoading () {
-    setShowLoad(true)
+  function showLoading (isMounted) {
+    if (isMounted) {
+      setShowLoad(true)
+    }
   }
 
   function refreshPage () {
