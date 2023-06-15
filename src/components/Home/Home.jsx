@@ -99,9 +99,7 @@ function Home () {
                     </div>)
                   : null
             }
-        {
-                showDogs.list.length ? <DogsContainer dogs={showDogs} /> : null
-            }
+        <DogsContainer dogs={showDogs} />
         {
                 globalState.dogs.length > 8
                   ? (
