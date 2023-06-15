@@ -1,9 +1,26 @@
+import { useState, useEffect, useRef } from 'react'
+
 import DogCard from '../DogCard/DogCard'
 import DogNotFound from '../DogNotFound/DogNotFound'
 
 import style from './DogsContainer.module.css'
 
 function DogsContainer ({ dogs }) {
+  const [showNotFound, setShowNotFound] = useState(false)
+
+  const firstTime = useRef(true)
+
+  useEffect(() => {
+    if (firstTime && dogs.list.length) {
+      handleNotFound()
+    }
+  }, [dogs.list])
+
+  function handleNotFound () {
+    setShowNotFound(true)
+    firstTime.current = false
+  }
+
   return (
     <div className={style.DogsContainer}>
       {
@@ -16,7 +33,7 @@ function DogsContainer ({ dogs }) {
                       id={dog.id}
                       key={dog.id}
                                                                            />)
-                  : <DogNotFound />
+                  : showNotFound ? <DogNotFound /> : null
             }
     </div>
   )
