@@ -8,15 +8,15 @@ function Loading () {
   const [message, setMessage] = useState({
     title: 'Loading...'
   })
-
+  // Contar el tiempo para que aparezca el Loading
   useEffect(() => {
     let isMounted = true
-    if (!totalDogs.length && isMounted) window.setTimeout(() => { showLoading(isMounted) }, 3000)
+    if (!totalDogs.length && isMounted) window.setTimeout(() => { showLoading(isMounted) }, 1000)
     return () => {
       isMounted = false
     }
   }, [totalDogs.length])
-
+  // Contar el tiempo para que se solcite refrescar la página
   useEffect(() => {
     let isMounted = true
     function handleMessage (isMounted) {
