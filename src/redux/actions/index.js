@@ -61,7 +61,6 @@ export const getAllDogs2 = (name) => {
       return fetch(`${PATH}/dogs?name=${name}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log('la data fue:', data)
           if (typeof (data) === 'string') { alert(data) } else if (data.length) {
             dispatch({ type: GET_ALL_DOGS, payload: data })
             dispatch(keepDogs(data))
@@ -99,6 +98,16 @@ export const getDogsForLocation = (location, dogs) => {
     }
     return { type: GET_ALL_DOGS, payload: dogsFiltered }
   }
+}
+
+export const getDogsForLocation2 = (location, dogs) => {
+  let dogsFiltered
+  if (location === 'API') {
+    dogsFiltered = dogs.filter(dog => !dog.id.toString().includes('db') ? true : null)
+  } else {
+    dogsFiltered = dogs.filter(dog => dog.id.toString().includes('db') ? true : null)
+  }
+  return { type: GET_ALL_DOGS, payload: dogsFiltered }
 }
 
 export const getDogDetail = (razaPerro) => {
@@ -226,7 +235,7 @@ export const updateAll = (name) => {
   return function (dispatch) {
     dispatch(updateFilters({
       temperamentsToFilter: [],
-      temperamentsFiltered: [],
+      temperamentsAlreadyFiltered: [],
       locationToFilter: ''
     }))
     dispatch(updateSearchBar(name))
