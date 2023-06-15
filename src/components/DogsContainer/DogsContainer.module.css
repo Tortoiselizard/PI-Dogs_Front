@@ -1,0 +1,8 @@
+.DogsContainer {
+    width: 1175px;
+    min-width: 1100px;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
