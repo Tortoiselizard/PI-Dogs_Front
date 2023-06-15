@@ -82,7 +82,6 @@ function Filter () {
         locationToFilter: inputChecked.value
       }
       if (dogsToFilter.length) {
-        console.log(dogsToFilter)
         const action = await getDogsForLocation2(inputChecked.value, dogsToFilter)
         return [action, state]
       }

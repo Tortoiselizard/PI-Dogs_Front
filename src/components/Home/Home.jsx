@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import DogsContainer from '../DogsContainer/DogsContainer'
@@ -14,36 +14,37 @@ function Home () {
   const globalState = useSelector(state => state)
   const dispatch = useDispatch()
 
-  const [showDogs, setShowDogs] = React.useState({
+  const [showDogs, setShowDogs] = useState({
     start: 0,
     list: []
   })
 
-  const currentShowDogs = React.useRef(showDogs)
+  const firstUpdateTotaDogs = useRef(true)
 
-  React.useEffect(() => {
-    if (!globalState.totaDogs.length) {
+  const currentShowDogs = useRef(showDogs)
+
+  // Cargar información del estado global "globalState.dogs"
+  useEffect(() => {
+    if (firstUpdateTotaDogs.current && !globalState.totaDogs.length) {
       dispatch(getAllDogs2())
-    } else if (!globalState.dogs.length) {
-      dispatch(keepDogs(globalState.totaDogs))
-    } else if (globalState.dogs.length) {
-      if (!Object.keys(globalState.showDogs).length) {
-        setShowDogs({
-          list: globalState.dogs.slice(0, 8),
-          start: 0
-        })
-        currentShowDogs.current = {
-          list: globalState.dogs.slice(0, 8),
-          start: 0
-        }
-      } else {
-        setShowDogs(globalState.showDogs)
-        currentShowDogs.current = globalState.showDogs
-      }
     }
-  }, [globalState.totaDogs, globalState.dogs, globalState.showDogs, dispatch])
+    firstUpdateTotaDogs.current = false
+  }, [dispatch, globalState.totaDogs])
 
-  React.useEffect(() => {
+  // Cargar información del estado global "globalState.dogs"
+  useEffect(() => {
+    dispatch(keepDogs(globalState.totaDogs))
+  }, [globalState.totaDogs, dispatch])
+
+  // Cargar información del estado global "globalState.showDogs"
+  useEffect(() => {
+    setShowDogs({
+      list: globalState.dogs.slice(0, 8),
+      start: 0
+    })
+  }, [globalState.dogs])
+
+  useEffect(() => {
     return function () {
       dispatch(updateShowDogs(currentShowDogs.current))
     }
