@@ -23,7 +23,7 @@ function SearchDog () {
     if (typeof (allDogs.payload) === 'string') { return alert(allDogs.payload) } else {
       await dispatch(updateFilters({
         temperamentsToFilter: [],
-        temperamentsFiltered: [],
+        temperamentsAlreadyFiltered: [],
         locationToFilter: ''
       }))
       await dispatch(updateSearchBar(''))

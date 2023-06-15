@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import DogsContainer from '../DogsContainer/DogsContainer'
 import Filter from '../Filter/Filter'
 import Order from '../Order/Order'
+import Loading from '../Loading/Loading'
 
 import { keepDogs, getAllDogs2, updateShowDogs } from '../../redux/actions/index'
 
@@ -110,7 +111,7 @@ function Home () {
                   : null
             }
       </div>
-
+      <Loading />
     </div>
   )
 }

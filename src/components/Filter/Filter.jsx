@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllTemperaments, getDogsForTemperaments, getDogsForLocation, keepDogs, updateFilters } from '../../redux/actions/index'
+import { getAllTemperaments, getDogsForTemperaments, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
 import style from './Filter.module.css'
 
 function Filter () {
@@ -8,7 +8,7 @@ function Filter () {
 
   const [stateFilter, setStateFilter] = React.useState((Object.keys(globalState.filters).length && globalState.filters) || {
     temperamentsToFilter: [],
-    temperamentsFiltered: [],
+    temperamentsAlreadyFiltered: [],
     locationToFilter: ''
   })
 
@@ -60,10 +60,10 @@ function Filter () {
   }
 
   async function filterForTemperament (listDogs, state) {
-    if (state.temperamentsFiltered.length > 0) {
+    if (state.temperamentsAlreadyFiltered.length > 0) {
       const dogsToFilter = [...listDogs]
       if (dogsToFilter.length) {
-        const action = await getDogsForTemperaments(state.temperamentsFiltered, dogsToFilter)
+        const action = await getDogsForTemperaments(state.temperamentsAlreadyFiltered, dogsToFilter)
         return [action, state]
       }
       return [{ payload: listDogs }, state]
@@ -76,13 +76,14 @@ function Filter () {
     const inputsLocation = document.getElementsByName('inputFilterLocation')
     let inputChecked
     inputsLocation.forEach(input => { if (input.checked) inputChecked = input })
-    if (inputChecked !== undefined) {
+    if (inputChecked !== undefined && dogsToFilter.length) {
       state = {
         ...state,
         locationToFilter: inputChecked.value
       }
       if (dogsToFilter.length) {
-        const action = await getDogsForLocation(inputChecked.value, dogsToFilter)
+        console.log(dogsToFilter)
+        const action = await getDogsForLocation2(inputChecked.value, dogsToFilter)
         return [action, state]
       }
       return [{ payload: listDogs }, state]
@@ -108,11 +109,11 @@ function Filter () {
   async function goBack (event) {
     const buttonCloseFiltered = event.target.name.slice(19)
     if (buttonCloseFiltered[0] === 'T') {
-      const newTemperamentsFiltered = [...stateFilter.temperamentsFiltered]
+      const newTemperamentsFiltered = [...stateFilter.temperamentsAlreadyFiltered]
       newTemperamentsFiltered.splice(buttonCloseFiltered.slice(1), 1)
       const newState = {
         ...stateFilter,
-        temperamentsFiltered: newTemperamentsFiltered
+        temperamentsAlreadyFiltered: newTemperamentsFiltered
       }
       setStateFilter(state => newState)
       filter(newState)
@@ -142,18 +143,18 @@ function Filter () {
       <h3 className={style.titulo}>Filtrar</h3>
       <div className={style.showFiltrado}>
         {
-                stateFilter.temperamentsFiltered.length || stateFilter.locationToFilter
+                stateFilter.temperamentsAlreadyFiltered.length || stateFilter.locationToFilter
                   ? <p>Se esta filtrando por: </p>
                   : null
             }
         {
-                stateFilter.temperamentsFiltered.length
+                stateFilter.temperamentsAlreadyFiltered.length
                   ? (
                     <div>
                       <label>Temperamentos: </label>
                       <div className={style.divParaFiltrar}>
                         {
-                            stateFilter.temperamentsFiltered.map((temperament, index) =>
+                            stateFilter.temperamentsAlreadyFiltered.map((temperament, index) =>
                               <div key={index} className={style.filtradoTemperamentos}>
                                 <label>{temperament}</label>
                                 <button onClick={goBack} name={`buttonCloseFilteredT${index}`} className={style.botonCancelarFiltrado}>x</button>
@@ -211,7 +212,7 @@ function Filter () {
 
       <button
         className={style.botonFiltrar} onClick={() => {
-          filter({ ...stateFilter, temperamentsToFilter: [], temperamentsFiltered: [...stateFilter.temperamentsFiltered, ...stateFilter.temperamentsToFilter] })
+          filter({ ...stateFilter, temperamentsToFilter: [], temperamentsAlreadyFiltered: [...stateFilter.temperamentsAlreadyFiltered, ...stateFilter.temperamentsToFilter] })
         }}
       >Filtrar
       </button>
