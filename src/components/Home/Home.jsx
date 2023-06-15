@@ -1,9 +1,12 @@
 import React from 'react'
-import DogCard from '../DogCard/DogCard'
 import { useSelector, useDispatch } from 'react-redux'
+
+import DogsContainer from '../DogsContainer/DogsContainer'
 import Filter from '../Filter/Filter'
 import Order from '../Order/Order'
+
 import { keepDogs, getAllDogs2, updateShowDogs } from '../../redux/actions/index'
+
 import style from './Home.module.css'
 
 function Home () {
@@ -84,7 +87,7 @@ function Home () {
         <Order />
 
       </div>
-      <div className={style.DogCards}>
+      <div>
         {
                 globalState.dogs.length > 8
                   ? (
@@ -95,16 +98,7 @@ function Home () {
                   : null
             }
         {
-                showDogs.list.length
-                  ? showDogs.list.filter(dog => dog.image).map((dog, index) => <DogCard
-                      name={dog.name}
-                      image={dog.image}
-                      temperament={dog.temperament}
-                      weight={dog.weight}
-                      id={dog.id}
-                      key={dog.id}
-                                                                               />)
-                  : null
+                showDogs.list.length ? <DogsContainer dogs={showDogs} /> : null
             }
         {
                 globalState.dogs.length > 8
