@@ -10,7 +10,7 @@ import { keepDogs, getAllDogs2, updateShowDogs } from '../../redux/actions/index
 
 import style from './Home.module.css'
 
-function Home () {
+function Home ({ loading }) {
   const globalState = useSelector(state => state)
   const dispatch = useDispatch()
 
@@ -19,6 +19,8 @@ function Home () {
     list: []
   })
 
+  const [loadingPage, setLoadingPage] = useState(false)
+
   const firstUpdateTotaDogs = useRef(true)
 
   const currentShowDogs = useRef(showDogs)
@@ -26,7 +28,7 @@ function Home () {
   // Cargar información del estado global "globalState.dogs"
   useEffect(() => {
     if (firstUpdateTotaDogs.current && !globalState.totaDogs.length) {
-      dispatch(getAllDogs2())
+      dispatch(getAllDogs2(null, setLoadingPage))
     }
     firstUpdateTotaDogs.current = false
   }, [dispatch, globalState.totaDogs])
@@ -89,7 +91,7 @@ function Home () {
         <Order />
 
       </div>
-      <div>
+      <div className={style.renderDogs}>
         {
                 globalState.dogs.length > 8
                   ? (
@@ -109,8 +111,9 @@ function Home () {
                     </div>)
                   : null
             }
+        <Loading loading={loading} />
       </div>
-      <Loading />
+      <Loading loading={loadingPage} />
     </div>
   )
 }
