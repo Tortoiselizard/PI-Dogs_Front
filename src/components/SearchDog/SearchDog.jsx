@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { getAllDogs, getAllDogs2, keepDogs, updateSearchBar, updateFilters, updateOrder } from '../../redux/actions/index'
 import style from './SearchDog.module.css'
 
-function SearchDog () {
+function SearchDog ({ setLoad }) {
   const [input, setInput] = React.useState({
     search: ''
   })
@@ -15,7 +15,7 @@ function SearchDog () {
   }
 
   async function searchDispatch () {
-    dispatch(getAllDogs2(input.search))
+    dispatch(getAllDogs2(input.search, setLoad))
   }
 
   async function showAllDogs () {
