@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import style from './Loading.module.css'
 
-function Loading () {
-  const totalDogs = useSelector(state => state.totaDogs)
-  const [showLoad, setShowLoad] = useState(false)
+function Loading ({ loading }) {
   const [message, setMessage] = useState({
     title: 'Loading...'
   })
-  // Contar el tiempo para que aparezca el Loading
-  useEffect(() => {
-    let isMounted = true
-    if (!totalDogs.length && isMounted) window.setTimeout(() => { showLoading(isMounted) }, 1000)
-    return () => {
-      isMounted = false
-    }
-  }, [totalDogs.length])
+
   // Contar el tiempo para que se solcite refrescar la página
   useEffect(() => {
     let isMounted = true
@@ -28,45 +18,39 @@ function Loading () {
         })
       }
     }
-    if (showLoad && isMounted) {
+    if (loading && isMounted) {
       window.setTimeout(() => { handleMessage(isMounted) }, 60000)
     }
     return () => {
       isMounted = false
     }
-  }, [showLoad])
-
-  function showLoading (isMounted) {
-    if (isMounted) {
-      setShowLoad(true)
-    }
-  }
+  }, [loading])
 
   function refreshPage () {
     window.location.reload()
   }
 
-  const show = showLoad && !totalDogs.length
-    ? (
-      <section className={style.Loading}>
-        <div>
-          {
-                message.title ? <h1>{message.title}</h1> : null
-            }
-          {
-                message.comment ? <p>{message.comment}</p> : null
-            }
-          {
-                message.button ? <button onClick={() => message.button[1]()}>{message.button[0]}</button> : null
-            }
-        </div>
-      </section>
-      )
-    : null
-
   return (
     <>
-      {show}
+      {
+        loading
+          ? (
+            <section className={style.Loading}>
+              <div>
+                {
+                message.title ? <h1>{message.title}</h1> : null
+            }
+                {
+                message.comment ? <p>{message.comment}</p> : null
+            }
+                {
+                message.button ? <button onClick={() => message.button[1]()}>{message.button[0]}</button> : null
+            }
+              </div>
+            </section>
+            )
+          : null
+      }
     </>
 
   )
