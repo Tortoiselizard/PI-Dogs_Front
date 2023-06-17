@@ -68,8 +68,6 @@ export const getAllDogs2 = (name, setLoading) => {
         .then((data) => {
           if (typeof (data) === 'string') { alert(data) } else if (data.length) {
             dispatch({ type: GET_ALL_DOGS, payload: data })
-            dispatch(keepDogs(data))
-            dispatch(updateAll(name))
             quitLoading(setLoading)
           }
         })
