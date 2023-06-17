@@ -42,7 +42,8 @@ export const getAllDogs = (name) => {
   }
 }
 
-export const getAllDogs2 = (name) => {
+export const getAllDogs2 = (name, setLoading) => {
+  showLoading(setLoading)
   if (!name) {
     return function (dispatch) {
       return fetch(`${PATH}/dogs`)
@@ -53,8 +54,12 @@ export const getAllDogs2 = (name) => {
           } else if (data.length) {
             dispatch({ type: GET_ALL_DOGS, payload: data })
           }
+          quitLoading(setLoading)
         })
-        .catch(error => console.log(error.message))
+        .catch(error => {
+          quitLoading(setLoading)
+          alert(error.message)
+        })
     }
   } else {
     return function (dispatch) {
@@ -65,9 +70,13 @@ export const getAllDogs2 = (name) => {
             dispatch({ type: GET_ALL_DOGS, payload: data })
             dispatch(keepDogs(data))
             dispatch(updateAll(name))
+            quitLoading(setLoading)
           }
         })
-        .catch(data => alert('Ha ocurrido un problema en el enlace con el servidor de la aplicación'))
+        .catch(error => {
+          quitLoading(setLoading)
+          alert(error.message)
+        })
     }
   }
 }
@@ -244,4 +253,12 @@ export const updateAll = (name) => {
       sense: ''
     }))
   }
+}
+
+export const showLoading = (setLoading) => {
+  if (setLoading) setLoading(true)
+}
+
+export const quitLoading = (setLoading) => {
+  if (setLoading) setLoading(false)
 }
