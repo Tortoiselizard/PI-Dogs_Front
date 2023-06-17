@@ -51,7 +51,7 @@ export const getAllDogs2 = (name, setLoading) => {
         .then((data) => {
           if (typeof (data) === 'string') {
             return alert(data)
-          } else if (data.length) {
+          } else {
             dispatch({ type: GET_ALL_DOGS, payload: data })
           }
           quitLoading(setLoading)
@@ -66,12 +66,11 @@ export const getAllDogs2 = (name, setLoading) => {
       return fetch(`${PATH}/dogs?name=${name}`)
         .then((response) => response.json())
         .then((data) => {
-          if (typeof (data) === 'string') { alert(data) } else if (data.length) {
+          if (typeof (data) === 'string') alert(data)
+          else {
             dispatch({ type: GET_ALL_DOGS, payload: data })
-            dispatch(keepDogs(data))
-            dispatch(updateAll(name))
-            quitLoading(setLoading)
           }
+          quitLoading(setLoading)
         })
         .catch(error => {
           quitLoading(setLoading)

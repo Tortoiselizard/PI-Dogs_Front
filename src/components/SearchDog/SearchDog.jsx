@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { getAllDogs, getAllDogs2, keepDogs, updateSearchBar, updateFilters, updateOrder } from '../../redux/actions/index'
+import { getAllDogs2, updateSearchBar } from '../../redux/actions/index'
 import style from './SearchDog.module.css'
 
 function SearchDog ({ setLoad }) {
@@ -15,25 +15,12 @@ function SearchDog ({ setLoad }) {
   }
 
   async function searchDispatch () {
+    dispatch(updateSearchBar(input.search))
     dispatch(getAllDogs2(input.search, setLoad))
   }
 
   async function showAllDogs () {
-    const allDogs = await getAllDogs()
-    if (typeof (allDogs.payload) === 'string') { return alert(allDogs.payload) } else {
-      await dispatch(updateFilters({
-        temperamentsToFilter: [],
-        temperamentsAlreadyFiltered: [],
-        locationToFilter: ''
-      }))
-      await dispatch(updateSearchBar(''))
-      await dispatch(updateOrder({
-        type: '',
-        sense: ''
-      }))
-      await dispatch(allDogs)
-      await dispatch(keepDogs(allDogs.payload))
-    }
+    dispatch(getAllDogs2(null, setLoad))
   }
 
   return (
