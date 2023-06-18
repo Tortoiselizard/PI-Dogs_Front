@@ -5,6 +5,7 @@ import DogsContainer from '../DogsContainer/DogsContainer'
 import Filter from '../Filter/Filter'
 import Order from '../Order/Order'
 import Loading from '../Loading/Loading'
+import Paginated from '../Paginated/Paginated'
 
 import { keepDogs, getAllDogs2, updateShowDogs } from '../../redux/actions/index'
 
@@ -22,8 +23,6 @@ function Home ({ loading }) {
   const [loadingPage, setLoadingPage] = useState(false)
 
   const firstUpdateTotaDogs = useRef(true)
-
-  const currentShowDogs = useRef(showDogs)
 
   // Cargar información del estado global "globalState.dogs"
   useEffect(() => {
@@ -47,41 +46,10 @@ function Home ({ loading }) {
   }, [globalState.dogs])
 
   useEffect(() => {
-    return function () {
-      dispatch(updateShowDogs(currentShowDogs.current))
+    return () => {
+      dispatch(updateShowDogs(showDogs))
     }
-  }, [dispatch])
-
-  function handlePaging (event) {
-    switch (event.target.name) {
-      case 'siguiente':
-        if (globalState.dogs.length > showDogs.start + 8) {
-          setShowDogs(showDogs => ({
-            list: globalState.dogs.slice(showDogs.start + 8, showDogs.start + 16),
-            start: showDogs.start + 8
-          }))
-          currentShowDogs.current = {
-            list: globalState.dogs.slice(showDogs.start + 8, showDogs.start + 16),
-            start: showDogs.start + 8
-          }
-        }
-        break
-      case 'anterior':
-        if (showDogs.start - 8 >= 0) {
-          setShowDogs(showDogs => ({
-            list: globalState.dogs.slice(showDogs.start - 8, showDogs.start),
-            start: showDogs.start - 8
-          }))
-          currentShowDogs.current = {
-            list: globalState.dogs.slice(showDogs.start - 8, showDogs.start),
-            start: showDogs.start - 8
-          }
-        }
-        break
-      default:
-        return null
-    }
-  }
+  }, [dispatch, showDogs])
 
   return (
     <div className={style.Home}>
@@ -92,25 +60,9 @@ function Home ({ loading }) {
 
       </div>
       <div className={style.renderDogs}>
-        {
-                globalState.dogs.length > 8
-                  ? (
-                    <div className={style.ContenedorBotones}>
-                      <button className={style.botonesIzquierda} name='anterior' onClick={handlePaging} />
-                      <button className={style.botonesDerecha} name='siguiente' onClick={handlePaging} />
-                    </div>)
-                  : null
-            }
+
+        <Paginated totalDogs={globalState.dogs} currentPage={showDogs} setShowDogs={setShowDogs} />
         <DogsContainer dogs={showDogs} />
-        {
-                globalState.dogs.length > 8
-                  ? (
-                    <div className={style.ContenedorBotones}>
-                      <button className={style.botonesIzquierda} name='anterior' onClick={handlePaging} />
-                      <button className={style.botonesDerecha} name='siguiente' onClick={handlePaging} />
-                    </div>)
-                  : null
-            }
         <Loading loading={loading} />
       </div>
       <Loading loading={loadingPage} />

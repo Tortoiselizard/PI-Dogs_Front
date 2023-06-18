@@ -1,0 +1,43 @@
+.ContenedorBotones {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.botonesIzquierda{
+    margin-left: 20px;
+    margin-right: 20px;
+    height:35px;
+    width:35px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/545/545680.png");
+    background-size: contain;
+    background-color: #84a59d;
+    border-radius: 5px;
+    outline: none;
+}
+
+.botonesDerecha{
+    margin-left: 20px;
+    margin-right: 20px;
+    height:35px;
+    width:35px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/545/545682.png");
+    background-size: cover;
+    background-color: #84a59d;
+    border-radius: 5px;
+    outline: none;
+}
+
+.postionButtons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.currentPage {
+    background-color: red;
+}
+
+.threePointsOFF {
+    visibility: hidden;
+}
