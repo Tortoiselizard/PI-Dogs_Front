@@ -1,6 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import { getAllTemperaments, getDogsForTemperaments, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
+
 import style from './Filter.module.css'
 
 function Filter () {
@@ -179,7 +182,7 @@ function Filter () {
 
       <div className={style.addTemperament}>
         <label>Por temperamento: </label>
-        <input className={style.inputAddTemperament} type='text' placeholder='temperamento...' name='inputFilter' onKeyPress={(event) => { if (event.key === 'Enter') addTemperamentToFilter() }} />
+        <DropdownMenu temperaments={globalState.temperaments} action={addTemperamentToFilter} />
         <button onClick={addTemperamentToFilter} className={style.botonAddTemperament}>+</button>
       </div>
 
