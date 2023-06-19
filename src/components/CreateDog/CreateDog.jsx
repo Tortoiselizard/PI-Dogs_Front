@@ -1,5 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import * as actions from './../../redux/actions/index'
 
 import style from './CreateDog.module.css'
@@ -95,8 +97,8 @@ const CreateDog = () => {
   }
 
   async function addTemperament () {
-    const input = document.getElementsByName('inputTemperament')['0']
-    const temperament = input.value[0].toUpperCase() + input.value.slice(1).toLowerCase()
+    const input = document.getElementsByName('inputFilter')[0]
+    const temperament = input.value
     if (temperamentsGS.includes(temperament)) {
       if (!inputs.temperaments.includes(temperament)) {
         setInputs(inputs => ({
@@ -260,9 +262,8 @@ const CreateDog = () => {
       <div className={style.seccionTemperamentos}>
         <label>Temperamentos</label>
 
-        <div>
-          <input name='inputTemperament' type='text' placeholder='temperamento...' onKeyPress={(event) => { if (event.key === 'Enter') addTemperament() }} />
-          <button className={style.botonAddTemperament} onClick={addTemperament}>+</button>
+        <div className={style.seccionTemperamentosInputContainer}>
+          <DropdownMenu temperaments={temperamentsGS} action={addTemperament} />
         </div>
         <div>
           {

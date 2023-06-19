@@ -183,7 +183,6 @@ function Filter () {
       <div className={style.addTemperament}>
         <label>Por temperamento: </label>
         <DropdownMenu temperaments={globalState.temperaments} action={addTemperamentToFilter} />
-        <button onClick={addTemperamentToFilter} className={style.botonAddTemperament}>+</button>
       </div>
 
       {
