@@ -19,16 +19,6 @@ function Filter () {
 
   React.useEffect(() => {
     dispatch(getAllTemperaments())
-    function changeInputChecked () {
-      let input
-      if (stateFilter.locationToFilter === 'API') {
-        input = document.querySelector('#inputFilterForAPI')
-      } else if (stateFilter.locationToFilter === 'DB') {
-        input = document.querySelector('#inputFilterForDB')
-      } else return
-      input.checked = true
-    }
-    changeInputChecked()
   }, [dispatch, stateFilter.locationToFilter])
 
   React.useEffect(() => {
@@ -74,21 +64,17 @@ function Filter () {
     return [{ payload: listDogs }, state]
   }
 
-  async function filterForLocation (listDogs, state) {
+  function filterForLocation (listDogs, state) {
     const dogsToFilter = [...listDogs]
-    const inputsLocation = document.getElementsByName('inputFilterLocation')
-    let inputChecked
-    inputsLocation.forEach(input => { if (input.checked) inputChecked = input })
-    if (inputChecked !== undefined && dogsToFilter.length) {
+    const filterLocationSelected = document.getElementById('selectFilterForLocation')
+
+    if (dogsToFilter.length) {
       state = {
         ...state,
-        locationToFilter: inputChecked.value
+        locationToFilter: filterLocationSelected.value
       }
-      if (dogsToFilter.length) {
-        const action = await getDogsForLocation2(inputChecked.value, dogsToFilter)
-        return [action, state]
-      }
-      return [{ payload: listDogs }, state]
+      const action = getDogsForLocation2(filterLocationSelected.value, dogsToFilter)
+      return [action, state]
     }
     return [{ payload: listDogs }, state]
   }
@@ -201,14 +187,11 @@ function Filter () {
       </div>
       <div className={style.place}>
         <label>Por Ubicación: </label>
-        <div>
-          <input type='radio' name='inputFilterLocation' id='inputFilterForAPI' value='API' />
-          <label htmlFor='inputFilterForAPI'>API </label>
-        </div>
-        <div>
-          <input type='radio' name='inputFilterLocation' id='inputFilterForDB' value='DB' />
-          <label htmlFor='inputFilterForDB'>DB </label>
-        </div>
+        <select id='selectFilterForLocation'>
+          <option value='Both'>Both</option>
+          <option value='API'>API</option>
+          <option value='DB'>DB</option>
+        </select>
       </div>
 
       <button
