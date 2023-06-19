@@ -109,11 +109,13 @@ export const getDogsForLocation = (location, dogs) => {
 }
 
 export const getDogsForLocation2 = (location, dogs) => {
-  let dogsFiltered
+  let dogsFiltered = []
   if (location === 'API') {
     dogsFiltered = dogs.filter(dog => !dog.id.toString().includes('db') ? true : null)
-  } else {
+  } else if (location === 'DB') {
     dogsFiltered = dogs.filter(dog => dog.id.toString().includes('db') ? true : null)
+  } else {
+    dogsFiltered = [...dogs]
   }
   return { type: GET_ALL_DOGS, payload: dogsFiltered }
 }
