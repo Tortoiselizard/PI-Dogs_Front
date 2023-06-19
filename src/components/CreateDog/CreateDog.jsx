@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
@@ -43,7 +43,7 @@ function validate (inputs) {
 }
 
 const CreateDog = () => {
-  const [inputs, setInputs] = React.useState({
+  const [inputs, setInputs] = useState({
     name: '',
     height: { min: '', max: '' },
     weight: { min: '', max: '' },
@@ -51,7 +51,7 @@ const CreateDog = () => {
     image: '',
     temperaments: []
   })
-  const [errors, setErrors] = React.useState({
+  const [errors, setErrors] = useState({
     name: '',
     height: { min: '', max: '' },
     weight: { min: '', max: '' },
@@ -60,10 +60,12 @@ const CreateDog = () => {
     temperaments: ''
   })
 
+  const [refresh, setRefresh] = useState(true)
+
   const temperamentsGS = useSelector((state) => state.temperaments)
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(actions.getAllTemperaments())
   }, [dispatch])
 
@@ -96,7 +98,7 @@ const CreateDog = () => {
     })
   }
 
-  async function addTemperament () {
+  function addTemperament (value) {
     const input = document.getElementsByName('inputFilter')[0]
     const temperament = input.value
     if (temperamentsGS.includes(temperament)) {
@@ -134,6 +136,7 @@ const CreateDog = () => {
         temperaments
       }
     })
+    setRefresh(true)
   }
 
   async function handleSubmit (event) {
@@ -263,7 +266,7 @@ const CreateDog = () => {
         <label>Temperamentos</label>
 
         <div className={style.seccionTemperamentosInputContainer}>
-          <DropdownMenu temperaments={temperamentsGS} action={addTemperament} />
+          <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperamentsGS} action={addTemperament} />
         </div>
         <div>
           {
