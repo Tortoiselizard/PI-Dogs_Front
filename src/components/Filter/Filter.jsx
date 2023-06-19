@@ -9,20 +9,21 @@ import style from './Filter.module.css'
 function Filter () {
   const globalState = useSelector(state => state)
 
-  const [stateFilter, setStateFilter] = useState((Object.keys(globalState.filters).length && globalState.filters) || {
-    temperamentsToFilter: [],
-    temperamentsAlreadyFiltered: [],
+  const [stateFilter, setStateFilter] = useState({
+    filteredTemperaments: [],
     locationToFilter: ''
   })
 
   const dispatch = useDispatch()
 
+  // Actualizar la global State con todos los temperaments
   useEffect(() => {
     dispatch(getAllTemperaments())
-  }, [dispatch, stateFilter.locationToFilter])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
-    if (Object.keys(globalState.filters).length) setStateFilter(globalState.filters)
+    if (Object.keys(globalState.filters).length && !globalState.filters.filteredTemperaments.length && !globalState.filters.locationToFilter) setStateFilter(globalState.filters)
   }, [globalState.filters])
 
   function addTemperamentToFilter () {
@@ -30,33 +31,17 @@ function Filter () {
     let temperament = input[0].value
     temperament = temperament[0].toUpperCase() + temperament.slice(1).toLowerCase()
     if (globalState.temperaments.includes(temperament)) {
-      // setStateFilter(stateFilter => ({
-      //   ...stateFilter,
-      //   temperamentsToFilter: [...stateFilter.temperamentsToFilter, temperament]
-      // }))
-      filter({ ...stateFilter, temperamentsAlreadyFiltered: [...stateFilter.temperamentsAlreadyFiltered, temperament] })
+      filter({ ...stateFilter, filteredTemperaments: [...stateFilter.filteredTemperaments, temperament] })
     } else {
       alert(`El temperamento ${temperament} no existe`)
     }
   }
 
-  function restTemperamentToFilter (event) {
-    const indexTemperament = event.target.name.slice(19)
-    setStateFilter(stateFilter => {
-      const newTemperamentToFilter = [...stateFilter.temperamentsToFilter]
-      newTemperamentToFilter.splice(indexTemperament, 1)
-      return {
-        ...stateFilter,
-        temperamentsToFilter: [...newTemperamentToFilter]
-      }
-    })
-  }
-
   function filterForTemperament (listDogs, state) {
-    if (state.temperamentsAlreadyFiltered.length > 0) {
+    if (state.filteredTemperaments.length > 0) {
       const dogsToFilter = [...listDogs]
       if (dogsToFilter.length) {
-        const action = getDogsForTemperaments2(state.temperamentsAlreadyFiltered, dogsToFilter)
+        const action = getDogsForTemperaments2(state.filteredTemperaments, dogsToFilter)
         return [action, state]
       }
       return [{ payload: listDogs }, state]
@@ -95,25 +80,14 @@ function Filter () {
 
   async function goBack (event) {
     const buttonCloseFiltered = event.target.name.slice(19)
-    if (buttonCloseFiltered[0] === 'T') {
-      const newTemperamentsFiltered = [...stateFilter.temperamentsAlreadyFiltered]
-      newTemperamentsFiltered.splice(buttonCloseFiltered.slice(1), 1)
-      const newState = {
-        ...stateFilter,
-        temperamentsAlreadyFiltered: newTemperamentsFiltered
-      }
-      setStateFilter(state => newState)
-      filter(newState)
-    } else if (buttonCloseFiltered[0] === 'L') {
-      const inputsLocation = document.getElementsByName('inputFilterLocation')
-      inputsLocation.forEach(input => { input.checked = false })
-      const newState = {
-        ...stateFilter,
-        locationToFilter: ''
-      }
-      setStateFilter(state => newState)
-      filter(newState)
+    const newTemperamentsFiltered = [...stateFilter.filteredTemperaments]
+    newTemperamentsFiltered.splice(buttonCloseFiltered.slice(1), 1)
+    const newState = {
+      ...stateFilter,
+      filteredTemperaments: newTemperamentsFiltered
     }
+    setStateFilter(state => newState)
+    filter(newState)
   }
 
   return (
@@ -130,35 +104,23 @@ function Filter () {
       <h3 className={style.titulo}>Filtrar</h3>
       <div className={style.showFiltrado}>
         {
-                stateFilter.temperamentsAlreadyFiltered.length || stateFilter.locationToFilter
+                stateFilter.filteredTemperaments.length || stateFilter.locationToFilter
                   ? <p>Se esta filtrando por: </p>
                   : null
             }
         {
-                stateFilter.temperamentsAlreadyFiltered.length
+                stateFilter.filteredTemperaments.length
                   ? (
                     <div>
                       <label>Temperamentos: </label>
                       <div className={style.divParaFiltrar}>
                         {
-                            stateFilter.temperamentsAlreadyFiltered.map((temperament, index) =>
+                            stateFilter.filteredTemperaments.map((temperament, index) =>
                               <div key={index} className={style.filtradoTemperamentos}>
                                 <label>{temperament}</label>
                                 <button onClick={goBack} name={`buttonCloseFilteredT${index}`} className={style.botonCancelarFiltrado}>x</button>
                               </div>)
                         }
-                      </div>
-                    </div>)
-                  : null
-            }
-        {
-                stateFilter.locationToFilter && stateFilter.locationToFilter !== 'Both'
-                  ? (
-                    <div>
-                      <label>Ubicacion: </label>
-                      <div className={style.filtradoTemperamentos}>
-                        <label>{stateFilter.locationToFilter}</label>
-                        <button className={style.botonCancelarFiltrado} onClick={goBack} name={`buttonCloseFilteredL${stateFilter.locationToFilter}`}>x</button>
                       </div>
                     </div>)
                   : null
@@ -170,35 +132,15 @@ function Filter () {
         <DropdownMenu temperaments={globalState.temperaments} action={addTemperamentToFilter} />
       </div>
 
-      {
-            stateFilter.temperamentsToFilter.length ? <label>Temeramentos para filtrar: </label> : null
-        }
-      <div className={style.divParaFiltrar}>
-        {
-            stateFilter.temperamentsToFilter.length > 0
-              ? stateFilter.temperamentsToFilter.map((temperament, index) => (
-                <div key={index} className={style.filtradoTemperamentos}>
-                  <label>{temperament}</label>
-                  <button className={style.botonCancelarFiltrado} onClick={restTemperamentToFilter} name={`temperamentToFilter${index}`}>x</button>
-                </div>))
-              : null
-            }
-      </div>
+      <div className={style.divParaFiltrar} />
       <div className={style.place}>
         <label>Por Ubicación: </label>
-        <select id='selectFilterForLocation'>
+        <select onChange={() => filter()} id='selectFilterForLocation'>
           <option value='Both'>Both</option>
           <option value='API'>API</option>
           <option value='DB'>DB</option>
         </select>
       </div>
-
-      <button
-        className={style.botonFiltrar} onClick={() => {
-          filter({ ...stateFilter, temperamentsToFilter: [], temperamentsAlreadyFiltered: [...stateFilter.temperamentsAlreadyFiltered, ...stateFilter.temperamentsToFilter] })
-        }}
-      >Filtrar
-      </button>
       <br />
 
     </div>
