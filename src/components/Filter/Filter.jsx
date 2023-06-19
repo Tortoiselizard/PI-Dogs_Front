@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getAllTemperaments, getDogsForTemperaments, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
+import { getAllTemperaments, getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
 
 import style from './Filter.module.css'
 
@@ -52,11 +52,11 @@ function Filter () {
     })
   }
 
-  async function filterForTemperament (listDogs, state) {
+  function filterForTemperament (listDogs, state) {
     if (state.temperamentsAlreadyFiltered.length > 0) {
       const dogsToFilter = [...listDogs]
       if (dogsToFilter.length) {
-        const action = await getDogsForTemperaments(state.temperamentsAlreadyFiltered, dogsToFilter)
+        const action = getDogsForTemperaments2(state.temperamentsAlreadyFiltered, dogsToFilter)
         return [action, state]
       }
       return [{ payload: listDogs }, state]
@@ -79,13 +79,12 @@ function Filter () {
     return [{ payload: listDogs }, state]
   }
 
-  async function filter (state = stateFilter, dogsGS = globalState.totaDogs) {
-    let dogs = [...dogsGS]
-    dogs = dogs.filter(dog => !!dog.name.toLowerCase().includes(globalState.searchBar.toLowerCase()))
+  function filter (state = stateFilter, dogsGS = globalState.totaDogs) {
+    const dogs = [...dogsGS]
     const arrayFilter = [filterForLocation, filterForTemperament]
     let action
     for (let i = 0, acc = [{ payload: dogs }, state]; i < arrayFilter.length; i++) {
-      const listDogsFiltered = await arrayFilter[i](acc[0].payload, acc[1])
+      const listDogsFiltered = arrayFilter[i](acc[0].payload, acc[1])
       acc = listDogsFiltered
       action = acc
     }
@@ -153,7 +152,7 @@ function Filter () {
                   : null
             }
         {
-                stateFilter.locationToFilter
+                stateFilter.locationToFilter && stateFilter.locationToFilter !== 'Both'
                   ? (
                     <div>
                       <label>Ubicacion: </label>
