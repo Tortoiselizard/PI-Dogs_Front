@@ -14,6 +14,8 @@ function Filter () {
     locationToFilter: ''
   })
 
+  const [refresh, setRefresh] = useState(true)
+
   const dispatch = useDispatch()
 
   // Actualizar la global State con todos los temperaments
@@ -78,7 +80,7 @@ function Filter () {
     dispatch(keepDogs(action[0].payload))
   }
 
-  async function goBack (event) {
+  function goBack (event) {
     const buttonCloseFiltered = event.target.name.slice(19)
     const newTemperamentsFiltered = [...stateFilter.filteredTemperaments]
     newTemperamentsFiltered.splice(buttonCloseFiltered.slice(1), 1)
@@ -86,8 +88,9 @@ function Filter () {
       ...stateFilter,
       filteredTemperaments: newTemperamentsFiltered
     }
-    setStateFilter(state => newState)
+    setStateFilter(newState)
     filter(newState)
+    setRefresh(true)
   }
 
   return (
@@ -129,7 +132,7 @@ function Filter () {
 
       <div className={style.addTemperament}>
         <label>Por temperamento: </label>
-        <DropdownMenu temperaments={globalState.temperaments} action={addTemperamentToFilter} />
+        <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={globalState.temperaments} action={addTemperamentToFilter} />
       </div>
 
       <div className={style.divParaFiltrar} />
