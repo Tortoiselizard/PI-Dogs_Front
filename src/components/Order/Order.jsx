@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { orderAlfabetic, orderAlfabeticTotal, orderWeight, orderWeightTotal, updateOrder } from '../../redux/actions/index'
+import { orderAlfabetic, orderWeight, updateOrder } from '../../redux/actions/index'
 
 import style from './Order.module.css'
 
 const regNumber = /[^0-9-. ]/
 
 function Order () {
-  const { dogs, order, totaDogs } = useSelector(state => state)
+  const { dogs, order } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
@@ -68,17 +68,10 @@ function Order () {
 
     if (orderSelected.value === 'Mayor peso' || orderSelected.value === 'Menor peso') {
       let sortData = mergeSort(data)
-      let sortTotalDgos = mergeSort(totaDogs)
-
       sortData = orderSelected.value === 'Mayor peso' ? sortData.reverse() : sortData
-      sortTotalDgos = orderSelected.value === 'Mayor peso' ? sortTotalDgos.reverse() : sortTotalDgos
-
       dispatch(orderWeight(sortData))
-      dispatch(orderWeightTotal(sortTotalDgos))
     } else if (orderSelected.value === 'A-Z' || orderSelected.value === 'Z-A') {
       let sortData = [...dogs]
-      let sortTotalDgos = [...totaDogs]
-
       sortData.sort((a, b) => {
         for (let i = 0; i < (a.name.length < b.name.length ? b.name.length : a.name.length); i++) {
           if (a.name.charCodeAt(i) - b.name.charCodeAt(i) === 0) {
@@ -88,22 +81,8 @@ function Order () {
         }
         return null
       })
-
-      sortTotalDgos.sort((a, b) => {
-        for (let i = 0; i < (a.name.length < b.name.length ? b.name.length : a.name.length); i++) {
-          if (a.name.charCodeAt(i) - b.name.charCodeAt(i) === 0) {
-            continue
-          }
-          return (a.name ? a.name.charCodeAt(i) : null) - (b.name ? b.name.charCodeAt(i) : null)
-        }
-        return null
-      })
-
       sortData = orderSelected.value === 'Z-A' ? sortData.reverse() : sortData
-      sortTotalDgos = orderSelected.value === 'Z-A' ? sortTotalDgos.reverse() : sortTotalDgos
-
       dispatch(orderAlfabetic(sortData))
-      dispatch(orderAlfabeticTotal(sortTotalDgos))
     }
     dispatch(updateOrder({
       type: orderSelected.value
