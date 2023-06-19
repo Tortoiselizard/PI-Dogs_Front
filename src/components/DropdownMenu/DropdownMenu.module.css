@@ -1,17 +1,17 @@
 .DropdownMenu {
     position: relative;
-    background-color: white;
     display: flex;
-    flex-direction: column;
-    max-height: 500px;
+    flex-direction: row;
+    max-height: 200px;
     color: black;
-    overflow: auto;
-    z-index: 5;
+    /* overflow: auto; */
+    z-index: 3;
     min-width: 30px;
 }
 
 .DropdownMenu label {
     color: black;
+    background-color: white;
     position: relative;
     border-radius: 0px;
 }
@@ -20,8 +20,28 @@
     background-color: gold;
 }
 
+.DropdownMenu div {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .inputAddTemperament{
-    width: 195px;
+    width: 160px;
     height: 30px;
     font-size: 18px;
+}
+
+.DropdownMenu div label {
+    width: 160px;
+    padding: 2px 1px;
+    border: 2px solid transparent;
+    text-align: left;
+}
+
+.botonAddTemperament{
+    background-color: #90be6d;
+    border: 0px;
+    height: 35px;
 }
