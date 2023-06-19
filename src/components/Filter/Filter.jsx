@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
@@ -9,7 +9,7 @@ import style from './Filter.module.css'
 function Filter () {
   const globalState = useSelector(state => state)
 
-  const [stateFilter, setStateFilter] = React.useState((Object.keys(globalState.filters).length && globalState.filters) || {
+  const [stateFilter, setStateFilter] = useState((Object.keys(globalState.filters).length && globalState.filters) || {
     temperamentsToFilter: [],
     temperamentsAlreadyFiltered: [],
     locationToFilter: ''
@@ -17,11 +17,11 @@ function Filter () {
 
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getAllTemperaments())
   }, [dispatch, stateFilter.locationToFilter])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (Object.keys(globalState.filters).length) setStateFilter(globalState.filters)
   }, [globalState.filters])
 
@@ -30,11 +30,11 @@ function Filter () {
     let temperament = input[0].value
     temperament = temperament[0].toUpperCase() + temperament.slice(1).toLowerCase()
     if (globalState.temperaments.includes(temperament)) {
-      setStateFilter(stateFilter => ({
-        ...stateFilter,
-        temperamentsToFilter: [...stateFilter.temperamentsToFilter, temperament]
-      }))
-      input['0'].value = ''
+      // setStateFilter(stateFilter => ({
+      //   ...stateFilter,
+      //   temperamentsToFilter: [...stateFilter.temperamentsToFilter, temperament]
+      // }))
+      filter({ ...stateFilter, temperamentsAlreadyFiltered: [...stateFilter.temperamentsAlreadyFiltered, temperament] })
     } else {
       alert(`El temperamento ${temperament} no existe`)
     }
