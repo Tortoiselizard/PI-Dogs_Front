@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 
 import style from './DropdownMenu.module.css'
 
-function DropdownMenu ({ temperaments, action }) {
+function DropdownMenu ({ refresh, temperaments, action }) {
   const [input, setInput] = useState('')
 
   const [possibleTemperaments, setPossibleTemperaments] = useState([])
 
   useEffect(() => {
-    setPossibleTemperaments(temperaments)
-  }, [temperaments])
+    if (refresh.refresh && temperaments.length) {
+      setPossibleTemperaments(temperaments)
+      refresh.setRefresh(false)
+    }
+  }, [temperaments, refresh])
 
   function handleInput (value) {
     setInput(value)

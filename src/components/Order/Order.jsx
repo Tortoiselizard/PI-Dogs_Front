@@ -1,45 +1,23 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { orderAlfabetic, orderAlfabeticTotal, orderWeight, orderWeightTotal, updateOrder } from '../../redux/actions/index'
+
+import { orderAlfabetic, orderWeight, updateOrder } from '../../redux/actions/index'
+
 import style from './Order.module.css'
 
 const regNumber = /[^0-9-. ]/
 
 function Order () {
-  const dogs = useSelector(state => state.dogs)
-  const orderGS = useSelector(state => state.order)
-  const totalDogs = useSelector(state => state.totaDogs)
-  const [orderState, setOrderState] = React.useState((Object.keys(orderGS).length && orderGS) || {
-    type: '',
-    sense: ''
-  })
+  const { dogs, order } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
-    if (Object.keys(orderGS).length) {
-      setOrderState(orderGS)
-      function changeInputChecked () {
-        const inputsOrder = document.getElementsByName('inputOrder')
-        const inputSence = document.getElementsByName('inputOrderSence')
-        for (const input of inputsOrder) {
-          if (input.value === orderGS.type) {
-            input.checked = true
-          } else {
-            input.checked = false
-          }
-        }
-        for (const input of inputSence) {
-          if (input.value === orderGS.sense) {
-            input.checked = true
-          } else {
-            input.checked = false
-          }
-        }
-      }
-      changeInputChecked()
-    }
-  }, [orderGS])
+  const [typeOrder, setTypeOrder] = useState(() => order.type ? order : { type: '' })
+
+  useEffect(() => {
+    orderDispatch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typeOrder])
 
   const mergeSort = (array) => {
     const pivote = Math.round(array.length / 2)
@@ -85,38 +63,15 @@ function Order () {
   }
 
   function orderDispatch () {
-    const inputsOrder = document.getElementsByName('inputOrder')
-    const inputSence = document.getElementsByName('inputOrderSence')
+    const orderSelected = document.getElementById('selectOrder')
     const data = [...dogs]
-    let inputCheckedOrder
-    for (const input of inputsOrder) {
-      if (input.checked) {
-        inputCheckedOrder = input
-        break
-      }
-    }
-    let inputCheckedSence
-    for (const input of inputSence) {
-      if (input.checked) {
-        inputCheckedSence = input
-        break
-      }
-    }
-    if (inputCheckedOrder && inputCheckedOrder.value === 'weight') {
-      let sortData = mergeSort(data)
-      let sortTotalDgos = mergeSort(totalDogs)
 
-      if (inputCheckedSence && inputCheckedSence.value === 'des') {
-        sortData = sortData.reverse()
-        sortTotalDgos = sortTotalDgos.reverse()
-      }
-      if (!dogs.every((n, index) => n === sortData[index])) {
-        dispatch(orderWeight(sortData))
-        dispatch(orderWeightTotal(sortTotalDgos))
-      }
-    } else if (inputCheckedOrder && inputCheckedOrder.value === 'abc') {
+    if (orderSelected.value === 'Mayor peso' || orderSelected.value === 'Menor peso') {
+      let sortData = mergeSort(data)
+      sortData = orderSelected.value === 'Mayor peso' ? sortData.reverse() : sortData
+      dispatch(orderWeight(sortData))
+    } else if (orderSelected.value === 'A-Z' || orderSelected.value === 'Z-A') {
       let sortData = [...dogs]
-      let sortTotalDgos = [...totalDogs]
       sortData.sort((a, b) => {
         for (let i = 0; i < (a.name.length < b.name.length ? b.name.length : a.name.length); i++) {
           if (a.name.charCodeAt(i) - b.name.charCodeAt(i) === 0) {
@@ -126,58 +81,28 @@ function Order () {
         }
         return null
       })
-      sortTotalDgos.sort((a, b) => {
-        for (let i = 0; i < (a.name.length < b.name.length ? b.name.length : a.name.length); i++) {
-          if (a.name.charCodeAt(i) - b.name.charCodeAt(i) === 0) {
-            continue
-          }
-          return (a.name ? a.name.charCodeAt(i) : null) - (b.name ? b.name.charCodeAt(i) : null)
-        }
-        return null
-      })
-
-      if (inputCheckedSence && inputCheckedSence.value === 'des') {
-        sortData = sortData.reverse()
-        sortTotalDgos = sortTotalDgos.reverse()
-      }
-      if (!dogs.every((n, index) => n === sortData[index])) {
-        dispatch(orderAlfabetic(sortData))
-        dispatch(orderAlfabeticTotal(sortTotalDgos))
-      }
+      sortData = orderSelected.value === 'Z-A' ? sortData.reverse() : sortData
+      dispatch(orderAlfabetic(sortData))
     }
     dispatch(updateOrder({
-      type: inputCheckedOrder ? inputCheckedOrder.value : orderState.type,
-      sense: inputCheckedSence ? inputCheckedSence.value : orderState.sense
+      type: orderSelected.value
     }))
+  }
 
-    setOrderState((orderState) => ({
-      type: inputCheckedOrder ? inputCheckedOrder.value : orderState.type,
-      sense: inputCheckedSence ? inputCheckedSence.value : orderState.sense
-    }))
+  function handleOrder (event) {
+    setTypeOrder(event.target.value)
   }
 
   return (
     <div className={style.Order}>
       <p>Ordenar por: </p>
 
-      <div>
-        <label htmlFor='inputOrderAbc'>Alfabeticamente</label>
-        <input type='radio' name='inputOrder' value='abc' id='inputOrderAbc' />
-        <br />
-        <label htmlFor='inputOrderWeight'>Peso</label>
-        <input type='radio' name='inputOrder' value='weight' id='inputOrderWeight' />
-      </div>
-
-      <div className={style.sentido}>
-        <p>Sentido: </p>
-        <label htmlFor='inputOrderAsc'>Ascendente</label>
-        <input type='radio' id='inputOrderAsc' name='inputOrderSence' value='asc' />
-        <br />
-        <label htmlFor='inputOrderDes'>Descendente</label>
-        <input type='radio' id='inputOrderDes' name='inputOrderSence' value='des' />
-      </div>
-
-      <button onClick={orderDispatch} className={style.botonOrdenar}>Ordenar</button>
+      <select onChange={handleOrder} id='selectOrder'>
+        <option value='A-Z'>A - Z</option>
+        <option value='Z-A'>Z - A</option>
+        <option value='Mayor peso'>Mayor peso</option>
+        <option value='Menor peso'>Menor peso</option>
+      </select>
     </div>
   )
 }

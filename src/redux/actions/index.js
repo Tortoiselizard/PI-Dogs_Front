@@ -109,11 +109,13 @@ export const getDogsForLocation = (location, dogs) => {
 }
 
 export const getDogsForLocation2 = (location, dogs) => {
-  let dogsFiltered
+  let dogsFiltered = []
   if (location === 'API') {
     dogsFiltered = dogs.filter(dog => !dog.id.toString().includes('db') ? true : null)
-  } else {
+  } else if (location === 'DB') {
     dogsFiltered = dogs.filter(dog => dog.id.toString().includes('db') ? true : null)
+  } else {
+    dogsFiltered = [...dogs]
   }
   return { type: GET_ALL_DOGS, payload: dogsFiltered }
 }
@@ -175,14 +177,14 @@ export const updateTemperaments = () => {
   }
 }
 
-export const getDogsForTemperaments = (filter, dogs) => {
+export const getDogsForTemperaments = (filterTemperaments, dogs) => {
   if (!dogs) {
     return function (dispatch) {
       return fetch(`${PATH}/dogs`)
         .then((response) => response.json())
         .then((data) => data.filter(dog => {
           const temperamentsDog = dog.temperament ? dog.temperament.split(', ') : 'null'
-          for (const temperamentFilter of filter) {
+          for (const temperamentFilter of filterTemperaments) {
             if (temperamentsDog.includes(temperamentFilter)) continue
             else return false
           }
@@ -193,7 +195,7 @@ export const getDogsForTemperaments = (filter, dogs) => {
   } else {
     const dogsFiltered = dogs.filter(dog => {
       const temperamentsDog = dog.temperament ? dog.temperament.split(', ') : 'null'
-      for (const temperamentFilter of filter) {
+      for (const temperamentFilter of filterTemperaments) {
         if (temperamentsDog.includes(temperamentFilter)) continue
         else return false
       }
@@ -201,6 +203,18 @@ export const getDogsForTemperaments = (filter, dogs) => {
     })
     return { type: GET_DOGS_FOR_TEMPERAMENTS, payload: dogsFiltered }
   }
+}
+
+export const getDogsForTemperaments2 = (filterTemperaments, dogs) => {
+  const dogsFiltered = dogs.filter(dog => {
+    const temperamentsDog = dog.temperament && dog.temperament.length ? dog.temperament.split(', ') : 'null'
+    for (const temperamentFilter of filterTemperaments) {
+      if (temperamentsDog.includes(temperamentFilter)) continue
+      else return false
+    }
+    return true
+  })
+  return { type: GET_DOGS_FOR_TEMPERAMENTS, payload: dogsFiltered }
 }
 
 export const addTemperamentsFilter = (temperament) => {
