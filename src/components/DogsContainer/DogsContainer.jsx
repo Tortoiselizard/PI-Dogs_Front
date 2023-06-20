@@ -25,14 +25,14 @@ function DogsContainer ({ dogs }) {
     <div className={style.DogsContainer}>
       {
                 dogs && dogs.list.length
-                  ? dogs.list.filter(dog => dog.image).map((dog, index) => <DogCard
+                  ? dogs.list.filter(dog => dog.image).map(dog => <DogCard
                       name={dog.name}
                       image={dog.image}
                       temperament={dog.temperament}
                       weight={dog.weight}
                       id={dog.id}
                       key={dog.id}
-                                                                           />)
+                                                                  />)
                   : showNotFound ? <DogNotFound /> : null
             }
     </div>
