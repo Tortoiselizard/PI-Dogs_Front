@@ -9,7 +9,7 @@ import style from './CreateDog.module.css'
 const regexName = /[^A-Za-zÁ-Úá-úñ ]/
 const regexNumber = /[^0-9.]/
 const regexURL = /^https:\/\/[^\0]+\.jpg|png$/
-// const PATH = "http://localhost:3001"
+// const PATH = 'http://localhost:3001'
 const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 function validate (inputs) {
@@ -18,8 +18,7 @@ function validate (inputs) {
     height: { min: '', max: '' },
     weight: { min: '', max: '' },
     lifeSpan: { min: '', max: '' },
-    image: '',
-    temperaments: ''
+    image: ''
   }
   const { name, height, weight, lifeSpan, image } = inputs
 
@@ -56,8 +55,7 @@ const CreateDog = () => {
     height: { min: '', max: '' },
     weight: { min: '', max: '' },
     lifeSpan: { min: '', max: '' },
-    image: '',
-    temperaments: ''
+    image: ''
   })
 
   const [refresh, setRefresh] = useState(true)
@@ -83,7 +81,7 @@ const CreateDog = () => {
         return { ...inputs, [event.target.name]: event.target.value }
       }
     })
-    setErrors(errors => {
+    setErrors(() => {
       if (event.target.name.slice(-3) === 'min' || event.target.name.slice(-3) === 'max') {
         return validate({
           ...inputs,
@@ -98,31 +96,21 @@ const CreateDog = () => {
     })
   }
 
-  function addTemperament (value) {
+  function addTemperament () {
     const input = document.getElementsByName('inputFilter')[0]
     const temperament = input.value
-    if (temperamentsGS.includes(temperament)) {
-      if (!inputs.temperaments.includes(temperament)) {
+    const temperamentObject = temperamentsGS.filter(t => t.name === temperament)[0]
+    if (temperamentObject) {
+      if (!inputs.temperaments.filter(t => t.name === temperament).length) {
         setInputs(inputs => ({
           ...inputs,
-          temperaments: [...inputs.temperaments, temperament]
+          temperaments: [...inputs.temperaments, temperamentObject]
         }))
-        setErrors(erros => ({
-          ...errors,
-          temperaments: ''
-        }))
-        input.value = ''
       } else {
-        setErrors(errors => ({
-          ...errors,
-          temperaments: 'Este temperamento ya fué anexado'
-        }))
+        alert('Este temperamento no existe')
       }
     } else {
-      setErrors(errors => ({
-        ...errors,
-        temperaments: 'Este temperamento no existe'
-      }))
+      alert('Este temperamento no existe')
     }
   }
 
@@ -166,7 +154,7 @@ const CreateDog = () => {
         height: inputs.height.min + (inputs.height.max ? ' - ' + inputs.height.max : ''),
         weight: inputs.weight.min + (inputs.weight.max ? ' - ' + inputs.weight.max : ''),
         lifeSpan: inputs.lifeSpan.min + (inputs.lifeSpan.max ? ' - ' + inputs.lifeSpan.max : ''),
-        temperaments: inputs.temperaments.join(', '),
+        temperaments: inputs.temperaments.map(t => t.id),
         image: inputs.image
       }
       const data = {
@@ -270,7 +258,7 @@ const CreateDog = () => {
         </div>
         <div>
           {
-                    inputs.temperaments.map((temperament, index) => (
+                    inputs.temperaments.map(temperament => temperament.name).map((temperament, index) => (
                       <span key={index} className={style.divTemperamentoAnadido}>
 
                         <label name={`temperamentAdded${index}`}>{temperament}  </label>
