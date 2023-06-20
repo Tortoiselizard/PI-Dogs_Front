@@ -16,7 +16,7 @@ export const ORDER_WEIGHT_TOTAL = 'ORDER_WEIGHT_TOTAL'
 export const ORDER_ABC_TOTAL = 'ORDER_ABC_TOTAL'
 export const UPDATE_SHOWDOGS = 'UPDATE_SHOWDOGS'
 
-// const PATH = "http://localhost:3001"
+// const PATH = 'http://localhost:3001'
 const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 export const getAllDogs = (name) => {
@@ -154,12 +154,11 @@ export const createDog = (dog) => {
 export const getAllTemperaments = () => {
   return function (dispatch) {
     return fetch(`${PATH}/temperaments`)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         if (typeof (data) === 'string') { return alert(data) }
         if (!data.length) { return alert('No se ha encontrado ningun temperamento en la base de datos') }
-        const arrayData = data.map(temperament => temperament.name)
-        dispatch({ type: GET_TEMPERAMENTS, payload: arrayData })
+        dispatch({ type: GET_TEMPERAMENTS, payload: data })
       })
       .catch(error => console.log(error.message))
   }

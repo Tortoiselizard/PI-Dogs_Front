@@ -9,7 +9,7 @@ function DropdownMenu ({ refresh, temperaments, action }) {
 
   useEffect(() => {
     if (refresh.refresh && temperaments.length) {
-      setPossibleTemperaments(temperaments)
+      setPossibleTemperaments(() => temperaments.map(temperament => temperament.name))
       refresh.setRefresh(false)
     }
   }, [temperaments, refresh])

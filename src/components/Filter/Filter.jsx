@@ -32,7 +32,7 @@ function Filter () {
     const input = document.getElementsByName('inputFilter')
     let temperament = input[0].value
     temperament = temperament[0].toUpperCase() + temperament.slice(1).toLowerCase()
-    if (globalState.temperaments.includes(temperament)) {
+    if (globalState.temperaments.map(temperamentObject => temperamentObject.name).includes(temperament)) {
       filter({ ...stateFilter, filteredTemperaments: [...stateFilter.filteredTemperaments, temperament] })
     } else {
       alert(`El temperamento ${temperament} no existe`)

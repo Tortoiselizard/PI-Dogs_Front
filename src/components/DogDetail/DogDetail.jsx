@@ -30,7 +30,7 @@ function DogDetail () {
               <label className={style.temperamentos}><span>Temperaments: </span><p>{dogDetail[0].temperament}</p></label>
               <label className={style.alto}><span>Height (In): </span><p>{dogDetail[0].height}</p></label>
               <label className={style.peso}><span>Weight (Lb): </span><p>{dogDetail[0].weight}</p></label>
-              <label className={style.years}><span>years: </span><p>{dogDetail[0].life_span}</p></label>
+              <label className={style.years}><span>years: </span><p>{dogDetail[0].lifeSpan}</p></label>
             </div>
           </div>)
         : null}
