@@ -17,7 +17,7 @@ function App () {
       <Routes>
         <Route path='/' element={<MainPage />} />
         <Route path='/home' element={<Home loading={loading} />} />
-        <Route path='/dog/:raza_perro' element={<DogDetail />} />
+        <Route path='/dog/:razaPerro' element={<DogDetail />} />
         <Route path='/dog/create' element={<CreateDog />} />
       </Routes>
     </div>
