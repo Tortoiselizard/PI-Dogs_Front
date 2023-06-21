@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-// import FormContainer from '../FormContainer/FormContainer'
 import * as actions from './../../redux/actions/index'
 
 import style from './CreateDog.module.css'
@@ -10,8 +9,8 @@ import style from './CreateDog.module.css'
 const regexName = /[^A-Za-zÁ-Úá-úñ ]/
 const regexNumber = /[^0-9.]/
 const regexURL = /^https:\/\/[^\0]+\.jpg|png$/
-const PATH = 'http://localhost:3001'
-// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+// const PATH = 'http://localhost:3001'
+const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 function validate (inputs) {
   const errors = {
@@ -232,6 +231,8 @@ const CreateDog = () => {
       .then(data => {
         if (data.message) {
           setWhatShow('form')
+        } else if (data[0].image) {
+          alert(`El perro ${newName} ya existe`)
         } else {
           setWhatShow('image')
           setDogFinded(data[0])
