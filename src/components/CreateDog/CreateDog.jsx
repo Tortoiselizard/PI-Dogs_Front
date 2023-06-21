@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
+// import FormContainer from '../FormContainer/FormContainer'
 import * as actions from './../../redux/actions/index'
 
 import style from './CreateDog.module.css'
@@ -9,8 +10,8 @@ import style from './CreateDog.module.css'
 const regexName = /[^A-Za-zÁ-Úá-úñ ]/
 const regexNumber = /[^0-9.]/
 const regexURL = /^https:\/\/[^\0]+\.jpg|png$/
-// const PATH = 'http://localhost:3001'
-const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+const PATH = 'http://localhost:3001'
+// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 function validate (inputs) {
   const errors = {
@@ -59,6 +60,8 @@ const CreateDog = () => {
   })
 
   const [refresh, setRefresh] = useState(true)
+
+  const [whatShow, setWhatShow] = useState(false)
 
   const temperamentsGS = useSelector((state) => state.temperaments)
   const dispatch = useDispatch()
@@ -191,6 +194,26 @@ const CreateDog = () => {
     }
   }
 
+  function searchDog () {
+    const newName = inputs.name.split(' ').map(name => name[0].toUpperCase() + name.slice(1).toLowerCase()).join(' ')
+    fetch(`${PATH}/dogs/${newName}`)
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorMessage = await response.text()
+          throw new Error(errorMessage)
+        }
+        return response.json()
+      })
+      .then(data => {
+        if (data.message) {
+          setWhatShow('form')
+        } else {
+          setWhatShow('image')
+        }
+      })
+      .catch(error => alert(error))
+  }
+
   return (
     <div className={style.CreateDog}>
       <h1>Create a new dog</h1>
@@ -202,73 +225,94 @@ const CreateDog = () => {
         <p className={style.danger}>{errors.name}</p>
       </div>
 
-      <div className={style.secciones}>
-        <label>Altura</label>
+      <button onClick={searchDog}>Search</button>
 
-        <span>min (cm) : </span>
-        <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='altura minima...' />
+      {
+        whatShow === 'form' &&
+           (
+             <>
+               <div className={style.secciones}>
+                 <label>Altura</label>
 
-        <span>max (cm) : </span>
-        <input className={errors.height.max && style.warning} onChange={handleChange} value={inputs.height.max} name='height-max' type='text' placeholder='altura máxima...' />
+                 <span>min (cm) : </span>
+                 <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='altura minima...' />
 
-        <p>{errors.height.min}</p>
-        <p>{errors.height.max}</p>
+                 <span>max (cm) : </span>
+                 <input className={errors.height.max && style.warning} onChange={handleChange} value={inputs.height.max} name='height-max' type='text' placeholder='altura máxima...' />
 
-      </div>
+                 <p>{errors.height.min}</p>
+                 <p>{errors.height.max}</p>
 
-      <div className={style.secciones}>
-        <label>Peso</label>
+               </div>
 
-        <span>min (kg) : </span>
-        <input className={errors.weight.min && style.warning} onChange={handleChange} value={inputs.weight.min} name='weight-min' type='text' placeholder='peso minimo...' />
+               <div className={style.secciones}>
+                 <label>Peso</label>
 
-        <span>max (kg) : </span>
-        <input className={errors.weight.max && style.warning} onChange={handleChange} value={inputs.weight.max} name='weight-max' type='text' placeholder='peso minimo...' />
+                 <span>min (kg) : </span>
+                 <input className={errors.weight.min && style.warning} onChange={handleChange} value={inputs.weight.min} name='weight-min' type='text' placeholder='peso minimo...' />
 
-        <p>{errors.weight.min}</p>
-        <p>{errors.weight.max}</p>
+                 <span>max (kg) : </span>
+                 <input className={errors.weight.max && style.warning} onChange={handleChange} value={inputs.weight.max} name='weight-max' type='text' placeholder='peso minimo...' />
 
-      </div>
+                 <p>{errors.weight.min}</p>
+                 <p>{errors.weight.max}</p>
 
-      <div className={style.secciones}>
-        <label>Años de vida</label>
+               </div>
 
-        <span>min :</span>
-        <input className={errors.lifeSpan.min && style.warning} onChange={handleChange} value={inputs.lifeSpan.min} name='lifeSpan-min' type='text' placeholder='edad mínima...' />
+               <div className={style.secciones}>
+                 <label>Años de vida</label>
 
-        <span>max :</span>
-        <input className={errors.lifeSpan.max && style.warning} onChange={handleChange} value={inputs.lifeSpan.max} name='lifeSpan-max' type='text' placeholder='edad máxima...' />
+                 <span>min :</span>
+                 <input className={errors.lifeSpan.min && style.warning} onChange={handleChange} value={inputs.lifeSpan.min} name='lifeSpan-min' type='text' placeholder='edad mínima...' />
 
-        <p>{errors.lifeSpan.min}</p>
-        <p>{errors.lifeSpan.max}</p>
+                 <span>max :</span>
+                 <input className={errors.lifeSpan.max && style.warning} onChange={handleChange} value={inputs.lifeSpan.max} name='lifeSpan-max' type='text' placeholder='edad máxima...' />
 
-      </div>
+                 <p>{errors.lifeSpan.min}</p>
+                 <p>{errors.lifeSpan.max}</p>
 
-      <div className={style.secconImagen}>
-        <label>Imagen</label>
-        <input className={errors.image && style.warning} onChange={handleChange} value={inputs.image} name='image' type='text' placeholder='URL...' />
-        <p className={style.danger}>{errors.image}</p>
-      </div>
+               </div>
+             </>
+           )
+      }
+      {
+        (whatShow === 'image' || whatShow === 'form') && (
+          <>
+            <div className={style.secconImagen}>
+              <label>Imagen</label>
+              <input className={errors.image && style.warning} onChange={handleChange} value={inputs.image} name='image' type='text' placeholder='URL...' />
+              <p className={style.danger}>{errors.image}</p>
+            </div>
+          </>
+        )
+      }
+      {
+        whatShow === 'form' && (
+          <>
+            <div className={style.seccionTemperamentos}>
+              <label>Temperamentos</label>
 
-      <div className={style.seccionTemperamentos}>
-        <label>Temperamentos</label>
+              <div className={style.seccionTemperamentosInputContainer}>
+                <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperamentsGS} action={addTemperament} />
+              </div>
+              <div>
+                {
+                  inputs.temperaments.map(temperament => temperament.name).map((temperament, index) => (
+                    <span key={index} className={style.divTemperamentoAnadido}>
 
-        <div className={style.seccionTemperamentosInputContainer}>
-          <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperamentsGS} action={addTemperament} />
-        </div>
-        <div>
-          {
-                    inputs.temperaments.map(temperament => temperament.name).map((temperament, index) => (
-                      <span key={index} className={style.divTemperamentoAnadido}>
+                      <label name={`temperamentAdded${index}`}>{temperament}  </label>
+                      <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
+                    </span>))
+              }
+              </div>
+            </div>
+          </>
+        )
+      }
+      {
+        (whatShow === 'image' || whatShow === 'form') && <button className={style.botonCreateDog} type='submit' onClick={handleSubmit} />
+      }
 
-                        <label name={`temperamentAdded${index}`}>{temperament}  </label>
-                        <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
-                      </span>))
-                }
-        </div>
-      </div>
-
-      <button className={style.botonCreateDog} type='submit' onClick={handleSubmit} />
     </div>
   )
 }
