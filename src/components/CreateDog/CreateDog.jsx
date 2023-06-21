@@ -63,12 +63,34 @@ const CreateDog = () => {
 
   const [whatShow, setWhatShow] = useState(false)
 
+  const [dogFinded, setDogFinded] = useState({})
+
   const temperamentsGS = useSelector((state) => state.temperaments)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(actions.getAllTemperaments())
   }, [dispatch])
+
+  useEffect(() => {
+    if (whatShow === 'image') {
+      const arrayTemperamentsFrom = dogFinded.temperament.split(', ')
+      const arrayTemperamentsTo = temperamentsGS.filter(t => { return arrayTemperamentsFrom.includes(t.name) })
+      const height = { min: dogFinded.height.split('-')[0].trim(), max: dogFinded.height.split('-')[1].trim() }
+      const weight = { min: dogFinded.weight.split('-')[0].trim(), max: dogFinded.weight.split('-')[1].trim() }
+      const lifeSpan = { min: dogFinded.lifeSpan.split('-')[0].trim(), max: dogFinded.lifeSpan.split('-')[1].split('years')[0].trim() }
+      const newDog = {
+        name: dogFinded.name,
+        height,
+        weight,
+        lifeSpan,
+        image: '',
+        temperaments: arrayTemperamentsTo
+      }
+      setInputs(newDog)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dogFinded])
 
   function handleChange (event) {
     setInputs((inputs) => {
@@ -133,7 +155,7 @@ const CreateDog = () => {
   async function handleSubmit (event) {
     event.preventDefault()
     const errorsObj = validate(inputs)
-    setErrors(errors => errorsObj)
+    setErrors(errorsObj)
     let allGood = true
     for (const error in errorsObj) {
       if (typeof (errorsObj[error]) === 'string') {
@@ -172,22 +194,25 @@ const CreateDog = () => {
         .catch(error => error.message)
       if (typeof (response) === 'string') { return alert(response) } else {
         alert(`La raza de perro ${inputs.name} fue creada exitosamente`)
-        setInputs((inputs) => ({
+        setInputs({
           name: '',
           height: { min: '', max: '' },
           weight: { min: '', max: '' },
           lifeSpan: { min: '', max: '' },
           image: '',
           temperaments: []
-        }))
-        setErrors((errors) => ({
+        })
+        setErrors({
           name: '',
           height: { min: '', max: '' },
           weight: { min: '', max: '' },
           lifeSpan: { min: '', max: '' },
           image: '',
           temperaments: ''
-        }))
+        })
+        setWhatShow(false)
+        setDogFinded({})
+        setRefresh(true)
       }
     } else {
       alert('Debes corregir los errores antes de crear el nuevo perro')
@@ -209,9 +234,18 @@ const CreateDog = () => {
           setWhatShow('form')
         } else {
           setWhatShow('image')
+          setDogFinded(data[0])
         }
       })
       .catch(error => alert(error))
+    const inputName = document.getElementsByName('name')[0]
+    inputName.disabled = true
+  }
+
+  function changeName () {
+    const inputName = document.getElementsByName('name')[0]
+    inputName.disabled = false
+    setWhatShow(false)
   }
 
   return (
@@ -220,12 +254,14 @@ const CreateDog = () => {
 
       <div className={style.seccioName}>
         <label>Nombre de la Raza : </label>
-        <input className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
+        <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
 
         <p className={style.danger}>{errors.name}</p>
       </div>
 
-      <button onClick={searchDog}>Search</button>
+      {
+        whatShow === false ? <button onClick={searchDog}>Search</button> : <button onClick={changeName}>Change Name</button>
+      }
 
       {
         whatShow === 'form' &&
