@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+
+import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import { getDogDetail, cleanDetail } from '../../redux/actions/index'
 import style from './DogDetail.module.css'
 
@@ -8,8 +10,7 @@ const PATH = 'http://localhost:3001'
 // const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 function DogDetail () {
-  const dogDetail = useSelector(state => state.dogDetail)
-  console.log('dogDetail', dogDetail)
+  const { dogDetail, temperaments } = useSelector(state => state)
 
   const { razaPerro } = useParams()
   const dispatch = useDispatch()
@@ -38,19 +39,17 @@ function DogDetail () {
         })
         .then(data => {
           if (data.message) {
-            console.log('Fue creado desde cero')
             setInputs({
               name: dogDetail[0].name,
               height: { min: dogDetail[0].height.split('-')[0].trim(), max: dogDetail[0].height.split('-')[1].trim() },
               weight: { min: dogDetail[0].weight.split('-')[0].trim(), max: dogDetail[0].weight.split('-')[1].trim() },
-              lifeSpan: dogDetail[0].lifeSpan && { min: dogDetail[0].lifeSpan.split('-')[0].trim(), max: dogDetail[0].lifeSpan.split('-')[1].trim() },
+              lifeSpan: dogDetail[0].lifeSpan
+                ? { min: dogDetail[0].lifeSpan.split('-')[0].trim(), max: dogDetail[0].lifeSpan.split('-')[1].trim() }
+                : { min: '', max: '' },
               image: dogDetail[0].image,
               temperament: dogDetail[0].temperament.split(', ')
             })
-          } else if (data[0].image) {
-            console.log('Viene de la API y tienen imagen')
-          } else {
-            console.log('Vienen de la API pero no tiene imagen')
+          } else if (!data[0].image) {
             setInputs({
               image: dogDetail[0].image
             })
@@ -64,6 +63,74 @@ function DogDetail () {
     setEditMode(editMode => !editMode)
   }
 
+  function handleInputs (event) {
+    const { value, name } = event.target
+    const nameArray = name.split(' ')
+    setInputs(inputs => {
+      switch (nameArray[0]) {
+        case 'image': {
+          return {
+            ...inputs,
+            image: value
+          }
+        }
+        case 'name': {
+          return {
+            ...inputs,
+            name: value
+          }
+        }
+        case 'temperament': {
+          return {
+            ...inputs
+          }
+        }
+        case 'height': {
+          return nameArray[1] === '0'
+            ? {
+                ...inputs,
+                height: { ...inputs.height, min: value }
+              }
+            : {
+                ...inputs,
+                height: { ...inputs.height, max: value }
+              }
+        }
+        case 'weight': {
+          return nameArray[1] === '0'
+            ? {
+                ...inputs,
+                weight: { ...inputs.weight, min: value }
+              }
+            : {
+                ...inputs,
+                weight: { ...inputs.weight, max: value }
+              }
+        }
+        case 'years': {
+          return nameArray[1] === '0'
+            ? {
+                ...inputs,
+                lifeSpan: { ...inputs.lifeSpan, min: value }
+              }
+            : {
+                ...inputs,
+                lifeSpan: { ...inputs.lifeSpan, max: value }
+              }
+        }
+        default: {
+          return {
+            ...inputs
+          }
+        }
+      }
+    })
+  }
+
+  function sendUpdate () {
+    console.log(inputs)
+  }
+
   return (
     <div>
       {Object.keys(dogDetail).length
@@ -73,32 +140,21 @@ function DogDetail () {
             <label>
               <img className={style.imagen} src={dogDetail[0].image} alt={dogDetail.name} />
               {
-                editMode && inputs.image && <input value={inputs.image} />
+                editMode && inputs.image && <input onChange={handleInputs} name='image' value={inputs.image} />
               }
             </label>
             <div>
               {/* Name */}
               {
-                editMode && inputs.name ? <input value={inputs.name} /> : <h1 className={style.name}>{dogDetail[0].name}</h1>
+                editMode && inputs.name ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{dogDetail[0].name}</h1>
               }
-              {/* Temperaments */}
-              <label className={style.temperamentos}>
-                <span>Temperaments:</span>
-                {
-                editMode && inputs.temperament
-                  ? inputs.temperament.map(t => (
-                    <input value={t} key={`temperament: ${t}`} />
-                  ))
-                  : <p>{dogDetail[0].temperament}</p>
-              }
-              </label>
               {/* Height */}
               <label className={style.alto}>
                 <span>Height (In):</span>
                 {
                   editMode && inputs.height
-                    ? Object.values(inputs.height).map(value => (
-                      <input value={value} key={`height: ${value}`} />
+                    ? Object.values(inputs.height).map((value, index) => (
+                      <input onChange={handleInputs} name={`height ${index}`} value={value} key={`height: ${index}`} />
                     ))
                     : <p>{dogDetail[0].height}</p>
                 }
@@ -108,8 +164,8 @@ function DogDetail () {
                 <span>Weight (Lb): </span>
                 {
                   editMode && inputs.weight
-                    ? Object.values(inputs.weight).map(value => (
-                      <input value={value} key={`weight: ${value}`} />
+                    ? Object.values(inputs.weight).map((value, index) => (
+                      <input onChange={handleInputs} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
                     ))
                     : <p>{dogDetail[0].weight}</p>
                 }
@@ -119,15 +175,32 @@ function DogDetail () {
                 <span>years: </span>
                 {
                   editMode && inputs.lifeSpan
-                    ? Object.values(inputs.lifeSpan).map(value => (
-                      <input value={value} key={`lifeSpan: ${value}`} />
+                    ? Object.values(inputs.lifeSpan).map((value, index) => (
+                      <input onChange={handleInputs} name={`years ${index}`} value={value} key={`lifeSpan: ${index}`} />
                     ))
                     : <p>{dogDetail[0].lifeSpan}</p>
                 }
               </label>
+              {/* Temperaments */}
+              <label className={style.temperamentos}>
+                <span>Temperaments:</span>
+                {
+                editMode && inputs.temperament
+                  ? inputs.temperament.map(t => (
+                    <input onChange={handleInputs} name='temperament' value={t} key={`temperament: ${t}`} />
+                  ))
+                  : <p>{dogDetail[0].temperament}</p>
+              }
+                {
+                editMode && <DropdownMenu temperaments={temperaments} />
+              }
+              </label>
               {/* Button Edit */}
               {
                 inputs && <button onClick={changeEditMode}>{editMode ? 'Show' : 'Edit'}</button>
+              }
+              {
+                editMode && <button onClick={sendUpdate}>Update</button>
               }
             </div>
           </div>)
