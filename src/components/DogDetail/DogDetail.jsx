@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getDogDetail, cleanDetail } from '../../redux/actions/index'
+import { getDogDetail, cleanDetail, getAllTemperaments } from '../../redux/actions/index'
 import style from './DogDetail.module.css'
 
 const PATH = 'http://localhost:3001'
@@ -19,8 +19,11 @@ function DogDetail () {
 
   const [inputs, setInputs] = useState(false)
 
+  const [refresh, setRefresh] = useState(true)
+
   useEffect(() => {
     dispatch(getDogDetail(razaPerro))
+    dispatch(getAllTemperaments())
     return function () {
       dispatch(cleanDetail())
     }
@@ -39,6 +42,7 @@ function DogDetail () {
         })
         .then(data => {
           if (data.message) {
+            const dataTemperaments = dogDetail[0].temperament.split(', ')
             setInputs({
               name: dogDetail[0].name,
               height: { min: dogDetail[0].height.split('-')[0].trim(), max: dogDetail[0].height.split('-')[1].trim() },
@@ -47,7 +51,7 @@ function DogDetail () {
                 ? { min: dogDetail[0].lifeSpan.split('-')[0].trim(), max: dogDetail[0].lifeSpan.split('-')[1].trim() }
                 : { min: '', max: '' },
               image: dogDetail[0].image,
-              temperament: dogDetail[0].temperament.split(', ')
+              temperament: temperaments.filter(t => dataTemperaments.includes(t.name))
             })
           } else if (!data[0].image) {
             setInputs({
@@ -57,7 +61,7 @@ function DogDetail () {
         })
         .catch(error => alert(error.message))
     }
-  }, [razaPerro, dogDetail])
+  }, [razaPerro, dogDetail, temperaments])
 
   function changeEditMode () {
     setEditMode(editMode => !editMode)
@@ -127,6 +131,37 @@ function DogDetail () {
     })
   }
 
+  function addTemperament () {
+    const input = document.getElementsByName('inputFilter')[0]
+    const temperamentName = input.value
+    const temperamentObject = temperaments.filter(t => t.name === temperamentName)[0]
+    if (temperamentObject) {
+      if (!inputs.temperament.filter(t => t.name === temperamentName).length) {
+        setInputs(inputs => ({
+          ...inputs,
+          temperament: [...inputs.temperament, temperamentObject]
+        }))
+      } else {
+        alert('Este temperamento ya fue agregado')
+      }
+    } else {
+      alert('Este temperamento no existe')
+    }
+  }
+
+  function popTemperament (event) {
+    const id = event.target.name.slice(16)
+    setInputs(inputs => {
+      const temperament = [...inputs.temperament]
+      temperament.splice(id, 1)
+      return {
+        ...inputs,
+        temperament
+      }
+    })
+    setRefresh(true)
+  }
+
   function sendUpdate () {
     console.log(inputs)
   }
@@ -187,14 +222,24 @@ function DogDetail () {
                 {
                 editMode && inputs.temperament
                   ? inputs.temperament.map(t => (
-                    <input onChange={handleInputs} name='temperament' value={t} key={`temperament: ${t}`} />
+                    <input onChange={handleInputs} name='temperament' value={t.name} key={`temperament: ${t.name}`} />
                   ))
                   : <p>{dogDetail[0].temperament}</p>
               }
                 {
-                editMode && <DropdownMenu temperaments={temperaments} />
+                editMode && <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} />
               }
               </label>
+              <div>
+                {
+                  editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
+                    <span key={`labelTemperament${index}`} className={style.divTemperamentoAnadido}>
+
+                      <label name={`temperamentAdded${index}`}>{temperament}</label>
+                      <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
+                    </span>))
+              }
+              </div>
               {/* Button Edit */}
               {
                 inputs && <button onClick={changeEditMode}>{editMode ? 'Show' : 'Edit'}</button>
