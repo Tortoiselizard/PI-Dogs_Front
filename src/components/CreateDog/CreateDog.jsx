@@ -3,42 +3,28 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import * as actions from './../../redux/actions/index'
+import { validate, allGood, prepareRequest, restartState } from '../../controllers/controllers'
 
 import style from './CreateDog.module.css'
 
-const regexName = /[^A-Za-zÁ-Úá-úñ ]/
-const regexNumber = /[^0-9.]/
-const regexURL = /^https:\/\/[^\0]+\.jpg|png$/
-// const PATH = 'http://localhost:3001'
-const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+const PATH = 'http://localhost:3001'
+// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
-function validate (inputs) {
-  const errors = {
-    name: '',
-    height: { min: '', max: '' },
-    weight: { min: '', max: '' },
-    lifeSpan: { min: '', max: '' },
-    image: ''
-  }
-  const { name, height, weight, lifeSpan, image } = inputs
+const initialStateInputs = {
+  name: '',
+  height: { min: '', max: '' },
+  weight: { min: '', max: '' },
+  lifeSpan: { min: '', max: '' },
+  image: '',
+  temperaments: []
+}
 
-  if (name[0] === ' ') { errors.name = 'El nombre debe comenzar por una letra' } else if (regexName.test(name)) { errors.name = 'El nombre solo puede contener letras y/o espacios' } else if (name.length < 3 || name.length > 20) { errors.name = 'El nombre debe estar comprendido entre 3-20 caracteres' }
-
-  if (!height.min) { errors.height.min = 'Este espacio no puede estar vacio' } else if (regexNumber.test(height.min)) { errors.height.min = 'Debes escribir solo números en esta casilla' } else if (height.min <= 0) { errors.height.min = 'La altura mínima del perro no puede ser un número negativo o cero' }
-
-  if (regexNumber.test(height.max)) { errors.height.max = 'Debes escribir solo números en esta casilla' } else if (height.max < 0) { errors.height.max = 'La altura máxima del perro no puede ser un número negativo' } else if (height.max !== '' && Number(height.min) >= Number(height.max)) { errors.height.max = 'La altura máxima no puede ser menor o igual a la altura mínima' }
-
-  if (!weight.min) { errors.weight.min = 'Este espacio no puede estar vacio' } else if (regexNumber.test(weight.min)) { errors.weight.min = 'Debes escribir solo números en esta casilla' } else if (weight.min <= 0) { errors.weight.min = 'El peso mínimo del perro no puede ser un número negativo o cero' }
-
-  if (regexNumber.test(weight.max)) { errors.weight.max = 'Debes escribir solo números en esta casilla' } else if (weight.max < 0) { errors.weight.max = 'El peso máxima del perro no puede ser un número negativo' } else if (weight.max !== '' && Number(weight.min) >= Number(weight.max)) { errors.weight.max = 'El peso máximo no puede ser menor o igual al peso mínimo' }
-
-  if (regexNumber.test(lifeSpan.min) && lifeSpan.min.length) { errors.lifeSpan.min = 'Debes escribir solo números en esta casilla' } else if (lifeSpan.min < 0 || lifeSpan.min === '0') { errors.lifeSpan.min = 'Los años mínimos de vida del perro no puede ser un número negativo o cero' }
-
-  if (regexNumber.test(lifeSpan.max) && lifeSpan.max.length) { errors.lifeSpan.max = 'Debes escribir solo números en esta casilla' } else if (lifeSpan.max < 0 || lifeSpan.max === '0') { errors.lifeSpan.max = 'Los años máximos de vida del perro no puede ser un número negativo' } else if (lifeSpan.max !== '' && Number(lifeSpan.min) >= Number(lifeSpan.max)) { errors.lifeSpan.max = 'La edad máxima no puede ser menor o igual a la edad mínima' }
-
-  if (!regexURL.test(image) && image.length) { errors.image = 'Debe corresponder a una URL que comieza con https:// y termine con . seguido de cualquier formato de imagen' }
-
-  return errors
+const initialStateErrors = {
+  name: '',
+  height: { min: '', max: '' },
+  weight: { min: '', max: '' },
+  lifeSpan: { min: '', max: '' },
+  image: ''
 }
 
 const CreateDog = () => {
@@ -155,37 +141,9 @@ const CreateDog = () => {
     event.preventDefault()
     const errorsObj = validate(inputs)
     setErrors(errorsObj)
-    let allGood = true
-    for (const error in errorsObj) {
-      if (typeof (errorsObj[error]) === 'string') {
-        if (errorsObj[error].length) {
-          allGood = false
-        }
-      } else if (typeof (errorsObj[error]) === 'object') {
-        if (errorsObj[error].min.length) {
-          allGood = false
-        }
-        if (errorsObj[error].max.length) {
-          allGood = false
-        }
-      }
-    }
-    if (allGood) {
-      const newDog = {
-        name: inputs.name.includes(' ')
-          ? inputs.name.split(' ').map(nombre => nombre[0].toUpperCase() + nombre.slice(1).toLowerCase()).join(' ')
-          : inputs.name[0].toUpperCase() + inputs.name.slice(1).toLowerCase(),
-        height: inputs.height.min + (inputs.height.max ? ' - ' + inputs.height.max : ''),
-        weight: inputs.weight.min + (inputs.weight.max ? ' - ' + inputs.weight.max : ''),
-        lifeSpan: inputs.lifeSpan.min + (inputs.lifeSpan.max ? ' - ' + inputs.lifeSpan.max : ''),
-        temperaments: inputs.temperaments.map(t => t.id),
-        image: inputs.image
-      }
-      const data = {
-        method: 'Post',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(newDog)
-      }
+
+    if (allGood(errorsObj)) {
+      const { data } = prepareRequest(inputs, undefined, 'POST')
 
       const response = await fetch(`${PATH}/dogs`, data)
         .then((data) => data.json())
@@ -193,22 +151,9 @@ const CreateDog = () => {
         .catch(error => error.message)
       if (typeof (response) === 'string') { return alert(response) } else {
         alert(`La raza de perro ${inputs.name} fue creada exitosamente`)
-        setInputs({
-          name: '',
-          height: { min: '', max: '' },
-          weight: { min: '', max: '' },
-          lifeSpan: { min: '', max: '' },
-          image: '',
-          temperaments: []
-        })
-        setErrors({
-          name: '',
-          height: { min: '', max: '' },
-          weight: { min: '', max: '' },
-          lifeSpan: { min: '', max: '' },
-          image: '',
-          temperaments: ''
-        })
+
+        restartState(initialStateInputs, setInputs)
+        restartState(initialStateErrors, setErrors)
         setWhatShow(false)
         setDogFinded({})
         setRefresh(true)
