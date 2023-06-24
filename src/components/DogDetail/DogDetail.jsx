@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import { getDogDetail, cleanDetail, getAllTemperaments } from '../../redux/actions/index'
+import { validate, allGood, prepareRequest } from '../../controllers/controllers'
 import style from './DogDetail.module.css'
 
 const PATH = 'http://localhost:3001'
@@ -164,6 +165,33 @@ function DogDetail () {
 
   function sendUpdate () {
     console.log(inputs)
+    // const errors = validate(inputs)
+    // console.log(errors)
+    // event.preventDefault()
+    const errorsObj = validate(inputs)
+    // setErrors(errorsObj)
+    if (allGood(errorsObj)) {
+      console.log(dogDetail)
+
+      const { data } = prepareRequest(inputs, dogDetail[0].id, 'PUT')
+
+      fetch(`${PATH}/dogs`, data)
+        .then(response => {
+          console.log('todo bien hasta acá')
+          console.log('response:', response)
+          console.log('tipo de response', typeof (response))
+          if (response.ok) return response.json()
+        })
+        .then(data => {
+          alert(data.message)
+        })
+        .catch(error => {
+          console.log('algo salió mal')
+          alert(error.message)
+        })
+    } else {
+      alert('Debes corregir los errores antes de crear el nuevo perro')
+    }
   }
 
   return (
@@ -219,13 +247,6 @@ function DogDetail () {
               {/* Temperaments */}
               <label className={style.temperamentos}>
                 <span>Temperaments:</span>
-                {
-                editMode && inputs.temperament
-                  ? inputs.temperament.map(t => (
-                    <input onChange={handleInputs} name='temperament' value={t.name} key={`temperament: ${t.name}`} />
-                  ))
-                  : <p>{dogDetail[0].temperament}</p>
-              }
                 {
                 editMode && <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} />
               }
