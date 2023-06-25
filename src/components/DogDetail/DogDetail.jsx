@@ -20,6 +20,8 @@ function DogDetail () {
 
   const [inputs, setInputs] = useState(false)
 
+  const [errors, setErrors] = useState(false)
+
   const [refresh, setRefresh] = useState(true)
 
   useEffect(() => {
@@ -44,7 +46,7 @@ function DogDetail () {
         .then(data => {
           if (data.message) {
             const dataTemperaments = dogDetail[0].temperament.split(', ')
-            setInputs({
+            const dataDog = {
               name: dogDetail[0].name,
               height: { min: dogDetail[0].height.split('-')[0].trim(), max: dogDetail[0].height.split('-')[1].trim() },
               weight: { min: dogDetail[0].weight.split('-')[0].trim(), max: dogDetail[0].weight.split('-')[1].trim() },
@@ -53,7 +55,10 @@ function DogDetail () {
                 : { min: '', max: '' },
               image: dogDetail[0].image,
               temperament: temperaments.filter(t => dataTemperaments.includes(t.name))
-            })
+            }
+            setInputs(dataDog)
+            const newErrors = validate(dataDog)
+            setErrors(newErrors)
           } else if (!data[0].image) {
             setInputs({
               image: dogDetail[0].image
@@ -71,65 +76,74 @@ function DogDetail () {
   function handleInputs (event) {
     const { value, name } = event.target
     const nameArray = name.split(' ')
-    setInputs(inputs => {
-      switch (nameArray[0]) {
-        case 'image': {
-          return {
-            ...inputs,
-            image: value
-          }
+    let newInputs
+    switch (nameArray[0]) {
+      case 'image': {
+        newInputs = {
+          ...inputs,
+          image: value
         }
-        case 'name': {
-          return {
-            ...inputs,
-            name: value
-          }
-        }
-        case 'temperament': {
-          return {
-            ...inputs
-          }
-        }
-        case 'height': {
-          return nameArray[1] === '0'
-            ? {
-                ...inputs,
-                height: { ...inputs.height, min: value }
-              }
-            : {
-                ...inputs,
-                height: { ...inputs.height, max: value }
-              }
-        }
-        case 'weight': {
-          return nameArray[1] === '0'
-            ? {
-                ...inputs,
-                weight: { ...inputs.weight, min: value }
-              }
-            : {
-                ...inputs,
-                weight: { ...inputs.weight, max: value }
-              }
-        }
-        case 'years': {
-          return nameArray[1] === '0'
-            ? {
-                ...inputs,
-                lifeSpan: { ...inputs.lifeSpan, min: value }
-              }
-            : {
-                ...inputs,
-                lifeSpan: { ...inputs.lifeSpan, max: value }
-              }
-        }
-        default: {
-          return {
-            ...inputs
-          }
-        }
+        break
       }
-    })
+      case 'name': {
+        newInputs = {
+          ...inputs,
+          name: value
+        }
+        break
+      }
+      case 'temperament': {
+        newInputs = {
+          ...inputs
+        }
+        break
+      }
+      case 'height': {
+        newInputs = nameArray[1] === '0'
+          ? {
+              ...inputs,
+              height: { ...inputs.height, min: value }
+            }
+          : {
+              ...inputs,
+              height: { ...inputs.height, max: value }
+            }
+        break
+      }
+      case 'weight': {
+        newInputs = nameArray[1] === '0'
+          ? {
+              ...inputs,
+              weight: { ...inputs.weight, min: value }
+            }
+          : {
+              ...inputs,
+              weight: { ...inputs.weight, max: value }
+            }
+        break
+      }
+      case 'years': {
+        newInputs = nameArray[1] === '0'
+          ? {
+              ...inputs,
+              lifeSpan: { ...inputs.lifeSpan, min: value }
+            }
+          : {
+              ...inputs,
+              lifeSpan: { ...inputs.lifeSpan, max: value }
+            }
+        break
+      }
+      default: {
+        newInputs = {
+          ...inputs
+        }
+        break
+      }
+    }
+    setInputs(newInputs)
+    const newErrors = validate(newInputs)
+    setErrors(newErrors)
   }
 
   function addTemperament () {
@@ -164,29 +178,24 @@ function DogDetail () {
   }
 
   function sendUpdate () {
-    console.log(inputs)
     // const errors = validate(inputs)
     // console.log(errors)
     // event.preventDefault()
     const errorsObj = validate(inputs)
     // setErrors(errorsObj)
     if (allGood(errorsObj)) {
-      console.log(dogDetail)
-
       const { data } = prepareRequest(inputs, dogDetail[0].id, 'PUT')
 
       fetch(`${PATH}/dogs`, data)
         .then(response => {
-          console.log('todo bien hasta acá')
-          console.log('response:', response)
-          console.log('tipo de response', typeof (response))
           if (response.ok) return response.json()
         })
         .then(data => {
           alert(data.message)
+          dispatch(getDogDetail(razaPerro))
+          setEditMode(false)
         })
         .catch(error => {
-          console.log('algo salió mal')
           alert(error.message)
         })
     } else {
@@ -205,11 +214,17 @@ function DogDetail () {
               {
                 editMode && inputs.image && <input onChange={handleInputs} name='image' value={inputs.image} />
               }
+              {
+                errors && <p className={style.danger}>{errors.image}</p>
+              }
             </label>
             <div>
               {/* Name */}
               {
                 editMode && inputs.name ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{dogDetail[0].name}</h1>
+              }
+              {
+                errors && <p className={style.danger}>{errors.name}</p>
               }
               {/* Height */}
               <label className={style.alto}>
@@ -220,6 +235,12 @@ function DogDetail () {
                       <input onChange={handleInputs} name={`height ${index}`} value={value} key={`height: ${index}`} />
                     ))
                     : <p>{dogDetail[0].height}</p>
+                }
+                {
+                  errors && <p>{errors.height.min}</p>
+                }
+                {
+                  errors && <p>{errors.height.max}</p>
                 }
               </label>
               {/* Weight */}
@@ -232,6 +253,12 @@ function DogDetail () {
                     ))
                     : <p>{dogDetail[0].weight}</p>
                 }
+                {
+                  errors && <p>{errors.weight.min}</p>
+                }
+                {
+                  errors && <p>{errors.weight.max}</p>
+                }
               </label>
               {/* Years */}
               <label className={style.years}>
@@ -243,12 +270,18 @@ function DogDetail () {
                     ))
                     : <p>{dogDetail[0].lifeSpan}</p>
                 }
+                {
+                  errors && <p>{errors.lifeSpan.min}</p>
+                }
+                {
+                  errors && <p>{errors.lifeSpan.max}</p>
+                }
               </label>
               {/* Temperaments */}
               <label className={style.temperamentos}>
                 <span>Temperaments:</span>
                 {
-                editMode && <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} />
+                editMode ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <p>{dogDetail[0].temperament}</p>
               }
               </label>
               <div>
