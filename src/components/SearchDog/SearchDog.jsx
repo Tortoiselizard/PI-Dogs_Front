@@ -20,6 +20,7 @@ function SearchDog ({ setLoad }) {
   }
 
   async function showAllDogs () {
+    dispatch(updateSearchBar(''))
     dispatch(getAllDogs2(null, setLoad))
   }
 
