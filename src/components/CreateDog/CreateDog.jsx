@@ -28,14 +28,7 @@ const initialStateErrors = {
 }
 
 const CreateDog = () => {
-  const [inputs, setInputs] = useState({
-    name: '',
-    height: { min: '', max: '' },
-    weight: { min: '', max: '' },
-    lifeSpan: { min: '', max: '' },
-    image: '',
-    temperaments: []
-  })
+  const [inputs, setInputs] = useState(initialStateInputs)
   const [errors, setErrors] = useState({
     name: '',
     height: { min: '', max: '' },
@@ -49,6 +42,8 @@ const CreateDog = () => {
   const [whatShow, setWhatShow] = useState(false)
 
   const [dogFinded, setDogFinded] = useState({})
+
+  const [dogDetail, setDogDetail] = useState(false)
 
   const temperamentsGS = useSelector((state) => state.temperaments)
   const dispatch = useDispatch()
@@ -78,46 +73,39 @@ const CreateDog = () => {
   }, [dogFinded])
 
   function handleChange (event) {
-    setInputs((inputs) => {
-      if (event.target.name.slice(-3) === 'min' || event.target.name.slice(-3) === 'max') {
-        return {
-          ...inputs,
-          [event.target.name.split('-')[0]]: {
-            ...inputs[event.target.name.split('-')[0]],
-            [event.target.name.split('-')[1]]: event.target.value
-          }
+    const { name, value } = event.target
+    let newInputs
+    if (name.slice(-3) === 'min' || name.slice(-3) === 'max') {
+      newInputs = {
+        ...inputs,
+        [name.split('-')[0]]: {
+          ...inputs[name.split('-')[0]],
+          [name.split('-')[1]]: value
         }
-      } else {
-        return { ...inputs, [event.target.name]: event.target.value }
       }
-    })
-    setErrors(() => {
-      if (event.target.name.slice(-3) === 'min' || event.target.name.slice(-3) === 'max') {
-        return validate({
-          ...inputs,
-          [event.target.name.split('-')[0]]: {
-            ...inputs[event.target.name.split('-')[0]],
-            [event.target.name.split('-')[1]]: event.target.value
-          }
-        })
-      } else {
-        return validate({ ...inputs, [event.target.name]: event.target.value })
-      }
-    })
+    } else {
+      newInputs = { ...inputs, [name]: value }
+    }
+    setInputs(newInputs)
+    setErrors(validate(newInputs))
+    setDogDetail(changeDogDetail(newInputs))
   }
 
   function addTemperament () {
     const input = document.getElementsByName('inputFilter')[0]
     const temperament = input.value
     const temperamentObject = temperamentsGS.filter(t => t.name === temperament)[0]
+    let newInputs
     if (temperamentObject) {
       if (!inputs.temperaments.filter(t => t.name === temperament).length) {
-        setInputs(inputs => ({
+        newInputs = {
           ...inputs,
           temperaments: [...inputs.temperaments, temperamentObject]
-        }))
+        }
+        setInputs(newInputs)
+        setDogDetail(changeDogDetail(newInputs))
       } else {
-        alert('Este temperamento no existe')
+        alert('Este temperamento ya se agregó')
       }
     } else {
       alert('Este temperamento no existe')
@@ -165,7 +153,7 @@ const CreateDog = () => {
 
   function searchDog () {
     const newName = inputs.name.split(' ').map(name => name[0].toUpperCase() + name.slice(1).toLowerCase()).join(' ')
-    fetch(`${PATH}/dogs/${newName}`)
+    fetch(`${PATH}/dogs/${newName}?location=DB`)
       .then(async (response) => {
         if (!response.ok) {
           const errorMessage = await response.text()
@@ -175,12 +163,40 @@ const CreateDog = () => {
       })
       .then(data => {
         if (data.message) {
-          setWhatShow('form')
-        } else if (data[0].image) {
-          alert(`El perro ${newName} ya existe`)
+          fetch(`${PATH}/dogs/${newName}?location=API`)
+            .then(async (response) => {
+              if (!response.ok) {
+                const errorMessage = await response.text()
+                throw new Error(errorMessage)
+              }
+              return response.json()
+            })
+            .then(data => {
+              if (data.message) {
+                setWhatShow('form')
+                setInputs(inputs => ({
+                  ...inputs,
+                  name: newName
+                }))
+                setDogDetail({
+                  name: newName,
+                  image: '',
+                  height: '',
+                  weight: '',
+                  lifeSpan: '',
+                  temperament: ''
+                })
+              } else if (data[0].image) {
+                alert(`El perro ${newName} ya existe`)
+              } else {
+                setWhatShow('image')
+                setDogFinded(data[0])
+                console.log(data[0])
+                setDogDetail(data[0])
+              }
+            })
         } else {
-          setWhatShow('image')
-          setDogFinded(data[0])
+          alert(`El perro ${newName} ya existe`)
         }
       })
       .catch(error => alert(error))
@@ -192,24 +208,38 @@ const CreateDog = () => {
     const inputName = document.getElementsByName('name')[0]
     inputName.disabled = false
     setWhatShow(false)
+    setDogDetail(false)
+    setInputs(initialStateInputs)
+  }
+
+  function changeDogDetail (input) {
+    return {
+      name: input.name,
+      image: input.image,
+      height: `${input.height.min} - ${input.height.max}`,
+      weight: `${input.weight.min} - ${input.weight.max}`,
+      lifeSpan: `${input.lifeSpan.min} - ${input.lifeSpan.max}`,
+      temperament: input.temperaments.map(t => t.name).join(', ')
+    }
   }
 
   return (
-    <div className={style.CreateDog}>
-      <h1>Create a new dog</h1>
+    <>
+      <div className={style.CreateDog}>
+        <h1>Create a new dog</h1>
 
-      <div className={style.seccioName}>
-        <label>Nombre de la Raza : </label>
-        <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
+        <div className={style.seccioName}>
+          <label>Nombre de la Raza : </label>
+          <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
 
-        <p className={style.danger}>{errors.name}</p>
-      </div>
+          <p className={style.danger}>{errors.name}</p>
+        </div>
 
-      {
+        {
         whatShow === false ? <button onClick={searchDog}>Search</button> : <button onClick={changeName}>Change Name</button>
       }
 
-      {
+        {
         whatShow === 'form' &&
            (
              <>
@@ -257,7 +287,7 @@ const CreateDog = () => {
              </>
            )
       }
-      {
+        {
         (whatShow === 'image' || whatShow === 'form') && (
           <>
             <div className={style.secconImagen}>
@@ -268,7 +298,7 @@ const CreateDog = () => {
           </>
         )
       }
-      {
+        {
         whatShow === 'form' && (
           <>
             <div className={style.seccionTemperamentos}>
@@ -291,11 +321,44 @@ const CreateDog = () => {
           </>
         )
       }
-      {
+        {
         (whatShow === 'image' || whatShow === 'form') && <button className={style.botonCreateDog} type='submit' onClick={handleSubmit} />
       }
-
-    </div>
+      </div>
+      {
+        dogDetail && whatShow !== false && (
+          <div className={style.DogDetail}>
+            {/* Image */}
+            <label>
+              <img className={style.imagen} src={dogDetail.image} alt={dogDetail.name || 'Image'} />
+            </label>
+            <div>
+              {/* Name */}
+              <h1 className={style.name}>{dogDetail.name || 'Name'}</h1>
+              {/* Height */}
+              <label className={style.alto}>
+                <span>Height (In):</span>
+                <p>{dogDetail.height}</p>
+              </label>
+              {/* Weight */}
+              <label className={style.peso}>
+                <span>Weight (Lb): </span>
+                <p>{dogDetail.weight}</p>
+              </label>
+              {/* Years */}
+              <label className={style.years}>
+                <span>years: </span>
+                <p>{dogDetail.lifeSpan}</p>
+              </label>
+              {/* Temperaments */}
+              <label className={style.temperamentos}>
+                <span>Temperaments:</span>
+                <p>{dogDetail.temperament}</p>
+              </label>
+            </div>
+          </div>)
+      }
+    </>
   )
 }
 
