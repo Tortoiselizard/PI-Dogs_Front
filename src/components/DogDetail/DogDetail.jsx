@@ -178,12 +178,9 @@ function DogDetail () {
   }
 
   function sendUpdate () {
-    // const errors = validate(inputs)
-    // console.log(errors)
-    // event.preventDefault()
-    const errorsObj = validate(inputs)
-    // setErrors(errorsObj)
-    if (allGood(errorsObj)) {
+    const newErrors = validate(inputs)
+    setErrors(newErrors)
+    if (allGood(newErrors)) {
       const { data } = prepareRequest(inputs, dogDetail[0].id, 'PUT')
 
       fetch(`${PATH}/dogs`, data)
@@ -215,16 +212,16 @@ function DogDetail () {
                 editMode && inputs.image && <input onChange={handleInputs} name='image' value={inputs.image} />
               }
               {
-                errors && <p className={style.danger}>{errors.image}</p>
+                errors && editMode && <p className={style.danger}>{errors.image}</p>
               }
             </label>
             <div>
               {/* Name */}
               {
-                editMode && inputs.name ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{dogDetail[0].name}</h1>
+                editMode ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{dogDetail[0].name}</h1>
               }
               {
-                errors && <p className={style.danger}>{errors.name}</p>
+                errors && editMode && <p className={style.danger}>{errors.name}</p>
               }
               {/* Height */}
               <label className={style.alto}>
@@ -237,10 +234,10 @@ function DogDetail () {
                     : <p>{dogDetail[0].height}</p>
                 }
                 {
-                  errors && <p>{errors.height.min}</p>
+                  errors && editMode && <p>{errors.height.min}</p>
                 }
                 {
-                  errors && <p>{errors.height.max}</p>
+                  errors && editMode && <p>{errors.height.max}</p>
                 }
               </label>
               {/* Weight */}
@@ -254,10 +251,10 @@ function DogDetail () {
                     : <p>{dogDetail[0].weight}</p>
                 }
                 {
-                  errors && <p>{errors.weight.min}</p>
+                  errors && editMode && <p>{errors.weight.min}</p>
                 }
                 {
-                  errors && <p>{errors.weight.max}</p>
+                  errors && editMode && <p>{errors.weight.max}</p>
                 }
               </label>
               {/* Years */}
@@ -271,10 +268,10 @@ function DogDetail () {
                     : <p>{dogDetail[0].lifeSpan}</p>
                 }
                 {
-                  errors && <p>{errors.lifeSpan.min}</p>
+                  errors && editMode && <p>{errors.lifeSpan.min}</p>
                 }
                 {
-                  errors && <p>{errors.lifeSpan.max}</p>
+                  errors && editMode && <p>{errors.lifeSpan.max}</p>
                 }
               </label>
               {/* Temperaments */}
