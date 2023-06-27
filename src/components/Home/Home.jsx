@@ -54,13 +54,16 @@ function Home ({ loading }) {
   return (
     <div className={style.Home}>
 
-      {
-  false &&
-    <div className={style.Filter}>
-      <Filter />
-      <Order />
-    </div>
-}
+      <div className={style.CardHandlerContainer}>
+        <div>
+          <Filter />
+          <Order />
+        </div>
+        <label className={style.DeployContainer}>
+          {'>'}
+        </label>
+      </div>
+
       <div className={style.renderDogs}>
 
         <Paginated totalDogs={globalState.dogs} currentPage={showDogs} setShowDogs={setShowDogs} />
