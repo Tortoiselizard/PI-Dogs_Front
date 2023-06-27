@@ -1,29 +1,45 @@
-.MainPage{
-    background-color: #6d6875;
+.MainPage {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../../../public/img/mainPage.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.MainPage div {
+    font-size: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    align-self: center;
-    width: 100vw;
-    position: absolute;
-    top: 40%;
+    position: relative;
+    top: -10vh;
+    margin: 50px;
+    color: rgba(242, 242, 235, 1);
+}
+
+
+.MainPage div h1:hover {
+    text-decoration: underline #D9B29C;
+    transition: text-decoration 1s ease;
 }
 
 .buttonMainPage {
     margin-bottom: 15px;
     height: 60px;
     width: 200px;
+    border: medium solid #F2F2EB;
     border-radius: 5px;
-    background-color: #4a4e69;
-    color: #ede0d4;
-    /* font-family: 'Comfortaa', cursive; */
+    background-color: transparent;
+    color: #F2F2EB;
     font-family: 'Seymour One', sans-serif;
     font-size: 20px;
     border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .buttonMainPage:hover{
-    background-color: #f2e9e4;
-    color: #4a4e69;
+    background-color: #F2F2EB;
+    color: #274001;
 }
