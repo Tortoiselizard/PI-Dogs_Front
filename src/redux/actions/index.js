@@ -274,3 +274,16 @@ export const showLoading = (setLoading) => {
 export const quitLoading = (setLoading) => {
   if (setLoading) setLoading(false)
 }
+
+export const searchDog = async (name, location) => {
+  const newName = name.split(' ').map(name => name[0].toUpperCase() + name.slice(1).toLowerCase()).join(' ')
+  const dog = await fetch(`${PATH}/dogs/${newName}?location=${location}`)
+    .then(async (response) => {
+      if (!response.ok) {
+        const errorMessage = await response.text()
+        throw new Error(errorMessage)
+      }
+      return response.json()
+    })
+  return dog
+}
