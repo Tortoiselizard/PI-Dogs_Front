@@ -20,8 +20,10 @@ function MainPage () {
   return (
     <>
       <div className={styles.MainPage}>
-        <h1>Henry Dogs</h1>
-        <Link to='/home'><button className={styles.buttonMainPage}>Burcar un Perro</button></Link>
+        <div>
+          <h1>Find your new friend</h1>
+          <Link to='/home'><button className={styles.buttonMainPage}>Search</button></Link>
+        </div>
 
       </div>
       <Loading loading={loading} />
