@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+
 import MainPage from './components/MainPage/MainPage.jsx'
 import Home from './components/Home/Home.jsx'
 import DogDetail from './components/DogDetail/DogDetail.jsx'
 import CreateDog from './components/CreateDog/CreateDog'
 import Nav from './components/Nav/Nav.jsx'
+
 import './App.css'
 
 function App () {
@@ -12,7 +14,7 @@ function App () {
   const [loading, setLoading] = useState(false)
 
   return (
-    <div className='App'>
+    <>
       {location.pathname !== '/' ? <Nav setLoad={setLoading} /> : null}
       <Routes>
         <Route path='/' element={<MainPage />} />
@@ -20,7 +22,7 @@ function App () {
         <Route path='/dog/:razaPerro' element={<DogDetail />} />
         <Route path='/dog/create' element={<CreateDog />} />
       </Routes>
-    </div>
+    </>
   )
 }
 

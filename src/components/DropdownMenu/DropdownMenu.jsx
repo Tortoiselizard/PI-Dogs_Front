@@ -6,7 +6,6 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
   const [input, setInput] = useState('')
 
   const [possibleTemperaments, setPossibleTemperaments] = useState([])
-  console.log(possibleTemperaments.length)
   useEffect(() => {
     if (refresh.refresh && temperaments.length) {
       setPossibleTemperaments(temperaments.map(temperament => temperament.name))

@@ -330,7 +330,7 @@ const CreateDog = () => {
           <div className={style.DogDetail}>
             {/* Image */}
             <label>
-              <img className={style.imagen} src={dogDetail.image} alt={dogDetail.name || 'Image'} />
+              <img className={style.imagen} src={dogDetail.image || '../../../img/home.png'} alt={dogDetail.name || 'Image'} />
             </label>
             <div>
               {/* Name */}

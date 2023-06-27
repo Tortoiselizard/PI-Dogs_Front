@@ -1,39 +1,75 @@
-.DogCard {
-    display: flex;
-    flex-direction: column;
-    background-color: #6d6875;
-    width: 250px;
-    height: 460px;
-    border-radius: 7px;
-    margin: 20px;
+.DogCardContainer {
+    width: 400px;
+    height: 350px;
+    border-radius: 10px;
+    margin: 3% 1%;
     box-shadow: 0 0 20px black;
     font-family: 'Comfortaa', cursive;
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    animation: showCards 1s ease normal;
 }
 
-.imagen {
-    width: 250px;
+@keyframes showCards {
+    from {
+        opacity: 0;
+    }
 }
 
-.name {
-    color: #cfe1b9;
-    font-size: 18px;
-    font-family: 'Prosto One', cursive;
+.DogCardContainerClose {
+    width: 400px;
+    height: 350px;
+    border-radius: 10px;
+    margin: 3% 1%;
+    box-shadow: 0 0 20px black;
+    font-family: 'Comfortaa', cursive;
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    animation: eraseCards 1s ease normal;
 }
 
-.parrafos{
-    margin: 0px;
-    padding: 5px;
-    text-align: left;
-    background-color: #d8e2dc;
-    color: black;
-    border: 1px solid black;
+@keyframes eraseCards {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
-.textoDogCard{
-    margin-top: 0px;
-    margin-bottom: 0px;
+.DogCardContainer:hover .OverviewContainer {
+    opacity: 1;
 }
 
-.encabezadoTexto{
-    font-weight: 700;
+.OverviewContainer {
+    background-color: rgba(0, 0, 0, 0.45);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    line-height: 25px;
+}
+
+.OverviewContainer:hover {
+    opacity: 1;
+}
+
+.OverviewContainer h2 {
+    margin: 20px;
+}
+
+.OverviewContainer div {
+    margin: 20px;
+}
+
+.OverviewContainer label {
+    margin: 20px;
+    padding: 0px;
 }

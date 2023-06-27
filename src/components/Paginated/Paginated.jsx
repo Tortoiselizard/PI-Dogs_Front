@@ -10,7 +10,7 @@ function Paginated ({ totalDogs, currentPage, setShowDogs }) {
 
   useEffect(() => {
     function countPaginate () {
-      const n = Math.ceil(totalDogs.length / 8)
+      const n = Math.ceil(totalDogs.length / 9)
       return Array(n).fill(null).map((e, i) => i)
     }
     setPaginatedShow({
@@ -20,28 +20,28 @@ function Paginated ({ totalDogs, currentPage, setShowDogs }) {
   }, [totalDogs])
 
   function countPaginate () {
-    const n = Math.ceil(totalDogs.length / 8)
+    const n = Math.ceil(totalDogs.length / 9)
     return Array(n).fill(null).map((e, i) => i)
   }
 
   function handlePaging (event) {
     switch (event.target.name) {
       case 'siguiente':
-        if (totalDogs.length > currentPage.start + 8) {
+        if (totalDogs.length > currentPage.start + 9) {
           setShowDogs(currentPage => ({
-            list: totalDogs.slice(currentPage.start + 8, currentPage.start + 16),
-            start: currentPage.start + 8
+            list: totalDogs.slice(currentPage.start + 9, currentPage.start + 18),
+            start: currentPage.start + 9
           }))
-          findPaginated(currentPage.start + 8)
+          findPaginated(currentPage.start + 9)
         }
         break
       case 'anterior':
-        if (currentPage.start - 8 >= 0) {
+        if (currentPage.start - 9 >= 0) {
           setShowDogs(currentPage => ({
-            list: totalDogs.slice(currentPage.start - 8, currentPage.start),
-            start: currentPage.start - 8
+            list: totalDogs.slice(currentPage.start - 9, currentPage.start),
+            start: currentPage.start - 9
           }))
-          findPaginated(currentPage.start - 8)
+          findPaginated(currentPage.start - 9)
         }
         break
       default:
@@ -50,9 +50,9 @@ function Paginated ({ totalDogs, currentPage, setShowDogs }) {
   }
 
   function changePaginateForNumber (event) {
-    const n = (Number(event.target.innerText) - 1) * 8
+    const n = (Number(event.target.innerText) - 1) * 9
     setShowDogs(() => ({
-      list: totalDogs.slice(n, n + 8),
+      list: totalDogs.slice(n, n + 9),
       start: n
     }))
   }
@@ -72,7 +72,7 @@ function Paginated ({ totalDogs, currentPage, setShowDogs }) {
   }
 
   function findPaginated (currentPage) {
-    const positonPaginated = currentPage / 8
+    const positonPaginated = currentPage / 9
     const totalPaginated = countPaginate()
     const arrayTotalPaginated = []
     Array(Math.ceil(totalPaginated.length / 10)).fill(null).forEach((n, index) => {
@@ -98,7 +98,7 @@ function Paginated ({ totalDogs, currentPage, setShowDogs }) {
           <div className={style.postionButtons}>
             <button className={paginatedShow.start === 0 ? style.threePointsOFF : null} onClick={() => { changeNumberPaginatedShowed('before') }} name='before'>...</button>
             {
-          paginatedShow.list.map((n, index) => <button onClick={changePaginateForNumber} className={currentPage.start / 8 === n ? style.currentPage : null} key={`buttonPaginate${index}`}>{n + 1}</button>)
+          paginatedShow.list.map((n, index) => <button onClick={changePaginateForNumber} className={currentPage.start / 9 === n ? style.currentPage : null} key={`buttonPaginate${index}`}>{n + 1}</button>)
       }
             <button className={paginatedShow.list[paginatedShow.list.length - 1] >= countPaginate()[countPaginate().length - 1] ? style.threePointsOFF : null} onClick={() => { changeNumberPaginatedShowed('after') }} name='after'>...</button>
           </div>
