@@ -59,9 +59,9 @@ function Home ({ loading }) {
           <Filter />
           <Order />
         </div>
-        <label className={style.DeployContainer}>
-          {'>'}
-        </label>
+        <div className={style.DeployContainer}>
+          <label>{'>'}</label>
+        </div>
       </div>
 
       <div className={style.renderDogs}>
