@@ -40,7 +40,7 @@ function Home ({ loading }) {
   // Cargar información del estado global "globalState.showDogs"
   useEffect(() => {
     setShowDogs({
-      list: globalState.dogs.slice(0, 8),
+      list: globalState.dogs.slice(0, 9),
       start: 0
     })
   }, [globalState.dogs])
@@ -54,11 +54,13 @@ function Home ({ loading }) {
   return (
     <div className={style.Home}>
 
-      <div className={style.Filter}>
-        <Filter />
-        <Order />
-
-      </div>
+      {
+  false &&
+    <div className={style.Filter}>
+      <Filter />
+      <Order />
+    </div>
+}
       <div className={style.renderDogs}>
 
         <Paginated totalDogs={globalState.dogs} currentPage={showDogs} setShowDogs={setShowDogs} />
