@@ -24,6 +24,7 @@ function App () {
       come,
       go
     })
+    console.log(sliding)
   }
 
   // Hacer solicitudes a la DB para buscar los perros más populares
@@ -32,16 +33,16 @@ function App () {
     dispatch(getAllTemperaments())
   }, [dispatch])
 
-  useEffect(() => {
-    if (sliding) {
-      setTimeout(() => setSliding(false), 1500)
-    }
-  }, [sliding])
+  // useEffect(() => {
+  //   if (sliding) {
+  //     setTimeout(() => setSliding(false), 1500)
+  //   }
+  // }, [sliding])
 
   return (
     <>
       {
-      sliding && <SlideComponents routes={sliding} />
+      false && sliding && <SlideComponents routes={sliding} />
     }
       <div className=''>
         <Routes>
