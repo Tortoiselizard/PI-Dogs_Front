@@ -1,12 +1,13 @@
 .Nav {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    margin: 10px;
+    padding: 10px;
+    width: 35vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
-    padding: 10px;
-    backdrop-filter: blur(4px);
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     box-shadow: 0 0 20px black;
 }
@@ -26,20 +27,14 @@
 }
 
 .buttonHome {
-    /* background-image:url("https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-vector-house-icon-png-image_695726.jpg"); */
-    /* background-repeat:no-repeat; */
     height:50px;
     width:50px;
     background-image: url("https://cdn-icons-png.flaticon.com/512/25/25694.png");
     background-size: cover;
-    /* background-color: #d4a373; */
     background-color: #edede9;
     border-radius: 50px;
     margin-right: 10px;
     margin-left: 10px;
-    /* background-position:center; */
-    /* background-image: url('../../../img/home.png') */
-    /* background-image: url("F:\cursos\Henry\CursoHenry\PI-Dogs-main\client\public\img\home.png"); */
 }
 
 .buttonHome:hover {
