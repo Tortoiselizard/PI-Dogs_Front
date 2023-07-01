@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 import Nav from '../Nav/Nav'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
@@ -27,7 +26,7 @@ const initialStateErrors = {
   image: ''
 }
 
-const CreateDog = () => {
+const CreateDog = ({ store }) => {
   const [inputs, setInputs] = useState(initialStateInputs)
   const [errors, setErrors] = useState({
     name: '',
@@ -45,12 +44,10 @@ const CreateDog = () => {
 
   const [dogDetail, setDogDetail] = useState(false)
 
-  const temperamentsGS = useSelector((state) => state.temperaments)
-
   useEffect(() => {
     if (whatShow === 'image') {
       const arrayTemperamentsFrom = dogFinded.temperament.split(', ')
-      const arrayTemperamentsTo = temperamentsGS.filter(t => { return arrayTemperamentsFrom.includes(t.name) })
+      const arrayTemperamentsTo = store.temperaments.filter(t => { return arrayTemperamentsFrom.includes(t.name) })
       const height = { min: dogFinded.height.split('-')[0].trim(), max: dogFinded.height.split('-')[1].trim() }
       const weight = { min: dogFinded.weight.split('-')[0].trim(), max: dogFinded.weight.split('-')[1].trim() }
       const lifeSpan = { min: dogFinded.lifeSpan.split('-')[0].trim(), max: dogFinded.lifeSpan.split('-')[1].split('years')[0].trim() }
@@ -89,7 +86,7 @@ const CreateDog = () => {
   function addTemperament () {
     const input = document.getElementsByName('inputFilter')[0]
     const temperament = input.value
-    const temperamentObject = temperamentsGS.filter(t => t.name === temperament)[0]
+    const temperamentObject = store.temperaments.filter(t => t.name === temperament)[0]
     let newInputs
     if (temperamentObject) {
       if (!inputs.temperaments.filter(t => t.name === temperament).length) {
@@ -301,7 +298,7 @@ const CreateDog = () => {
               <label>Temperamentos</label>
 
               <div className={style.seccionTemperamentosInputContainer}>
-                <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={temperamentsGS} action={addTemperament} />
+                <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} />
               </div>
               <div>
                 {
