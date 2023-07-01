@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
+import Nav from '../Nav/Nav'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import * as actions from './../../redux/actions/index'
 import { validate, allGood, prepareRequest, restartState } from '../../controllers/controllers'
 
 import style from './CreateDog.module.css'
@@ -46,11 +46,6 @@ const CreateDog = () => {
   const [dogDetail, setDogDetail] = useState(false)
 
   const temperamentsGS = useSelector((state) => state.temperaments)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(actions.getAllTemperaments())
-  }, [dispatch])
 
   useEffect(() => {
     if (whatShow === 'image') {
@@ -224,7 +219,8 @@ const CreateDog = () => {
   }
 
   return (
-    <>
+    <div>
+      <Nav />
       <div className={style.CreateDog}>
         <h1>Create a new dog</h1>
 
@@ -358,7 +354,7 @@ const CreateDog = () => {
             </div>
           </div>)
       }
-    </>
+    </div>
   )
 }
 
