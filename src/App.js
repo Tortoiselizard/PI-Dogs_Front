@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
 import MainPage from './components/MainPage/MainPage.jsx'
@@ -15,6 +15,7 @@ import './App.css'
 
 function App () {
   const dispatch = useDispatch()
+  const { totaDogs, dogs, dogDetail, temperaments } = useSelector(state => state)
   const [sliding, setSliding] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -45,9 +46,9 @@ function App () {
       <div className=''>
         <Routes>
           <Route path='/' element={<MainPage sliding={handleSliding} />} />
-          <Route path='/home' element={<Home sliding={handleSliding} />} />
-          <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} />} />
-          <Route path='/dog/create' element={<CreateDog sliding={handleSliding} />} />
+          <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments }} />} />
+          <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} store={{ dogDetail, temperaments }} />} />
+          <Route path='/dog/create' element={<CreateDog sliding={handleSliding} store={{ temperaments }} />} />
         </Routes>
       </div>
       <Loading loading={loading} />
