@@ -3,9 +3,6 @@ const regexNumber = /[^0-9.]/
 const regexURL = /^https:\/\/[^\0]+\.jpg|png$/
 
 module.exports = {
-  saludo: () => {
-    console.log('Hola mundo')
-  },
   validate: (inputs) => {
     const errors = {
       name: '',

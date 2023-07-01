@@ -61,8 +61,36 @@
     opacity: 1;
 }
 
+.Link {
+    text-decoration: none;
+}
+
 .OverviewContainer h2 {
     margin: 20px;
+    padding: 5px;
+    color: #F2F2EB;
+    position: relative;
+    z-index: 0;
+}
+
+.OverviewContainer h2::before {
+    content: ' ';
+    background-color: rgba(217, 178, 156, .9);
+    inset: 0;
+    display: block;
+    position: absolute;
+    z-index: -1;
+    transition: transform 0.3s ease;
+}
+
+.OverviewContainer h2:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.OverviewContainer h2::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
 }
 
 .OverviewContainer div {

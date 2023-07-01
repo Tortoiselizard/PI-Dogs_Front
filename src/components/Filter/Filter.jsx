@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getAllTemperaments, getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
+import { getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
 
 import style from './Filter.module.css'
 
@@ -17,12 +17,6 @@ function Filter () {
   const [refresh, setRefresh] = useState(true)
 
   const dispatch = useDispatch()
-
-  // Actualizar la global State con todos los temperaments
-  useEffect(() => {
-    dispatch(getAllTemperaments())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (Object.keys(globalState.filters).length && !globalState.filters.filteredTemperaments.length && !globalState.filters.locationToFilter) setStateFilter(globalState.filters)

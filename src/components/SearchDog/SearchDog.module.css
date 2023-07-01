@@ -1,5 +1,4 @@
 .SearchDog {
-    /* width: 100vw; */
     margin: 10px;
     display: flex;
     justify-content: center;
@@ -7,7 +6,7 @@
 }
 
 .input{
-    width: 500px;
+    width: 50%;
     height: 30px;
     border-radius: 5px;
 }
@@ -15,6 +14,7 @@
 .buttonToSearch {
     background-color: white;
     height: 37px;
+    border: none;
 }
 
 .buttonSearchAll {

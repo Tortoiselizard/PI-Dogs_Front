@@ -1,21 +1,25 @@
 .MainPage {
     height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     background-image: url('../../../public/img/mainPage.jpg');
     background-size: cover;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
 }
 
-.MainPage div {
-    font-size: 50px;
+.verticalBar {
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(8px);
+    width: 30vw;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px 50px;
+    box-shadow: 50px rgba(0, 0, 0, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    top: -10vh;
-    margin: 50px;
+    font-size: 50px;
     color: rgba(242, 242, 235, 1);
 }
 
@@ -42,4 +46,18 @@
 .buttonMainPage:hover{
     background-color: #F2F2EB;
     color: #274001;
+}
+
+.buttonProve {
+    background-color: green;
+}
+
+.nextSlide {
+    animation: slide-left 1s ease-in forwards;
+}
+
+@keyframes slide-left {
+    to {
+        transform: translateX(-500vw);
+    }
 }
