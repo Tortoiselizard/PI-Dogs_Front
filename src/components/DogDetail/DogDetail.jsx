@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
+import Nav from '../Nav/Nav'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getDogDetail, cleanDetail, getAllTemperaments } from '../../redux/actions/index'
+import { getDogDetail, cleanDetail } from '../../redux/actions/index'
 import { validate, allGood, prepareRequest } from '../../controllers/controllers'
 import style from './DogDetail.module.css'
 
@@ -26,7 +27,6 @@ function DogDetail () {
 
   useEffect(() => {
     dispatch(getDogDetail(razaPerro))
-    dispatch(getAllTemperaments())
     return function () {
       dispatch(cleanDetail())
     }
@@ -202,6 +202,7 @@ function DogDetail () {
 
   return (
     <div>
+      <Nav />
       {Object.keys(dogDetail).length
         ? (
           <div className={style.DogDetail}>
