@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import Nav from '../Nav/Nav'
 import DogsContainer from '../DogsContainer/DogsContainer'
@@ -11,8 +11,7 @@ import { keepDogs, updateShowDogs } from '../../redux/actions/index'
 
 import style from './Home.module.css'
 
-function Home () {
-  const { totaDogs, dogs } = useSelector(state => state)
+function Home ({ store }) {
   const dispatch = useDispatch()
 
   const [showDogs, setShowDogs] = useState({
@@ -20,18 +19,20 @@ function Home () {
     list: []
   })
 
-  // Cargar información del estado global "dogs"
+  // Cargar información del estado global "store.dogs"
   useEffect(() => {
-    dispatch(keepDogs(totaDogs))
-  }, [totaDogs, dispatch])
+    if (store && store.totaDogs.length) dispatch(keepDogs(store.totaDogs))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store && store.totaDogs, dispatch])
 
   // Cargar información del estado global "showDogs"
   useEffect(() => {
     setShowDogs({
-      list: dogs.slice(0, 9),
+      list: (store && store.dogs.slice(0, 9)) || [],
       start: 0
     })
-  }, [dogs])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store && store.dogs])
 
   useEffect(() => {
     return () => {
@@ -55,7 +56,7 @@ function Home () {
       </div>
 
       <div className={style.renderDogs}>
-        <Paginated totalDogs={dogs} currentPage={showDogs} setShowDogs={setShowDogs} />
+        <Paginated totalDogs={(store && store.dogs) || []} currentPage={showDogs} setShowDogs={setShowDogs} />
         <DogsContainer dogs={showDogs} />
       </div>
     </div>
