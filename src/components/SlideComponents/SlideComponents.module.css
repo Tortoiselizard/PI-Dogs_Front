@@ -1,0 +1,22 @@
+.slideContainer {
+    width: 100vw;
+    max-width: 100%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border: medium solid red;
+}
+
+.firstSlide {
+    animation: slide-left 1s 0.5s ease-in-out forwards;
+}
+
+@keyframes slide-left {
+    to {
+        transform: translateX(-100vw);
+    }
+}
