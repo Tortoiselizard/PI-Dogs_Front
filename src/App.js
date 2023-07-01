@@ -1,27 +1,56 @@
-import React, { useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
 
 import MainPage from './components/MainPage/MainPage.jsx'
 import Home from './components/Home/Home.jsx'
 import DogDetail from './components/DogDetail/DogDetail.jsx'
 import CreateDog from './components/CreateDog/CreateDog'
-import Nav from './components/Nav/Nav.jsx'
+import SlideComponents from './components/SlideComponents/SlideComponents.jsx'
+import Loading from './components/Loading/Loading.jsx'
+
+import { getAllTemperaments, getAllDogs2 } from './redux/actions/index.js'
 
 import './App.css'
 
 function App () {
-  const location = useLocation()
+  const dispatch = useDispatch()
+  const [sliding, setSliding] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  function handleSliding (come, go) {
+    setSliding({
+      come,
+      go
+    })
+  }
+
+  // Hacer solicitudes a la DB para buscar los perros más populares
+  useEffect(() => {
+    dispatch(getAllDogs2(null, setLoading))
+    dispatch(getAllTemperaments())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (sliding) {
+      setTimeout(() => setSliding(false), 1500)
+    }
+  }, [sliding])
 
   return (
     <>
-      {location.pathname !== '/' ? <Nav setLoad={setLoading} /> : null}
-      <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/home' element={<Home loading={loading} />} />
-        <Route path='/dog/:razaPerro' element={<DogDetail />} />
-        <Route path='/dog/create' element={<CreateDog />} />
-      </Routes>
+      {
+      sliding && <SlideComponents routes={sliding} />
+    }
+      <div className=''>
+        <Routes>
+          <Route path='/' element={<MainPage sliding={handleSliding} />} />
+          <Route path='/home' element={<Home sliding={handleSliding} />} />
+          <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} />} />
+          <Route path='/dog/create' element={<CreateDog sliding={handleSliding} />} />
+        </Routes>
+      </div>
+      <Loading loading={loading} />
     </>
   )
 }
