@@ -9,12 +9,13 @@ function Nav ({ setLoad }) {
 
   return (
     <div className={styles.Nav}>
-      {/* <p>Barra de navegación</p> */}
       <div className={styles.links}>
         <NavLink to='/home'><button className={styles.buttonHome} /></NavLink>
         <NavLink to='/dog/create'><button className={styles.buttonDog} /></NavLink>
       </div>
-      {location.pathname === '/home' ? <SearchDog setLoad={setLoad} /> : null}
+      {
+        location.pathname === '/home' ? <SearchDog setLoad={setLoad} /> : null
+      }
     </div>
   )
 };
