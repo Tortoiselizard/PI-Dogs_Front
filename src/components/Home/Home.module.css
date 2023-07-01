@@ -1,8 +1,24 @@
 .Home{
+    width: 100vw;
+    max-width: 100%;
+    margin: 0px;
+    padding: 0px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     flex-wrap: nowrap;
+    position: relative;
+    background-image: url('../../../public/img/mainPage2.jpg');
+}
+
+.Home::before {
+    content: '';
+    position: absolute;
+    top: 0px;
     width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(8px);
 }
 
 .CardHandlerContainer {
@@ -16,7 +32,7 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     box-shadow: 0 0 20px black;
-    position: fixed;
+    position: absolute;
     z-index: 2;
     top: 25vh;
     left: -270px;
@@ -44,13 +60,7 @@
 
 .renderDogs {
     position: relative;
-    width: 100%;
-}
-
-.ContenedorBotones {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    width: 1000px;
 }
 
 .botonesIzquierda{
