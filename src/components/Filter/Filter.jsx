@@ -89,28 +89,51 @@ function Filter () {
 
   return (
     <div className={style.Filter}>
+      {/* Inputs para filtrar */}
+      <div className={style.inputsFilterContainer}>
+        <h1>Filters</h1>
+        <div className={style.addTemperament}>
+          <label>Temperaments: </label>
+          <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={globalState.temperaments} action={addTemperamentToFilter} />
+        </div>
+
+        <div className={style.filterForPlaceContainer}>
+          <label>Location: </label>
+          <select onChange={() => filter()} id='selectFilterForLocation' className={style.selectFilterForLocation}>
+            <option value='Both'>Both</option>
+            <option value='API'>API</option>
+            <option value='DB'>DB</option>
+          </select>
+        </div>
+      </div>
+      {/* Filtros hechos */}
       {
+        (globalState.searchBar || stateFilter.filteredTemperaments.length)
+          ? (
+            <div className={style.filterOptionsContainer}>
+
+              {
+                stateFilter.filteredTemperaments.length || stateFilter.locationToFilter
+                  ? <h1>Filtering by: </h1>
+                  : null
+            }
+              {/* Filtrado por Nombre */}
+              {
             globalState.searchBar
               ? (
-                <div>
-                  <h3 className={style.titulo}>Busqueda</h3>
+                <div className={style.containerName}>
+                  <label>Name:</label>
                   <label>{globalState.searchBar}</label>
                 </div>)
               : null
         }
-      <h3 className={style.titulo}>Filtrar</h3>
-      <div className={style.showFiltrado}>
-        {
-                stateFilter.filteredTemperaments.length || stateFilter.locationToFilter
-                  ? <p>Se esta filtrando por: </p>
-                  : null
-            }
-        {
+              {/* Filtrado por temperamento */}
+              {
                 stateFilter.filteredTemperaments.length
                   ? (
-                    <div>
-                      <label>Temperamentos: </label>
-                      <div className={style.divParaFiltrar}>
+                    <div className={style.containerAllTemperaments}>
+                      <label>Temperaments: </label>
+                      <div className={style.containerTemperaments}>
                         {
                             stateFilter.filteredTemperaments.map((temperament, index) =>
                               <div key={index} className={style.filtradoTemperamentos}>
@@ -122,24 +145,9 @@ function Filter () {
                     </div>)
                   : null
             }
-      </div>
-
-      <div className={style.addTemperament}>
-        <label>Por temperamento: </label>
-        <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={globalState.temperaments} action={addTemperamentToFilter} />
-      </div>
-
-      <div className={style.divParaFiltrar} />
-      <div className={style.place}>
-        <label>Por Ubicación: </label>
-        <select onChange={() => filter()} id='selectFilterForLocation'>
-          <option value='Both'>Both</option>
-          <option value='API'>API</option>
-          <option value='DB'>DB</option>
-        </select>
-      </div>
-      <br />
-
+            </div>)
+          : null
+      }
     </div>
   )
 }
