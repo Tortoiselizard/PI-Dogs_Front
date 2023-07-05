@@ -10,7 +10,7 @@ const DogCard = (props) => {
           <h3>Temperament</h3>
           <p>{props.temperament}</p>
         </div>
-        <label>Weight (Lb): {props.weight}</label>
+        <label>Weight (Lb): <span>{props.weight}</span></label>
       </div>
     </div>
   )
