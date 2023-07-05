@@ -1,7 +1,7 @@
 .Nav {
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(4px);
-    margin: 10px;
+    margin: 50px;
     padding: 10px;
     width: 35vw;
     display: flex;
