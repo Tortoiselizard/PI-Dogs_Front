@@ -95,8 +95,7 @@ function Order () {
 
   return (
     <div className={style.Order}>
-      <p>Ordenar por: </p>
-
+      <label>Ordenar por: </label>
       <select onChange={handleOrder} id='selectOrder'>
         <option value='A-Z'>A - Z</option>
         <option value='Z-A'>Z - A</option>

@@ -94,15 +94,18 @@ function Paginated ({ totalDogs, currentPage, setShowDogs }) {
     paginatedShow.list.length > 1
       ? (
         <div className={style.ContenedorBotones}>
-          <button className={style.botonesIzquierda} name='anterior' onClick={handlePaging} />
+          {
+            currentPage.start - 9 >= 0 ? (<button className={style.botonesDesplazamiento} name='anterior' onClick={handlePaging}>Prev</button>) : null
+          }
           <div className={style.postionButtons}>
-            <button className={paginatedShow.start === 0 ? style.threePointsOFF : null} onClick={() => { changeNumberPaginatedShowed('before') }} name='before'>...</button>
             {
-          paginatedShow.list.map((n, index) => <button onClick={changePaginateForNumber} className={currentPage.start / 9 === n ? style.currentPage : null} key={`buttonPaginate${index}`}>{n + 1}</button>)
+          paginatedShow.list.map((n, index) => <button onClick={changePaginateForNumber} className={currentPage.start / 9 === n ? style.currentPage : style.buttonNumber} key={`buttonPaginate${index}`}>{n + 1}</button>)
       }
-            <button className={paginatedShow.list[paginatedShow.list.length - 1] >= countPaginate()[countPaginate().length - 1] ? style.threePointsOFF : null} onClick={() => { changeNumberPaginatedShowed('after') }} name='after'>...</button>
+            <button className={paginatedShow.list[paginatedShow.list.length - 1] >= countPaginate()[countPaginate().length - 1] ? style.threePointsOFF : style.buttonNumber} onClick={() => { changeNumberPaginatedShowed('after') }} name='after'>...</button>
           </div>
-          <button className={style.botonesDerecha} name='siguiente' onClick={handlePaging} />
+          {
+            totalDogs.length > currentPage.start + 9 ? <button className={style.botonesDesplazamiento} name='siguiente' onClick={handlePaging}>Next</button> : null
+          }
         </div>)
       : null
   )

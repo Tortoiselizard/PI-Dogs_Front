@@ -41,23 +41,29 @@ function Home ({ store }) {
   }, [dispatch, showDogs])
 
   return (
-    <div className={style.Home}>
-
-      <Nav />
-
-      <div className={style.CardHandlerContainer}>
-        <div>
-          <Filter />
-          <Order />
-        </div>
-        <div className={style.DeployContainer}>
-          <label>{'>'}</label>
-        </div>
+    <div className={style.BackgroundHome}>
+      <div className={style.dogBarCotainer}>
+        <ul>
+          <li id={style.dog1} />
+        </ul>
       </div>
+      <div className={style.Home}>
+        {/* Header */}
+        <Nav />
+        <section className={style.Header}>
+          <div className={style.containerNewDog}>
+            <button />
+          </div>
+          {/* Filtrado */}
+          <Filter />
+        </section>
+        {/* Content */}
+        <section className={style.renderDogs}>
+          <Order />
+          <DogsContainer dogs={showDogs} />
+          <Paginated totalDogs={(store && store.dogs) || []} currentPage={showDogs} setShowDogs={setShowDogs} />
+        </section>
 
-      <div className={style.renderDogs}>
-        <Paginated totalDogs={(store && store.dogs) || []} currentPage={showDogs} setShowDogs={setShowDogs} />
-        <DogsContainer dogs={showDogs} />
       </div>
     </div>
   )

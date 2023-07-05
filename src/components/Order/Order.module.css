@@ -1,22 +1,29 @@
 .Order {
+    align-self: flex-start;
     display: flex;
-    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px;
+    font-family: 'Tinos', serif;
+    font-size: 18px;
 }
 
-.sentido {
-    margin-top: 15px;
-}
-
-.botonOrdenar{
-    margin-top: 15px;
-    background-color: #4a4e69;
-    color: #ede0d4;
-    font-family: 'Comfortaa', cursive;
-    border-radius: 5px;
+.Order select {
+    width: 80px;
     height: 30px;
+    background-color: #A1779B;
+    color: #FFE8ED;
+    border: none;
+    font-family: 'Tinos', serif;
+    font-size: 18px;
+    position: relative;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-.botonOrdenar:hover{
-    background-color: #f2e9e4;
-    color: #4a4e69;
+.Order option {
+    background-color: #A1779B;
+    color: #FFE8ED;
+    padding: 0px;
+    margin: 0px;
 }

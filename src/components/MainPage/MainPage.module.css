@@ -1,55 +1,176 @@
-.MainPage {
+.mainPage {
     height: 100vh;
     min-height: 100vh;
     width: 100vw;
-    background-image: url('../../../public/img/mainPage.jpg');
-    background-size: cover;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    background: url('../../img/1.jpg');
+    background-size: cover;
 }
 
-.verticalBar {
-    background-color: rgba(255,255,255,0.3);
-    backdrop-filter: blur(8px);
-    width: 30vw;
-    height: 100vh;
-    margin: 0px;
-    padding: 0px 50px;
-    box-shadow: 50px rgba(0, 0, 0, 1);
+.navBarMainPageContainer {
+    margin: 50px;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+}
+
+.navBarMainPage {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.navBarMainPage label {
+    margin: 0px 100px;
+    font-family: 'Permanent Marker', 'cursive';
+    font-size: 42px;
+    color: #64A36E;
+}
+
+.navBarOptionsMainPage {
+    margin: 10px;
+}
+
+.navBarOptionsMainPage button {
+    margin: 10px 20px;
+    background-color: transparent;
+    border: none;
+    font-family: 'Varela Round', sans-serif;
+    color: #A3747E;
+    font-size: 24px;
+}
+
+.navBarLoginMainPage {
+    visibility: hidden;
+}
+
+.containerMainPage{
+    margin: 20px 50px;
+    height: 60vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerMainPage div {
+    margin: 0px 3vw;
+}
+
+.titleMainPage {
+    height: 95%;
+    width: 40%;
+    position: relative;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 50px;
-    color: rgba(242, 242, 235, 1);
+    background-image: url('../../img/huellaPerro3Pink.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
+.titleMainPage h1 {
+    height: 125px;
+    width: 90%;
+    margin: 10px 10px;
+    margin-top: 70px;
+    font-family: 'Alfa Slab One', 'cursive';
+    font-size: 82px;
+    color: #A1779B;
+    text-align: center;
+}
 
-.MainPage div h1:hover {
-    text-decoration: underline #D9B29C;
-    transition: text-decoration 1s ease;
+.titleMainPage h2 {
+    margin: 10px;
+    margin-top: 0px;
+    width: 75%;
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+}
+
+.imageContainer {
+    height: 90%;
+    width: 500px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+.imageContainer figure {
+    margin: 0px;
+    position: absolute;
+    top: 3px;
+    z-index: 1;
+}
+
+.imageContainer img {
+    width: 500px;
+}
+
+.imageContainer a {
+    height: 105px;
+    width: 100%;
+    z-index: 2;
+}
+
+.imageContainer a:hover + .buttonMainPage {
+    background-color: #64A36E;
+    color: #FFE8ED;
+    border: 2px solid #FFE8ED;
+    transform: translateY(5px);
+}
+
+.imageContainer a button {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border: none;
 }
 
 .buttonMainPage {
-    margin-bottom: 15px;
-    height: 60px;
-    width: 200px;
-    border: medium solid #F2F2EB;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #F2F2EB;
-    font-family: 'Seymour One', sans-serif;
-    font-size: 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s ease;
+    position: absolute;
+    padding: 0px;
+    bottom: 2px;
+    width: 100%;
+    height: 105px;
+    border: 0px solid transparent;
+    background-color: #F0C2CC;
+    color: #A1779B;
+    text-align: center;
+    line-height: 100px;
+    font-family: 'Permanent Marker', 'cursive';
+    font-size: 50px;
+    z-index: 0;
+    border-radius: 50px;
+    box-shadow: 20px 25px 30px #556970;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease, transform 0.6s ease;
 }
 
-.buttonMainPage:hover{
-    background-color: #F2F2EB;
-    color: #274001;
+.titleMainPage {
+    display: flex;
+    flex-direction: column;
+
 }
 
-.buttonProve {
-    background-color: green;
+.fingerprint {
+    height: 500px;
+    width: 400px;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    border-radius: 50%;
+    background-image: url('../../img/huellaPerro3.png');
+    background-size: cover;
+    transform: rotateZ(30deg);
+    z-index: 0;
+    display: none;
 }
 
 .nextSlide {

@@ -47,8 +47,8 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
 
   return (
     <div className={style.DropdownMenu}>
-      <div>
-        <input onKeyPress={(event) => { if (event.key === 'Enter') addTemperament() }} className={style.inputAddTemperament} type='text' placeholder='temperamento...' name='inputFilter' value={input} onChange={(event) => { handleInput(event.target.value) }} />
+      <div className={style.dropDownMenuOptionsContainer}>
+        <input onKeyPress={(event) => { if (event.key === 'Enter') addTemperament() }} className={style.inputAddTemperament} type='text' placeholder='temperament...' name='inputFilter' value={input} onChange={(event) => { handleInput(event.target.value) }} />
         {
         input && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).length && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase()))[0].toLowerCase() !== input.toLowerCase()
           ? possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).map((temperament, index) => (

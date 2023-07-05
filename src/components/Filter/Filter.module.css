@@ -1,37 +1,104 @@
 .Filter{
+    min-width: 500px;
+    max-width: 1000px;
+    border-radius: 20px;
+    margin: 20px;
+    min-height: 160px;
+    height: auto;
+    /* height: 160px; */
+    padding: 10px;
     display: flex;
-    flex-direction: column;
+    box-shadow: 0px 5px 15px #556970;
+    background-color: #FFE8ED;
+    font-family: 'Tinos', serif;
+    font-size: 18px;
+    color: #A1779B;
 }
 
-.titulo{
-    font-size: 26px;
+.filterOptionsContainer {
+    border-left: thin solid #A1779B;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 240px;
+
+}
+
+.filterOptionsContainer h1 {
+    margin: 0px auto;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.containerName {
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    height: 40px;
+}
+
+.containerAllTemperaments {
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    min-height: 40px;
+}
+
+.containerTemperaments {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    flex-wrap: wrap;
+}
+
+.inputsFilterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 330px;
+    margin-right: 20px;
+}
+
+.inputsFilterContainer h1 {
+    margin: 0px auto;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .addTemperament{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 10px;
-    height: 70px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    height: 40px;
 }
 
 .addTemperament label{
     height: 20px;
 }
 
-.place{
+.filterForPlaceContainer{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: baseline;
-    margin: 15px;
-    justify-content: center;
+    margin: 5px;
+    padding: 5px;
+    width: 240px;
 }
 
-.place label{
-    width: 100%;
+.filterForPlaceContainer label{
     height: 20px;
+}
+
+.selectFilterForLocation {
+    width: 100px;
+    margin-right: 10px;
+    background-color: #A1779B;
+    color: #FFE8ED;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 5px;
 }
 
 .botonFiltrar{
@@ -60,22 +127,29 @@
     font-size: 18px;
 }
 
-.divParaFiltrar{
+.filtradoTemperamentos{
+    background-color: #A1779B;
+    color: #FFE8ED;
+    display: inline;
+    margin: 3px 5px;
+    padding: 5px;
+    border-radius: 10px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
 }
 
-.filtradoTemperamentos{
-    background-color: #e56b6f;
-    display: inline;
-    margin: 5px;
+.filtradoTemperamentos label {
+    padding: 0px;
+    margin: 5px 10px;
 }
 
 .botonCancelarFiltrado{
-    background-color: #dc2f02;
+    background-color: #AADDF0;
     border: 0px;
     outline: none;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .showFiltrado{
