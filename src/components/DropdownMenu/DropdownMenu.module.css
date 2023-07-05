@@ -2,46 +2,58 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    max-height: 200px;
     color: black;
-    /* overflow: auto; */
-    z-index: 3;
-    min-width: 30px;
+    width: 180px;
 }
 
-.DropdownMenu label {
-    color: black;
-    background-color: white;
-    position: relative;
-    border-radius: 0px;
-}
-
-.DropdownMenu label:hover {
-    background-color: gold;
-}
-
-.DropdownMenu div {
+.dropDownMenuOptionsContainer {
+    max-height: 180px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    position: absolute;
+    left: 0px;
+    z-index: 1;
+}
+
+.DropdownMenu label {    
+    position: relative;
+    border-radius: 0px;
+    border-bottom: thin solid #FFE8ED;
+    width: 160px;
+    padding: 3px 7px;
+    text-align: left;
+    background-color: #A1779B;
+    color: #FFE8ED;
+    display: none;
+}
+
+.DropdownMenu label:hover {
+    background-color: #F0ECAA;
+    color: #A1779B;
 }
 
 .inputAddTemperament{
+    position: static;
     width: 160px;
-    height: 30px;
+    min-height: 30px;
+    padding: 5px 10px;
     font-size: 18px;
+    background-color: #A1779B;
+    color: #FFE8ED;
+    border: none;
+    border-bottom: thin solid #FFE8ED;
 }
 
-.DropdownMenu div label {
-    width: 160px;
-    padding: 2px 1px;
-    border: 2px solid transparent;
-    text-align: left;
+.inputAddTemperament:focus ~ label {
+    display: inline;
 }
 
 .botonAddTemperament{
     background-color: #90be6d;
     border: 0px;
-    height: 35px;
+    height: 40px;
+    position: relative;
+    left: 100%;
 }
