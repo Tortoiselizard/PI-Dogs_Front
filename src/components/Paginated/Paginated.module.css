@@ -1,31 +1,19 @@
 .ContenedorBotones {
-    width: 100%;
+    width: 80%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.botonesIzquierda{
-    margin-left: 20px;
-    margin-right: 20px;
+.botonesDesplazamiento {
+    margin: 0px 20px;
+    padding: 5px;
     height:35px;
-    width:35px;
-    background-image: url("https://cdn-icons-png.flaticon.com/512/545/545680.png");
-    background-size: contain;
-    background-color: #84a59d;
-    border-radius: 5px;
+    width:50px;
+    background-color: #64A36E;
+    border: none;
+    border-radius: 10px;
     outline: none;
-}
-
-.botonesDerecha{
-    margin-left: 20px;
-    margin-right: 20px;
-    height:35px;
-    width:35px;
-    background-image: url("https://cdn-icons-png.flaticon.com/512/545/545682.png");
-    background-size: cover;
-    background-color: #84a59d;
-    border-radius: 5px;
-    outline: none;
+    transition: background-color 0.3s ease;
 }
 
 .postionButtons {
@@ -34,10 +22,30 @@
     width: 100%;
 }
 
+.buttonNumber {
+    border: none;
+    border-radius: 5px;
+    background-color: #64A36E;
+    width: 25px;
+    transition: background-color 0.3s ease;
+}
+
 .currentPage {
-    background-color: red;
+    border: none;
+    border-radius: 5px;
+    background-color: #C2F0C9;
+    width: 25px;
 }
 
 .threePointsOFF {
     visibility: hidden;
+}
+
+.ContenedorBotones button:hover {
+    background-color: #C2F0C9;
+}
+
+.ContenedorBotones button {
+    box-shadow: 5px 5px 15px #556970;
+    font-family: 'Varela Round', sans-serif;
 }
