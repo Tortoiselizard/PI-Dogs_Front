@@ -15,7 +15,7 @@ const initialStateInputs = {
   weight: { min: '', max: '' },
   lifeSpan: { min: '', max: '' },
   image: '',
-  temperaments: []
+  temperament: []
 }
 
 const initialStateErrors = {
@@ -57,7 +57,7 @@ const CreateDog = ({ store }) => {
         weight,
         lifeSpan,
         image: '',
-        temperaments: arrayTemperamentsTo
+        temperament: arrayTemperamentsTo
       }
       setInputs(newDog)
     }
@@ -89,10 +89,10 @@ const CreateDog = ({ store }) => {
     const temperamentObject = store.temperaments.filter(t => t.name === temperament)[0]
     let newInputs
     if (temperamentObject) {
-      if (!inputs.temperaments.filter(t => t.name === temperament).length) {
+      if (!inputs.temperament.filter(t => t.name === temperament).length) {
         newInputs = {
           ...inputs,
-          temperaments: [...inputs.temperaments, temperamentObject]
+          temperament: [...inputs.temperament, temperamentObject]
         }
         setInputs(newInputs)
         setDogDetail(changeDogDetail(newInputs))
@@ -107,11 +107,11 @@ const CreateDog = ({ store }) => {
   function popTemperament (event) {
     const id = event.target.name.slice(16)
     setInputs(inputs => {
-      const temperaments = [...inputs.temperaments]
-      temperaments.splice(id, 1)
+      const temperament = [...inputs.temperament]
+      temperament.splice(id, 1)
       return {
         ...inputs,
-        temperaments
+        temperament
       }
     })
     setRefresh(true)
@@ -126,7 +126,7 @@ const CreateDog = ({ store }) => {
       const { data } = prepareRequest(inputs, undefined, 'POST')
 
       const response = await fetch(`${PATH}/dogs`, data)
-        .then((data) => data.json())
+        .then(data => data.json())
         .then(data => data)
         .catch(error => error.message)
       if (typeof (response) === 'string') { return alert(response) } else {
@@ -211,7 +211,7 @@ const CreateDog = ({ store }) => {
       height: `${input.height.min} - ${input.height.max}`,
       weight: `${input.weight.min} - ${input.weight.max}`,
       lifeSpan: `${input.lifeSpan.min} - ${input.lifeSpan.max}`,
-      temperament: input.temperaments.map(t => t.name).join(', ')
+      temperament: input.temperament.map(t => t.name).join(', ')
     }
   }
 
@@ -302,7 +302,7 @@ const CreateDog = ({ store }) => {
               </div>
               <div>
                 {
-                  inputs.temperaments.map(temperament => temperament.name).map((temperament, index) => (
+                  inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
                     <span key={index} className={style.divTemperamentoAnadido}>
 
                       <label name={`temperamentAdded${index}`}>{temperament}  </label>
