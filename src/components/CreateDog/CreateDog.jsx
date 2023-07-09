@@ -219,24 +219,28 @@ const CreateDog = ({ store }) => {
     <div className={style.backgroundCreateDog}>
       <main className={style.containerCreateDog}>
         <Nav />
+        {/* Header */}
         <section className={style.headerCreateDog}>
           <h1>ADD A NEW DOG</h1>
         </section>
-        <div className={style.CreateDog}>
-          <h1>Create a new dog</h1>
+        {/* Contenedor de formulario y detalle de etiqueta */}
+        <section>
+          {/* Fomulario */}
+          <div className={style.formCreateDog}>
+            <h1>Create a new dog</h1>
 
-          <div className={style.seccioName}>
-            <label>Nombre de la Raza : </label>
-            <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
+            <div className={style.seccioName}>
+              <label>Nombre de la Raza : </label>
+              <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
 
-            <p className={style.danger}>{errors.name}</p>
-          </div>
+              <p className={style.danger}>{errors.name}</p>
+            </div>
 
-          {
+            {
         whatShow === false ? <button onClick={searchDog}>Search</button> : <button onClick={changeName}>Change Name</button>
       }
 
-          {
+            {
         whatShow === 'form' &&
            (
              <>
@@ -284,7 +288,7 @@ const CreateDog = ({ store }) => {
              </>
            )
       }
-          {
+            {
         (whatShow === 'image' || whatShow === 'form') && (
           <>
             <div className={style.secconImagen}>
@@ -295,7 +299,7 @@ const CreateDog = ({ store }) => {
           </>
         )
       }
-          {
+            {
         whatShow === 'form' && (
           <>
             <div className={style.seccionTemperamentos}>
@@ -318,11 +322,13 @@ const CreateDog = ({ store }) => {
           </>
         )
       }
-          {
+            {
         (whatShow === 'image' || whatShow === 'form') && <button className={style.botonCreateDog} type='submit' onClick={handleSubmit} />
       }
-        </div>
-        {
+          </div>
+          {/* Detalle de etiqueta */}
+          <div className={style.detailDogCreateDog}>
+            {
         dogDetail && whatShow !== false && (
           <div className={style.DogDetail}>
             {/* Image */}
@@ -355,6 +361,8 @@ const CreateDog = ({ store }) => {
             </div>
           </div>)
       }
+          </div>
+        </section>
       </main>
     </div>
   )
