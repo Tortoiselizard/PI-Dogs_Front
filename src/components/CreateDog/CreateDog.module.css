@@ -1,3 +1,11 @@
+.backgroundCreateDog {
+    background-color: #7C99A3;
+    width: 10vw;
+    min-width: 100%;
+    min-height: 100vh;
+    padding: 3vh 2vw;
+}
+
 .CreateDog{
     background-color: #6d6875;
     color: white;
