@@ -6,8 +6,9 @@
 
 .containerCreateDog {
     background-color: #AADDF0;
-    width: 100%;
+    max-width: 100%;
     min-height: 100vh;
+    padding: 20px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -15,7 +16,24 @@
 }
 
 .headerCreateDog {
-    border: medium solid black;
+    border-radius: 20px;
+    width: 90%;
+    height: 600px;
+    margin: 20px;
+    background-image: url('../../img/packDogs.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.headerCreateDog h1 {
+    color: white;
+    font-family: 'Alfa Slab One', 'cursive';
+    font-size: 82px;
+    margin: 50px ;
 }
 
 .CreateDog{
