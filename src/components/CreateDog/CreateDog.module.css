@@ -1,9 +1,21 @@
 .backgroundCreateDog {
     background-color: #7C99A3;
-    width: 10vw;
-    min-width: 100%;
-    min-height: 100vh;
+    max-width: 100vw;
     padding: 3vh 2vw;
+}
+
+.containerCreateDog {
+    background-color: #AADDF0;
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerCreateDog {
+    border: medium solid black;
 }
 
 .CreateDog{
