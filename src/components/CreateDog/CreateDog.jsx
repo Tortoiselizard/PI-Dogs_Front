@@ -216,7 +216,7 @@ const CreateDog = ({ store }) => {
   }
 
   return (
-    <div>
+    <div className={style.backgroundCreateDog}>
       <Nav />
       <div className={style.CreateDog}>
         <h1>Create a new dog</h1>
