@@ -246,16 +246,15 @@ const CreateDog = ({ store }) => {
            (
              <>
                <div className={style.secciones}>
-                 <label>Altura</label>
-
-                 <span>min (cm) : </span>
-                 <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='altura minima...' />
-
-                 <span>max (cm) : </span>
-                 <input className={errors.height.max && style.warning} onChange={handleChange} value={inputs.height.max} name='height-max' type='text' placeholder='altura máxima...' />
-
-                 <p>{errors.height.min}</p>
-                 <p>{errors.height.max}</p>
+                 <label>Height</label>
+                 <div>
+                   <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='Minimun height...' />
+                   <p>{errors.height.min}</p>
+                 </div>
+                 <div>
+                   <input className={errors.height.max && style.warning} onChange={handleChange} value={inputs.height.max} name='height-max' type='text' placeholder='Max height...' />
+                   <p>{errors.height.max}</p>
+                 </div>
 
                </div>
 
