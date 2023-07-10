@@ -172,25 +172,29 @@
 }
 
 .seccionTemperamentos{
+    width: 100%;
+    margin: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-height: 175px;
-    width: 100%;
+    align-items: flex-start;
 }
 
 .seccionTemperamentos label{
     width: 178px;
     height: 30px;
+    padding: 0px;
+    margin-right: 20px;
 }
 
-.seccionTemperamentosInputContainer {
+.containerTemperamentsSecction {
     display: flex;
-    flex-direction: row;
+    align-items: baseline;
+}
+
+.containerTemperaments{
+    margin-top: 20px;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    margin: 5px;
-    width: 232px;
 }
 
 .botonAddTemperament{
@@ -203,28 +207,42 @@
 .botonCreateDog{
     width: 102px;
     height: 80px;
+    margin: 20px;
     background-color: #f2e9e4;
     border: 0px;
     background-image: url("https://www.pngkey.com/png/full/125-1252358_dog-icon.png");
     background-size: cover;
     border-radius: 10px;
     padding: 0px;
+    align-self: center;
 }
 
 .botonCreateDog:hover{
     background-color: #9a8c98;
 }
 
-.divTemperamentoAnadido{
-    background-color: #e56b6f;
-    margin: 5px;
-    
+.divTemperamentoAnadido {
+    background-color: #A1779B;
+    color: #FFE8ED;
+    margin: 3px 5px;
+    padding: 5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.divTemperamentoAnadido label {
+    padding: 0px;
+    margin: 0px 5px;
+    height: 25px;
+    display: inline;
 }
 
 .botonCerrarTemperamento{
-    background-color: #dc2f02;
+    background-color: #AADDF0;
     border: 0px;
-    height: 28px;
+    outline: none;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .danger {
