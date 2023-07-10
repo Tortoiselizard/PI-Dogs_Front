@@ -1,104 +1,191 @@
-.CreateDog{
-    background-color: #6d6875;
-    color: white;
-    padding: 7px;
+.backgroundCreateDog {
+    background-color: #7C99A3;
+    max-width: 100vw;
+    padding: 3vh 2vw;
+}
+
+.containerCreateDog {
+    background-color: #AADDF0;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    padding-top: 10px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 500px;
+}
+
+.headerCreateDog {
     border-radius: 20px;
-    margin: 30px;
-    box-shadow: 0 0 20px black;
+    width: 90%;
+    height: 500px;
+    margin: 20px;
+    background-image: url('../../img/packDogs.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    box-shadow: 10px 10px 5px #7C99A3;
+}
+
+.headerCreateDog h1 {
+    color: white;
+    font-family: 'Alfa Slab One', 'cursive';
+    font-size: 82px;
+    margin: 50px ;
+}
+
+.contentCreateDog {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Tinos', serif;
+}
+
+.formCreateDog {
+    width: 50%;
+    min-width: 500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 20px;
+    color: #7C99A3;
+}
+
+.formCreateDog h1 {
+    margin: 25px;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.formCreateDog label {
+    font-family: 'Varela Round', sans-serif;
 }
 
 .seccioName{
-    display: grid;
-    grid-template-columns: 175px auto;
-    grid-template-rows: 25px auto;
     width: 100%;
-    margin: 5px;
+    margin: 10px;
+    display: flex;
+    align-items: baseline;
 }
+
 .seccioName label{
     padding: 0px;
     height: 25px;
+    width: 120px;
 }
 
-.seccioName input{
+.seccioName div{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seccioName input {
     width: 300px;
 }
 
 .seccioName p{
-    grid-column: 2/ span 1;
     margin: 5px;
     width: 300px;
+    text-align: center;
+}
+
+.seccioName button {
+    margin: 10px;
+    height: 40px;
+    width: 60px;
 }
 
 .secciones{
-    display: grid;
-    grid-template-columns: 75px 150px 75px 150px;
-    grid-template-rows: 25px 25px 25px;
-    width: 100%;
-    height: 80px;
-    margin: 5px;
+    display: flex;
+    align-items: baseline;
 }
 
 .secciones label{
-    grid-column: 1/ span 4;
     margin: 0px;
+    margin-left: 15px;
     padding: 0px;
     height: 25px;
+    padding: 10px;
+    width: 80px;
 }
 
-.secciones p {
-    margin: 5px;
-    grid-column: span 2;
-    width: 176px;
-    justify-self: end;
-}
-
-.secciones input{
-    margin-right: 40px;
-}
-
-.secconImagen{
+.secciones div {
+    margin: 10px;
+    width: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.secconImagen input{
-    width: 450px;
+.secciones input{
+    width: 120px;
 }
 
-.secconImagen label{
+.secciones p {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+.seccionImage {
+    margin: 10px;
+    display: flex;
+    align-items: baseline;
+}
+
+.seccionImage label{
     height: 30px;
+    width: 120px;
+    padding: 0px;
 }
 
-.secconImagen p{
+.seccionImage div {
+    margin: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seccionImage input{
+    width: 300px;
+}
+
+.seccionImage p{
     margin: 5px;
     text-align: center;
 }
 
 .seccionTemperamentos{
+    width: 100%;
+    margin: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-height: 175px;
-    width: 100%;
+    align-items: flex-start;
 }
 
 .seccionTemperamentos label{
     width: 178px;
     height: 30px;
+    padding: 0px;
+    margin-right: 20px;
 }
 
-.seccionTemperamentosInputContainer {
+.containerTemperamentsSecction {
     display: flex;
-    flex-direction: row;
+    align-items: baseline;
+}
+
+.containerTemperaments{
+    margin-top: 20px;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    margin: 5px;
-    width: 232px;
 }
 
 .botonAddTemperament{
@@ -111,28 +198,42 @@
 .botonCreateDog{
     width: 102px;
     height: 80px;
+    margin: 20px;
     background-color: #f2e9e4;
     border: 0px;
     background-image: url("https://www.pngkey.com/png/full/125-1252358_dog-icon.png");
     background-size: cover;
     border-radius: 10px;
     padding: 0px;
+    align-self: center;
 }
 
 .botonCreateDog:hover{
     background-color: #9a8c98;
 }
 
-.divTemperamentoAnadido{
-    background-color: #e56b6f;
-    margin: 5px;
-    
+.divTemperamentoAnadido {
+    background-color: #A1779B;
+    color: #FFE8ED;
+    margin: 3px 5px;
+    padding: 5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.divTemperamentoAnadido label {
+    padding: 0px;
+    margin: 0px 5px;
+    height: 25px;
+    display: inline;
 }
 
 .botonCerrarTemperamento{
-    background-color: #dc2f02;
+    background-color: #AADDF0;
     border: 0px;
-    height: 28px;
+    outline: none;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .danger {
@@ -150,4 +251,57 @@
 .warning {
     border: solid red 1px;
     border-radius: 0.2em;
+}
+
+.detailDogCreateDog {
+    width: 50%;
+    padding: 20px;
+    background-color: #7C99A3;
+    color: #AADDF0;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-shadow: 5px 5px 15px #7C99A3;
+}
+
+.detailDogImageContainer {
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    background-image: url('../../img/defaultDog.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.containerData {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.containerData h1 {
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 32px;
+}
+
+.containerData div {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+}
+
+.containerData label {
+    font-size: 24px;
+}
+
+.containerData p {
+    font-size: 21px;
+    margin: 10px;
 }

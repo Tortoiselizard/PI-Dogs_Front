@@ -27,6 +27,8 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
   function selectTemperament (event) {
     const value = event.target.innerText
     setInput(value)
+    const input = document.getElementsByName('inputFilter')[0]
+    input.focus()
   }
 
   function addTemperament () {

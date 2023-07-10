@@ -59,7 +59,7 @@ module.exports = {
       height: dog.height.min + (dog.height.max ? ' - ' + dog.height.max : ''),
       weight: dog.weight.min + (dog.weight.max ? ' - ' + dog.weight.max : ''),
       lifeSpan: dog.lifeSpan.min + (dog.lifeSpan.max ? ' - ' + dog.lifeSpan.max : ''),
-      temperaments: dog.temperament.map(t => t.id),
+      temperament: dog.temperament.map(t => t.id),
       image: dog.image
     }
     const data = {
