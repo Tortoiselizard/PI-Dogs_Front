@@ -224,7 +224,7 @@ const CreateDog = ({ store }) => {
           <h1>ADD A NEW DOG</h1>
         </section>
         {/* Contenedor de formulario y detalle de etiqueta */}
-        <section>
+        <section className={style.contentCreateDog}>
           {/* Fomulario */}
           <div className={style.formCreateDog}>
             <h1>Create a new dog</h1>
