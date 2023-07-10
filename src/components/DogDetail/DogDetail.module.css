@@ -34,7 +34,7 @@
     background-size: cover;
     background-position: top;
     width: 100%;
-    height: 800px;
+    height: 900px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -56,17 +56,16 @@
 }
 
 .containerInformation h3 {
-    font-size: 26px;
-    padding: 10px;
-    margin: 10px 0px;
+    width: 100%;
+    font-size: 25px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    border-bottom: 3px solid white;
 }
 
 .DogDetail label {
-    font-weight: 700;
-}
-
-.containerDogDetail label {
-    margin: 5px;
+    margin: 0px;
     padding: 10px;
     text-align: center;
     vertical-align: middle;
@@ -88,21 +87,25 @@
     border-radius: 20px;
     position: absolute;
     font-family: 'Seymour One', sans-serif;
-    top: 10%
+    top: 20%
 }
 
 .temperamentos {
+    width: 500px;
+    padding: 15px;
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
-    top: 70%;
+    bottom: 20%;
     display: flex;
     flex-direction: column;
-    right: 10%;
+    right: 15%;
     align-items: center;
 }
 
 .alto {
+    width: 150px;
+    padding: 15px;
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
@@ -114,10 +117,12 @@
 }
 
 .peso {
+    width: 150px;
+    padding: 15px;
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
-    top: 70%;
+    bottom: 20%;
     display: flex;
     flex-direction: column;
     left: 20%;
@@ -125,6 +130,8 @@
 }
 
 .years {
+    width: 150px;
+    padding: 15px;
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
