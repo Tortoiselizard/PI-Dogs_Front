@@ -206,7 +206,7 @@ function DogDetail ({ store }) {
           ? (
             <div className={style.DogDetail}>
               {/* Image */}
-              <label>
+              <div className={style.containerImageBackground} style={{ backgroundImage: `url(${store.dogDetail[0].image})` }}>
                 <img className={style.imagen} src={store.dogDetail[0].image} alt={store.dogDetail.name} />
                 {
                 editMode && inputs.image && <input onChange={handleInputs} name='image' value={inputs.image} />
@@ -214,7 +214,7 @@ function DogDetail ({ store }) {
                 {
                 errors && editMode && <p className={style.danger}>{errors.image}</p>
               }
-              </label>
+              </div>
               <div>
                 {/* Name */}
                 {
