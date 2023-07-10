@@ -1,3 +1,21 @@
+.background {
+    background-color: #64A36E;
+    max-width: 100vw;
+    padding: 3vh 2vw;
+}
+
+main {
+    background-color: #C2F0C9;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    padding-top: 10px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .DogDetail{
     display: grid;
     grid-template-columns: auto 500px;
