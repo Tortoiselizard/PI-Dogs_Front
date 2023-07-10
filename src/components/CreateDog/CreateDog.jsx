@@ -230,15 +230,16 @@ const CreateDog = ({ store }) => {
             <h1>Create a new dog</h1>
 
             <div className={style.seccioName}>
-              <label>Nombre de la Raza : </label>
-              <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
+              <label>Dog's name</label>
+              <div>
+                <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
+                <p className={style.danger}>{errors.name}</p>
+              </div>
 
-              <p className={style.danger}>{errors.name}</p>
-            </div>
-
-            {
+              {
         whatShow === false ? <button onClick={searchDog}>Search</button> : <button onClick={changeName}>Change Name</button>
       }
+            </div>
 
             {
         whatShow === 'form' &&
