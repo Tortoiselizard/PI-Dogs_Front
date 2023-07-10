@@ -206,26 +206,22 @@ function DogDetail ({ store }) {
           ? (
             <div className={style.DogDetail}>
               {/* Image */}
-              <div className={style.containerImageBackground} style={{ backgroundImage: `url(${store.dogDetail[0].image})` }}>
-                <img className={style.imagen} src={store.dogDetail[0].image} alt={store.dogDetail.name} />
+              <div className={style.containerInformation} style={{ backgroundImage: `url(${store.dogDetail[0].image})` }}>
+
+                <img src={store.dogDetail[0].image} alt={store.dogDetail.name} />
                 {
                 editMode && inputs.image && <input onChange={handleInputs} name='image' value={inputs.image} />
               }
                 {
                 errors && editMode && <p className={style.danger}>{errors.image}</p>
               }
-              </div>
-              <div>
                 {/* Name */}
                 {
                 editMode ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
               }
-                {
-                errors && editMode && <p className={style.danger}>{errors.name}</p>
-              }
                 {/* Height */}
-                <label className={style.alto}>
-                  <span>Height (In):</span>
+                <div className={style.alto}>
+                  <label>Height (In):</label>
                   {
                   editMode && inputs.height
                     ? Object.values(inputs.height).map((value, index) => (
@@ -239,9 +235,9 @@ function DogDetail ({ store }) {
                   {
                   errors && editMode && <p>{errors.height.max}</p>
                 }
-                </label>
+                </div>
                 {/* Weight */}
-                <label className={style.peso}>
+                <div className={style.peso}>
                   <span>Weight (Lb): </span>
                   {
                   editMode && inputs.weight
@@ -256,9 +252,9 @@ function DogDetail ({ store }) {
                   {
                   errors && editMode && <p>{errors.weight.max}</p>
                 }
-                </label>
+                </div>
                 {/* Years */}
-                <label className={style.years}>
+                <div className={style.years}>
                   <span>years: </span>
                   {
                   editMode && inputs.lifeSpan
@@ -273,14 +269,20 @@ function DogDetail ({ store }) {
                   {
                   errors && editMode && <p>{errors.lifeSpan.max}</p>
                 }
-                </label>
+                </div>
                 {/* Temperaments */}
-                <label className={style.temperamentos}>
+                <div className={style.temperamentos}>
                   <span>Temperaments:</span>
                   {
                 editMode ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <p>{store.dogDetail[0].temperament}</p>
               }
-                </label>
+                </div>
+              </div>
+              <div>
+                {
+                errors && editMode && <p className={style.danger}>{errors.name}</p>
+              }
+
                 <div>
                   {
                   editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
