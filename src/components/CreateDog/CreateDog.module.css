@@ -142,21 +142,31 @@
     text-align: center;
 }
 
-.secconImagen{
+.seccionImage {
+    margin: 10px;
+    display: flex;
+    align-items: baseline;
+}
+
+.seccionImage label{
+    height: 30px;
+    width: 120px;
+    padding: 0px;
+}
+
+.seccionImage div {
+    margin: 10px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.secconImagen input{
-    width: 450px;
+.seccionImage input{
+    width: 300px;
 }
 
-.secconImagen label{
-    height: 30px;
-}
-
-.secconImagen p{
+.seccionImage p{
     margin: 5px;
     text-align: center;
 }
