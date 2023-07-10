@@ -121,11 +121,12 @@
     padding: 0px;
     height: 25px;
     padding: 10px;
+    width: 80px;
 }
 
 .secciones div {
     margin: 10px;
-    width: 50%;
+    width: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
