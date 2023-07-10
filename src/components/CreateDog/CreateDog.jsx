@@ -248,41 +248,43 @@ const CreateDog = ({ store }) => {
                <div className={style.secciones}>
                  <label>Height</label>
                  <div>
-                   <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='Minimun height...' />
+                   <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='Minimun...' />
                    <p>{errors.height.min}</p>
                  </div>
                  <div>
-                   <input className={errors.height.max && style.warning} onChange={handleChange} value={inputs.height.max} name='height-max' type='text' placeholder='Max height...' />
+                   <input className={errors.height.max && style.warning} onChange={handleChange} value={inputs.height.max} name='height-max' type='text' placeholder='Maximum...' />
                    <p>{errors.height.max}</p>
                  </div>
 
                </div>
 
                <div className={style.secciones}>
-                 <label>Peso</label>
+                 <label>Weight</label>
 
-                 <span>min (kg) : </span>
-                 <input className={errors.weight.min && style.warning} onChange={handleChange} value={inputs.weight.min} name='weight-min' type='text' placeholder='peso minimo...' />
+                 <div>
+                   <input className={errors.weight.min && style.warning} onChange={handleChange} value={inputs.weight.min} name='weight-min' type='text' placeholder='Minimum...' />
+                   <p>{errors.weight.min}</p>
+                 </div>
 
-                 <span>max (kg) : </span>
-                 <input className={errors.weight.max && style.warning} onChange={handleChange} value={inputs.weight.max} name='weight-max' type='text' placeholder='peso minimo...' />
-
-                 <p>{errors.weight.min}</p>
-                 <p>{errors.weight.max}</p>
+                 <div>
+                   <input className={errors.weight.max && style.warning} onChange={handleChange} value={inputs.weight.max} name='weight-max' type='text' placeholder='Maximum...' />
+                   <p>{errors.weight.max}</p>
+                 </div>
 
                </div>
 
                <div className={style.secciones}>
-                 <label>Años de vida</label>
+                 <label>Years of life</label>
 
-                 <span>min :</span>
-                 <input className={errors.lifeSpan.min && style.warning} onChange={handleChange} value={inputs.lifeSpan.min} name='lifeSpan-min' type='text' placeholder='edad mínima...' />
+                 <div>
+                   <input className={errors.lifeSpan.min && style.warning} onChange={handleChange} value={inputs.lifeSpan.min} name='lifeSpan-min' type='text' placeholder='Minimum...' />
+                   <p>{errors.lifeSpan.min}</p>
+                 </div>
 
-                 <span>max :</span>
-                 <input className={errors.lifeSpan.max && style.warning} onChange={handleChange} value={inputs.lifeSpan.max} name='lifeSpan-max' type='text' placeholder='edad máxima...' />
-
-                 <p>{errors.lifeSpan.min}</p>
-                 <p>{errors.lifeSpan.max}</p>
+                 <div>
+                   <input className={errors.lifeSpan.max && style.warning} onChange={handleChange} value={inputs.lifeSpan.max} name='lifeSpan-max' type='text' placeholder='Maximum...' />
+                   <p>{errors.lifeSpan.max}</p>
+                 </div>
 
                </div>
              </>
@@ -292,7 +294,7 @@ const CreateDog = ({ store }) => {
         (whatShow === 'image' || whatShow === 'form') && (
           <>
             <div className={style.secconImagen}>
-              <label>Imagen</label>
+              <label>Image</label>
               <input className={errors.image && style.warning} onChange={handleChange} value={inputs.image} name='image' type='text' placeholder='URL...' />
               <p className={style.danger}>{errors.image}</p>
             </div>
