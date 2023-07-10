@@ -111,30 +111,34 @@
 }
 
 .secciones{
-    display: grid;
-    grid-template-columns: 75px 150px 75px 150px;
-    grid-template-rows: 25px 25px 25px;
-    width: 100%;
-    height: 80px;
-    margin: 5px;
+    display: flex;
+    align-items: baseline;
 }
 
 .secciones label{
-    grid-column: 1/ span 4;
     margin: 0px;
+    margin-left: 15px;
     padding: 0px;
     height: 25px;
+    padding: 10px;
 }
 
-.secciones p {
-    margin: 5px;
-    grid-column: span 2;
-    width: 176px;
-    justify-self: end;
+.secciones div {
+    margin: 10px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .secciones input{
-    margin-right: 40px;
+    width: 120px;
+}
+
+.secciones p {
+    color: red;
+    font-size: 14px;
+    text-align: center;
 }
 
 .secconImagen{
