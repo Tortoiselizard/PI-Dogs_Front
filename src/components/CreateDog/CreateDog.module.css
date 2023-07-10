@@ -9,6 +9,7 @@
     max-width: 100%;
     min-height: 100vh;
     padding: 40px;
+    padding-top: 10px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -37,7 +38,6 @@
 }
 
 .contentCreateDog {
-    border: medium solid black;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -45,7 +45,6 @@
 }
 
 .formCreateDog {
-    border: medium solid white;
     width: 50%;
     min-width: 500px;
     padding: 20px;
@@ -57,22 +56,13 @@
 }
 
 .formCreateDog h1 {
-    align-self: center;
+    margin: 25px;
     font-family: 'Varela Round', sans-serif;
 }
 
-/* .CreateDog{
-    background-color: #6d6875;
-    color: white;
-    padding: 7px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 500px;
-    border-radius: 20px;
-    margin: 30px;
-    box-shadow: 0 0 20px black;
-} */
+.formCreateDog label {
+    font-family: 'Varela Round', sans-serif;
+}
 
 .seccioName{
     width: 100%;
@@ -263,24 +253,53 @@
 }
 
 .detailDogCreateDog {
-    border: medium solid white;
     width: 50%;
     padding: 20px;
     background-color: #7C99A3;
     color: #AADDF0;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .detailDogImageContainer {
     width: 100%;
     height: 500px;
     border-radius: 20px;
-    background-color: green;
     background-image: url('../../img/defaultDog.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.containerData {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.containerData h1 {
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 32px;
+}
+
+.containerData div {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+}
+
+.containerData label {
+    font-size: 24px;
+}
+
+.containerData p {
+    font-size: 21px;
+    margin: 10px;
 }
