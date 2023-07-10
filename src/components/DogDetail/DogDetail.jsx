@@ -200,7 +200,7 @@ function DogDetail ({ store }) {
 
   return (
     <div className={style.background}>
-      <main>
+      <main className={style.containerDogDetail}>
         <Nav />
         {Object.keys(store.dogDetail).length
           ? (
@@ -221,7 +221,7 @@ function DogDetail ({ store }) {
               }
                 {/* Height */}
                 <div className={style.alto}>
-                  <h3>Height (In):</h3>
+                  <h3>Height (In)</h3>
                   {
                   editMode && inputs.height
                     ? Object.values(inputs.height).map((value, index) => (
@@ -238,7 +238,7 @@ function DogDetail ({ store }) {
                 </div>
                 {/* Weight */}
                 <div className={style.peso}>
-                  <h3>Weight (Lb): </h3>
+                  <h3>Weight (Lb)</h3>
                   {
                   editMode && inputs.weight
                     ? Object.values(inputs.weight).map((value, index) => (
@@ -255,7 +255,7 @@ function DogDetail ({ store }) {
                 </div>
                 {/* Years */}
                 <div className={style.years}>
-                  <h3>Years: </h3>
+                  <h3>Years</h3>
                   {
                   editMode && inputs.lifeSpan
                     ? Object.values(inputs.lifeSpan).map((value, index) => (
