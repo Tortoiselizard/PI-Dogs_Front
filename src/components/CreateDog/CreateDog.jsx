@@ -5,6 +5,10 @@ import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import { validate, allGood, prepareRequest, restartState } from '../../controllers/controllers'
 
 import style from './CreateDog.module.css'
+import smallDog from '../../img/smallDog.png'
+import mediumDog from '../../img/mediumDog.png'
+import bigDog from '../../img/bigDog.png'
+import defaultDog from '../../img/defaultDog.png'
 
 const PATH = 'http://localhost:3001'
 // const PATH = 'https://pi-dogs-back-90f5.onrender.com'
@@ -170,14 +174,10 @@ const CreateDog = ({ store }) => {
                   ...inputs,
                   name: newName
                 }))
-                setDogDetail({
-                  name: newName,
-                  image: '',
-                  height: '',
-                  weight: '',
-                  lifeSpan: '',
-                  temperament: ''
-                })
+                setDogDetail(dogDetail => ({
+                  ...dogDetail,
+                  name: newName
+                }))
               } else if (data[0].image) {
                 alert(`El perro ${newName} ya existe`)
               } else {
@@ -205,9 +205,26 @@ const CreateDog = ({ store }) => {
   }
 
   function changeDogDetail (input) {
+    let image
+    if (input.image) {
+      image = input.image
+    } else {
+      const maxWeight = input.weight.max
+      if (maxWeight && !isNaN(Number(maxWeight))) {
+        if (Number(input.weight.max) <= 25) {
+          image = smallDog
+        } else if (Number(input.weight.max) <= 75) {
+          image = mediumDog
+        } else if (Number(input.weight.max) > 75) {
+          image = bigDog
+        }
+      } else {
+        image = defaultDog
+      }
+    }
     return {
       name: input.name,
-      image: input.image,
+      image,
       height: `${input.height.min} - ${input.height.max}`,
       weight: `${input.weight.min} - ${input.weight.max}`,
       lifeSpan: `${input.lifeSpan.min} - ${input.lifeSpan.max}`,
@@ -327,41 +344,39 @@ const CreateDog = ({ store }) => {
       }
           </div>
           {/* Detalle de etiqueta */}
-          <div className={style.detailDogCreateDog}>
-            {
-        dogDetail && whatShow !== false && (
-          <div className={style.DogDetail}>
-            {/* Image */}
-            <label>
-              <img className={style.imagen} src={dogDetail.image || '../../../img/home.png'} alt={dogDetail.name || 'Image'} />
-            </label>
-            <div>
-              {/* Name */}
-              <h1 className={style.name}>{dogDetail.name || 'Name'}</h1>
-              {/* Height */}
-              <label className={style.alto}>
-                <span>Height (In):</span>
-                <p>{dogDetail.height}</p>
-              </label>
-              {/* Weight */}
-              <label className={style.peso}>
-                <span>Weight (Lb): </span>
-                <p>{dogDetail.weight}</p>
-              </label>
-              {/* Years */}
-              <label className={style.years}>
-                <span>years: </span>
-                <p>{dogDetail.lifeSpan}</p>
-              </label>
-              {/* Temperaments */}
-              <label className={style.temperamentos}>
-                <span>Temperaments:</span>
-                <p>{dogDetail.temperament}</p>
-              </label>
-            </div>
-          </div>)
+          {
+        dogDetail && whatShow !== false
+          ? (
+            <div className={style.detailDogCreateDog}>
+              {/* Image */}
+              <div className={style.detailDogImageContainer} style={{ backgroundImage: `url(${dogDetail.image})` }} />
+              <div>
+                {/* Name */}
+                <h1 className={style.name}>{dogDetail.name || 'Name'}</h1>
+                {/* Height */}
+                <label className={style.alto}>
+                  <span>Height (In):</span>
+                  <p>{dogDetail.height}</p>
+                </label>
+                {/* Weight */}
+                <label className={style.peso}>
+                  <span>Weight (Lb): </span>
+                  <p>{dogDetail.weight}</p>
+                </label>
+                {/* Years */}
+                <label className={style.years}>
+                  <span>years: </span>
+                  <p>{dogDetail.lifeSpan}</p>
+                </label>
+                {/* Temperaments */}
+                <label className={style.temperamentos}>
+                  <span>Temperaments:</span>
+                  <p>{dogDetail.temperament}</p>
+                </label>
+              </div>
+            </div>)
+          : null
       }
-          </div>
         </section>
       </main>
     </div>
