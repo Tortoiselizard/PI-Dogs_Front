@@ -7,7 +7,7 @@ import { validate, allGood, prepareRequest, restartState } from '../../controlle
 import style from './CreateDog.module.css'
 import smallDog from '../../img/smallDog.png'
 import mediumDog from '../../img/mediumDog.png'
-import bigDog from '../../img/bigDog.png'
+import bigDog from '../../img/bigDog2.png'
 import defaultDog from '../../img/defaultDog.png'
 
 const PATH = 'http://localhost:3001'
@@ -247,7 +247,7 @@ const CreateDog = ({ store }) => {
             <h1>Create a new dog</h1>
 
             <div className={style.seccioName}>
-              <label>Dog's name</label>
+              <label>Dog's name:</label>
               <div>
                 <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
                 <p className={style.danger}>{errors.name}</p>
@@ -263,7 +263,7 @@ const CreateDog = ({ store }) => {
            (
              <>
                <div className={style.secciones}>
-                 <label>Height</label>
+                 <label>Height:</label>
                  <div>
                    <input className={errors.height.min && style.warning} onChange={handleChange} value={inputs.height.min} name='height-min' type='text' placeholder='Minimun...' />
                    <p>{errors.height.min}</p>
@@ -276,7 +276,7 @@ const CreateDog = ({ store }) => {
                </div>
 
                <div className={style.secciones}>
-                 <label>Weight</label>
+                 <label>Weight:</label>
 
                  <div>
                    <input className={errors.weight.min && style.warning} onChange={handleChange} value={inputs.weight.min} name='weight-min' type='text' placeholder='Minimum...' />
@@ -291,7 +291,7 @@ const CreateDog = ({ store }) => {
                </div>
 
                <div className={style.secciones}>
-                 <label>Years of life</label>
+                 <label>Years of life:</label>
 
                  <div>
                    <input className={errors.lifeSpan.min && style.warning} onChange={handleChange} value={inputs.lifeSpan.min} name='lifeSpan-min' type='text' placeholder='Minimum...' />
@@ -310,7 +310,7 @@ const CreateDog = ({ store }) => {
             {
         (whatShow === 'image' || whatShow === 'form') && (
           <div className={style.seccionImage}>
-            <label>Image</label>
+            <label>Image:</label>
             <div>
               <input className={errors.image && style.warning} onChange={handleChange} value={inputs.image} name='image' type='text' placeholder='URL...' />
               <p className={style.danger}>{errors.image}</p>
@@ -323,7 +323,7 @@ const CreateDog = ({ store }) => {
           <>
             <div className={style.seccionTemperamentos}>
               <div className={style.containerTemperamentsSecction}>
-                <label>Temperamentos</label>
+                <label>Temperamentos:</label>
                 <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} />
               </div>
               <div className={style.containerTemperaments}>
@@ -350,29 +350,29 @@ const CreateDog = ({ store }) => {
             <div className={style.detailDogCreateDog}>
               {/* Image */}
               <div className={style.detailDogImageContainer} style={{ backgroundImage: `url(${dogDetail.image})` }} />
-              <div>
+              <div className={style.containerData}>
                 {/* Name */}
-                <h1 className={style.name}>{dogDetail.name || 'Name'}</h1>
+                <h1 className={style.detailDogCreateDogName}>{dogDetail.name || 'Name'}</h1>
                 {/* Height */}
-                <label className={style.alto}>
-                  <span>Height (In):</span>
+                <div className={style.alto}>
+                  <label>Height (In):</label>
                   <p>{dogDetail.height}</p>
-                </label>
+                </div>
                 {/* Weight */}
-                <label className={style.peso}>
-                  <span>Weight (Lb): </span>
+                <div className={style.peso}>
+                  <label>Weight (Lb):</label>
                   <p>{dogDetail.weight}</p>
-                </label>
+                </div>
                 {/* Years */}
-                <label className={style.years}>
-                  <span>years: </span>
+                <div className={style.years}>
+                  <label>years:</label>
                   <p>{dogDetail.lifeSpan}</p>
-                </label>
+                </div>
                 {/* Temperaments */}
-                <label className={style.temperamentos}>
-                  <span>Temperaments:</span>
+                <div className={style.temperamentos}>
+                  <label>Temperaments:</label>
                   <p>{dogDetail.temperament}</p>
-                </label>
+                </div>
               </div>
             </div>)
           : null
