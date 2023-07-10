@@ -305,19 +305,17 @@ const CreateDog = ({ store }) => {
         whatShow === 'form' && (
           <>
             <div className={style.seccionTemperamentos}>
-              <label>Temperamentos</label>
-
-              <div className={style.seccionTemperamentosInputContainer}>
+              <div className={style.containerTemperamentsSecction}>
+                <label>Temperamentos</label>
                 <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} />
               </div>
-              <div>
+              <div className={style.containerTemperaments}>
                 {
                   inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
-                    <span key={index} className={style.divTemperamentoAnadido}>
-
+                    <div key={index} className={style.divTemperamentoAnadido}>
                       <label name={`temperamentAdded${index}`}>{temperament}  </label>
                       <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
-                    </span>))
+                    </div>))
               }
               </div>
             </div>
