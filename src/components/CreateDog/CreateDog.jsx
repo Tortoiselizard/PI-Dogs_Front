@@ -292,13 +292,13 @@ const CreateDog = ({ store }) => {
       }
             {
         (whatShow === 'image' || whatShow === 'form') && (
-          <>
-            <div className={style.secconImagen}>
-              <label>Image</label>
+          <div className={style.seccionImage}>
+            <label>Image</label>
+            <div>
               <input className={errors.image && style.warning} onChange={handleChange} value={inputs.image} name='image' type='text' placeholder='URL...' />
               <p className={style.danger}>{errors.image}</p>
             </div>
-          </>
+          </div>
         )
       }
             {
