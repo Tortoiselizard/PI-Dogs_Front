@@ -215,9 +215,9 @@ function DogDetail ({ store }) {
         {Object.keys(store.dogDetail).length
           ? (
             <div className={style.DogDetail}>
-              {/* Image */}
               <div className={style.containerInformation} style={{ backgroundImage: `url(${store.dogDetail[0].image})` }}>
 
+                {/* Image */}
                 <img src={store.dogDetail[0].image} alt={store.dogDetail.name} />
                 {
                 editMode && inputs.image && (
@@ -229,12 +229,13 @@ function DogDetail ({ store }) {
                   </div>)
               }
                 {/* Name */}
-                <div className={style.containerName} />
+                <div className={style.buttonName} />
                 {
                 editMode === 'all' ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
               }
 
                 {/* Height */}
+                <div className={style.buttonHeight} />
                 <div className={style.alto}>
                   <h3>Height (In)</h3>
                   {
