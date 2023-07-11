@@ -257,6 +257,9 @@ function DogDetail ({ store }) {
                   ? (
                     <div id='name' className={style.containerName}>
                       <input onChange={handleInputs} className={inputEnabled && inputEnabled.name ? null : style.inputDisabled} name='name' value={inputs.name} />
+                      {
+                        errors && editMode && <p className={style.danger}>{errors.name}</p>
+                      }
                     </div>)
                   : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
               }
@@ -323,24 +326,21 @@ function DogDetail ({ store }) {
                 <div id='temperamentos' className={style.temperamentos}>
                   <h3>Temperaments:</h3>
                   {
-                editMode && inputEnabled.temperament ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
-              }
+                    editMode && inputEnabled.temperament ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
+                  }
                 </div>
               </div>
               <div>
-                {
-                errors && editMode && <p className={style.danger}>{errors.name}</p>
-              }
 
                 <div>
                   {
-                  editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
-                    <span key={`labelTemperament${index}`} className={style.divTemperamentoAnadido}>
+                    editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
+                      <span key={`labelTemperament${index}`} className={style.divTemperamentoAnadido}>
 
-                      <label name={`temperamentAdded${index}`}>{temperament}</label>
-                      <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
-                    </span>))
-              }
+                        <label name={`temperamentAdded${index}`}>{temperament}</label>
+                        <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
+                      </span>))
+                  }
                 </div>
                 {/* Button Edit */}
                 {
