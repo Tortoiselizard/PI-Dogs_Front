@@ -272,7 +272,7 @@ function DogDetail ({ store }) {
                     {
                       editMode && inputs.height
                         ? Object.values(inputs.height).map((value, index) => (
-                          <div key={`heightContainer ${index}`}>
+                          <div className={style.inputContainer} key={`heightContainer ${index}`}>
                             <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
                             {
                             errors && editMode && <p>{index === 0 ? errors.height.min : errors.height.max}</p>
