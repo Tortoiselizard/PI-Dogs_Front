@@ -309,6 +309,24 @@
     visibility: hidden;
 }
 
+.lifeSpan div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.lifeSpan input {
+    width: 50%;
+    margin: 10px 0px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 22px;
+}
+
+.lifeSpan p {
+    margin: 5px;
+}
+
 .buttonToUpdate {
     width: 100px;
     height: 50px;
