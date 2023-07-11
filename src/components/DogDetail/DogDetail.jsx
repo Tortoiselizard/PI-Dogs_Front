@@ -70,7 +70,6 @@ function DogDetail ({ store }) {
   }, [razaPerro, store.dogDetail, store.temperaments])
 
   function changeEditMode () {
-    console.log('inputs:', inputs)
     if (editMode) {
       setEditMode(editMode => !editMode)
     } else {
@@ -230,9 +229,11 @@ function DogDetail ({ store }) {
                   </div>)
               }
                 {/* Name */}
+                <div className={style.containerName} />
                 {
                 editMode === 'all' ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
               }
+
                 {/* Height */}
                 <div className={style.alto}>
                   <h3>Height (In)</h3>
