@@ -77,9 +77,8 @@ function DogDetail ({ store }) {
   // Deshabilitar los inputs correspondientes y volverlos todos visibles
   useEffect(() => {
     const allInputs = document.querySelectorAll('input')
-    console.log(allInputs)
     allInputs.forEach(input => {
-      if (!Object.keys(inputEnabled).includes(input.name.split(' ')[0])) {
+      if (!Object.keys(inputEnabled).includes(input.name.split(' ')[0]) && input.name !== 'inputFilter') {
         input.disabled = true
       }
     })
