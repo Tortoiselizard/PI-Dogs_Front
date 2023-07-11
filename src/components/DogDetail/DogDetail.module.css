@@ -81,6 +81,20 @@
     z-index: 0;
 }
 
+.editImageContainer {
+    border: 5px solid white;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+}
+
+.editImageContainer input {
+    width: 500px;
+    margin: 10px;
+}
+
 .name {
     background-color: rgba(0,0,0,0.5);
     padding: 20px;
@@ -140,4 +154,10 @@
     flex-direction: column;
     right: 20%;
     align-items: center;
+}
+
+.buttonToUpdate {
+    width: 100px;
+    height: 50px;
+    margin: 20px;
 }
