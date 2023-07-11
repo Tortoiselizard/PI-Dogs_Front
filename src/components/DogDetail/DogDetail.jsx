@@ -23,6 +23,8 @@ function DogDetail ({ store }) {
 
   const [refresh, setRefresh] = useState(true)
 
+  const [inputEnabled, setInputEnabled] = useState(false)
+
   // Cargar información del detalle del perro proveniente de servidor
   useEffect(() => {
     dispatch(getDogDetail(razaPerro))
@@ -44,23 +46,24 @@ function DogDetail ({ store }) {
           return response.json()
         })
         .then(data => {
+          const dataTemperaments = store.dogDetail[0].temperament.split(', ')
+          const dataDog = {
+            name: store.dogDetail[0].name,
+            height: { min: store.dogDetail[0].height.split('-')[0].trim(), max: store.dogDetail[0].height.split('-')[1].trim() },
+            weight: { min: store.dogDetail[0].weight.split('-')[0].trim(), max: store.dogDetail[0].weight.split('-')[1].trim() },
+            lifeSpan: store.dogDetail[0].lifeSpan
+              ? { min: store.dogDetail[0].lifeSpan.split('-')[0].trim(), max: store.dogDetail[0].lifeSpan.split('-')[1].trim() }
+              : { min: '', max: '' },
+            image: store.dogDetail[0].image,
+            temperament: store.temperaments.filter(t => dataTemperaments.includes(t.name))
+          }
+          setInputs(dataDog)
+          const newErrors = validate(dataDog)
+          setErrors(newErrors)
           if (data.message) {
-            const dataTemperaments = store.dogDetail[0].temperament.split(', ')
-            const dataDog = {
-              name: store.dogDetail[0].name,
-              height: { min: store.dogDetail[0].height.split('-')[0].trim(), max: store.dogDetail[0].height.split('-')[1].trim() },
-              weight: { min: store.dogDetail[0].weight.split('-')[0].trim(), max: store.dogDetail[0].weight.split('-')[1].trim() },
-              lifeSpan: store.dogDetail[0].lifeSpan
-                ? { min: store.dogDetail[0].lifeSpan.split('-')[0].trim(), max: store.dogDetail[0].lifeSpan.split('-')[1].trim() }
-                : { min: '', max: '' },
-              image: store.dogDetail[0].image,
-              temperament: store.temperaments.filter(t => dataTemperaments.includes(t.name))
-            }
-            setInputs(dataDog)
-            const newErrors = validate(dataDog)
-            setErrors(newErrors)
+            setInputEnabled(dataDog)
           } else if (!data[0].image) {
-            setInputs({
+            setInputEnabled({
               image: store.dogDetail[0].image
             })
           }
@@ -70,15 +73,7 @@ function DogDetail ({ store }) {
   }, [razaPerro, store.dogDetail, store.temperaments])
 
   function changeEditMode () {
-    if (editMode) {
-      setEditMode(editMode => !editMode)
-    } else {
-      if (inputs.name) {
-        setEditMode('all')
-      } else {
-        setEditMode('image')
-      }
-    }
+    setEditMode(editMode => !editMode)
   }
 
   function handleInputs (event) {
@@ -222,7 +217,7 @@ function DogDetail ({ store }) {
                 {
                 editMode && inputs.image && (
                   <div className={style.editImageContainer}>
-                    <input onChange={handleInputs} name='image' value={inputs.image} />
+                    <input className={inputEnabled && inputEnabled.image ? null : style.inputDisabled} onChange={handleInputs} name='image' value={inputs.image} />
                     {
                 errors && editMode && <p className={style.danger}>{errors.image}</p>
               }
@@ -231,7 +226,7 @@ function DogDetail ({ store }) {
                 {/* Name */}
                 <div className={style.buttonName} />
                 {
-                editMode === 'all' ? <input onChange={handleInputs} name='name' value={inputs.name} /> : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
+                editMode ? <input onChange={handleInputs} className={inputEnabled && inputEnabled.name ? null : style.inputDisabled} name='name' value={inputs.name} /> : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
               }
 
                 {/* Height */}
@@ -239,17 +234,17 @@ function DogDetail ({ store }) {
                 <div className={style.alto}>
                   <h3>Height (In)</h3>
                   {
-                  editMode === 'all' && inputs.height
+                  editMode && inputs.height
                     ? Object.values(inputs.height).map((value, index) => (
-                      <input onChange={handleInputs} name={`height ${index}`} value={value} key={`height: ${index}`} />
+                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
                     ))
                     : <label>{store.dogDetail[0].height}</label>
                 }
                   {
-                  errors && editMode === 'all' && <p>{errors.height.min}</p>
+                  errors && editMode && <p>{errors.height.min}</p>
                 }
                   {
-                  errors && editMode === 'all' && <p>{errors.height.max}</p>
+                  errors && editMode && <p>{errors.height.max}</p>
                 }
                 </div>
                 {/* Weight */}
@@ -257,17 +252,17 @@ function DogDetail ({ store }) {
                 <div className={style.peso}>
                   <h3>Weight (Lb)</h3>
                   {
-                  editMode === 'all' && inputs.weight
+                  editMode && inputs.weight
                     ? Object.values(inputs.weight).map((value, index) => (
-                      <input onChange={handleInputs} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
+                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.weight ? null : style.inputDisabled} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
                     ))
                     : <label>{store.dogDetail[0].weight}</label>
                 }
                   {
-                  errors && editMode === 'all' && <p>{errors.weight.min}</p>
+                  errors && editMode && <p>{errors.weight.min}</p>
                 }
                   {
-                  errors && editMode === 'all' && <p>{errors.weight.max}</p>
+                  errors && editMode && <p>{errors.weight.max}</p>
                 }
                 </div>
                 {/* Years */}
@@ -275,17 +270,17 @@ function DogDetail ({ store }) {
                 <div className={style.years}>
                   <h3>Years</h3>
                   {
-                  editMode === 'all' && inputs.lifeSpan
+                  editMode && inputs.lifeSpan
                     ? Object.values(inputs.lifeSpan).map((value, index) => (
-                      <input onChange={handleInputs} name={`years ${index}`} value={value} key={`lifeSpan: ${index}`} />
+                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`years ${index}`} value={value} key={`lifeSpan: ${index}`} />
                     ))
                     : <label>{store.dogDetail[0].lifeSpan}</label>
                 }
                   {
-                  errors && editMode === 'all' && <p>{errors.lifeSpan.min}</p>
+                  errors && editMode && <p>{errors.lifeSpan.min}</p>
                 }
                   {
-                  errors && editMode === 'all' && <p>{errors.lifeSpan.max}</p>
+                  errors && editMode && <p>{errors.lifeSpan.max}</p>
                 }
                 </div>
                 {/* Temperaments */}
@@ -293,18 +288,18 @@ function DogDetail ({ store }) {
                 <div className={style.temperamentos}>
                   <h3>Temperaments:</h3>
                   {
-                editMode === 'all' ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
+                editMode && inputEnabled.temperament ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
               }
                 </div>
               </div>
               <div>
                 {
-                errors && editMode === 'all' && <p className={style.danger}>{errors.name}</p>
+                errors && editMode && <p className={style.danger}>{errors.name}</p>
               }
 
                 <div>
                   {
-                  editMode === 'all' && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
+                  editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
                     <span key={`labelTemperament${index}`} className={style.divTemperamentoAnadido}>
 
                       <label name={`temperamentAdded${index}`}>{temperament}</label>
