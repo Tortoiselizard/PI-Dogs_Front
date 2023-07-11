@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
@@ -72,7 +72,9 @@ function DogDetail ({ store }) {
     }
   }, [razaPerro, store.dogDetail, store.temperaments])
 
-  // Deshabilitar los inputs correspondientes
+  const firsTime = useRef(true)
+
+  // Deshabilitar los inputs correspondientes y volverlos todos visibles
   useEffect(() => {
     const allInputs = document.querySelectorAll('input')
     allInputs.forEach(input => {
@@ -80,11 +82,19 @@ function DogDetail ({ store }) {
         input.disabled = true
       }
     })
+    if (!firsTime.current) {
+      const arrayContainers = ['alto', 'name', 'temperamentos', 'peso', 'lifeSpan']
+      arrayContainers.forEach(id => {
+        const elemento = document.getElementById(id)
+        elemento.style.visibility = editMode ? 'visible' : 'hidden'
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode])
 
   function changeEditMode () {
     setEditMode(editMode => !editMode)
+    firsTime.current = false
   }
 
   function handleInputs (event) {
@@ -239,7 +249,7 @@ function DogDetail ({ store }) {
                 {
                 editMode
                   ? (
-                    <div className={style.containerName}>
+                    <div id='name' className={style.containerName}>
                       <input onChange={handleInputs} className={inputEnabled && inputEnabled.name ? null : style.inputDisabled} name='name' value={inputs.name} />
                     </div>)
                   : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
@@ -247,7 +257,7 @@ function DogDetail ({ store }) {
 
                 {/* Height */}
                 <div className={style.buttonHeight} />
-                <div className={style.alto}>
+                <div id='alto' className={style.alto}>
                   <h3>Height (In)</h3>
                   {
                   editMode && inputs.height
@@ -265,7 +275,7 @@ function DogDetail ({ store }) {
                 </div>
                 {/* Weight */}
                 <div className={style.buttonWeight} />
-                <div className={style.peso}>
+                <div id='peso' className={style.peso}>
                   <h3>Weight (Lb)</h3>
                   {
                   editMode && inputs.weight
@@ -283,7 +293,7 @@ function DogDetail ({ store }) {
                 </div>
                 {/* Years */}
                 <div className={style.buttonYears} />
-                <div className={style.lifeSpan}>
+                <div id='lifeSpan' className={style.lifeSpan}>
                   <h3>Years</h3>
                   {
                   editMode && inputs.lifeSpan
@@ -301,7 +311,7 @@ function DogDetail ({ store }) {
                 </div>
                 {/* Temperaments */}
                 <div className={style.buttonTemperaments} />
-                <div className={style.temperamentos}>
+                <div id='temperamentos' className={style.temperamentos}>
                   <h3>Temperaments:</h3>
                   {
                 editMode && inputEnabled.temperament ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
