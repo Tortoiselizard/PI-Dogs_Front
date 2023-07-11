@@ -271,7 +271,7 @@ function DogDetail ({ store }) {
                       <div key={`heightContainer ${index}`}>
                         <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
                         {
-                          errors && editMode && <p>{errors.height.min}</p>
+                          errors && editMode && <p>{index === 0 ? errors.height.min : errors.height.max}</p>
                         }
                       </div>
                     ))
@@ -285,15 +285,14 @@ function DogDetail ({ store }) {
                   {
                   editMode && inputs.weight
                     ? Object.values(inputs.weight).map((value, index) => (
-                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.weight ? null : style.inputDisabled} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
+                      <div key={`weightContainer ${index}`}>
+                        <input onChange={handleInputs} className={inputEnabled && inputEnabled.weight ? null : style.inputDisabled} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
+                        {
+                          errors && editMode && <p>{index === 0 ? errors.weight.min : errors.weight.max}</p>
+                        }
+                      </div>
                     ))
                     : <label>{store.dogDetail[0].weight}</label>
-                }
-                  {
-                  errors && editMode && <p>{errors.weight.min}</p>
-                }
-                  {
-                  errors && editMode && <p>{errors.weight.max}</p>
                 }
                 </div>
                 {/* Years */}
@@ -303,15 +302,14 @@ function DogDetail ({ store }) {
                   {
                   editMode && inputs.lifeSpan
                     ? Object.values(inputs.lifeSpan).map((value, index) => (
-                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`lifeSpan ${index}`} value={value} key={`lifeSpan: ${index}`} />
+                      <div key={`lifeSpanContainer ${index}`}>
+                        <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`lifeSpan ${index}`} value={value} key={`lifeSpan: ${index}`} />
+                        {
+                          errors && editMode && <p>{index === 0 ? errors.lifeSpan.min : errors.lifeSpan.max}</p>
+                        }
+                      </div>
                     ))
                     : <label>{store.dogDetail[0].lifeSpan}</label>
-                }
-                  {
-                  errors && editMode && <p>{errors.lifeSpan.min}</p>
-                }
-                  {
-                  errors && editMode && <p>{errors.lifeSpan.max}</p>
                 }
                 </div>
                 {/* Temperaments */}
