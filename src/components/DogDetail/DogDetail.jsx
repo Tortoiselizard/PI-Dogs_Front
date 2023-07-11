@@ -77,6 +77,7 @@ function DogDetail ({ store }) {
   // Deshabilitar los inputs correspondientes y volverlos todos visibles
   useEffect(() => {
     const allInputs = document.querySelectorAll('input')
+    console.log(allInputs)
     allInputs.forEach(input => {
       if (!Object.keys(inputEnabled).includes(input.name.split(' ')[0])) {
         input.disabled = true
@@ -325,23 +326,24 @@ function DogDetail ({ store }) {
                 <div className={style.buttonTemperaments} />
                 <div id='temperamentos' className={style.temperamentos}>
                   <h3>Temperaments:</h3>
-                  {
-                    editMode && inputEnabled.temperament ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
-                  }
+                  <div className={style.containerTemperamentos_Input}>
+                    {
+                      editMode && inputEnabled.temperament ? <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} alreadyAdded={inputs.temperament.map(temperament => temperament.name)} /> : <label>{store.dogDetail[0].temperament}</label>
+                    }
+                    <div className={style.contianerOptionsTemperaments}>
+                      {
+                        editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
+                          <div key={`labelTemperament${index}`} className={style.divTemperamentoAnadido}>
+                            <label name={`temperamentAdded${index}`}>{temperament}</label>
+                            <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
+                          </div>))
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
               <div>
 
-                <div>
-                  {
-                    editMode && inputs && inputs.temperament && inputs.temperament.map(temperament => temperament.name).map((temperament, index) => (
-                      <span key={`labelTemperament${index}`} className={style.divTemperamentoAnadido}>
-
-                        <label name={`temperamentAdded${index}`}>{temperament}</label>
-                        <button onClick={popTemperament} name={`temperamentAdded${index}`} className={style.botonCerrarTemperamento}>x</button>
-                      </span>))
-                  }
-                </div>
                 {/* Button Edit */}
                 {
                 inputs && <button onClick={changeEditMode} className={style.buttonToUpdate}>{editMode ? 'Show' : 'Edit'}</button>
