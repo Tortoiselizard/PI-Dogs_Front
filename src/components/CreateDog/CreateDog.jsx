@@ -130,8 +130,9 @@ const CreateDog = ({ store }) => {
     }
 
     if (allGood(errorsObj)) {
+      console.log('inputs:', inputs)
       const { data } = prepareRequest(inputs, undefined, 'POST')
-
+      console.log('data:', data)
       const response = await fetch(`${PATH}/dogs`, data)
         .then(data => data.json())
         .then(data => data)
@@ -186,7 +187,6 @@ const CreateDog = ({ store }) => {
               } else {
                 setWhatShow('image')
                 setDogFinded(data[0])
-                console.log(data[0])
                 setDogDetail(data[0])
               }
             })
