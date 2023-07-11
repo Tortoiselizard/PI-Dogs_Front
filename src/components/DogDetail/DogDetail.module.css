@@ -222,11 +222,12 @@
 }
 
 .alto input {
-    width: 50%;
+    width: 45px;
     margin: 10px 0px;
     padding: 5px;
     border-radius: 10px;
     font-size: 22px;
+    text-align: center;
 }
 
 .alto p {
