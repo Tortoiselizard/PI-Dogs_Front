@@ -262,6 +262,24 @@
     visibility: hidden;
 }
 
+.peso div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.peso input {
+    width: 50%;
+    margin: 10px 0px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 22px;
+}
+
+.peso p {
+    margin: 5px;
+}
+
 .buttonYears {
     width: 136px;
     height: 116px;
