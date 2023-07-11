@@ -95,13 +95,29 @@
     margin: 10px;
 }
 
+.containerName {
+    width: 136px;
+    height: 116px;
+    position: absolute;
+    top: 5%;
+    background-image: url('../../img/nameLogo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.containerName:hover + .name {
+    visibility: visible;
+}
+
 .name {
     background-color: rgba(0,0,0,0.5);
     padding: 20px;
+    margin: 0px;
     border-radius: 20px;
     position: absolute;
+    top: 220px;
     font-family: 'Seymour One', sans-serif;
-    top: 20%
+    visibility: hidden;
 }
 
 .temperamentos {
