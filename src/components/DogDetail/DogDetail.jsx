@@ -72,6 +72,17 @@ function DogDetail ({ store }) {
     }
   }, [razaPerro, store.dogDetail, store.temperaments])
 
+  // Deshabilitar los inputs correspondientes
+  useEffect(() => {
+    const allInputs = document.querySelectorAll('input')
+    allInputs.forEach(input => {
+      if (!Object.keys(inputEnabled).includes(input.name.split(' ')[0])) {
+        input.disabled = true
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editMode])
+
   function changeEditMode () {
     setEditMode(editMode => !editMode)
   }
@@ -125,7 +136,7 @@ function DogDetail ({ store }) {
             }
         break
       }
-      case 'years': {
+      case 'lifeSpan': {
         newInputs = nameArray[1] === '0'
           ? {
               ...inputs,
@@ -226,7 +237,12 @@ function DogDetail ({ store }) {
                 {/* Name */}
                 <div className={style.buttonName} />
                 {
-                editMode ? <input onChange={handleInputs} className={inputEnabled && inputEnabled.name ? null : style.inputDisabled} name='name' value={inputs.name} /> : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
+                editMode
+                  ? (
+                    <div className={style.containerName}>
+                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.name ? null : style.inputDisabled} name='name' value={inputs.name} />
+                    </div>)
+                  : <h1 className={style.name}>{store.dogDetail[0].name}</h1>
               }
 
                 {/* Height */}
@@ -267,12 +283,12 @@ function DogDetail ({ store }) {
                 </div>
                 {/* Years */}
                 <div className={style.buttonYears} />
-                <div className={style.years}>
+                <div className={style.lifeSpan}>
                   <h3>Years</h3>
                   {
                   editMode && inputs.lifeSpan
                     ? Object.values(inputs.lifeSpan).map((value, index) => (
-                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`years ${index}`} value={value} key={`lifeSpan: ${index}`} />
+                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`lifeSpan ${index}`} value={value} key={`lifeSpan: ${index}`} />
                     ))
                     : <label>{store.dogDetail[0].lifeSpan}</label>
                 }
