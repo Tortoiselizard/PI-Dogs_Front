@@ -291,7 +291,7 @@ function DogDetail ({ store }) {
                     {
                     editMode && inputs.weight
                       ? Object.values(inputs.weight).map((value, index) => (
-                        <div key={`weightContainer ${index}`}>
+                        <div className={style.inputContainer} key={`weightContainer ${index}`}>
                           <input onChange={handleInputs} className={inputEnabled && inputEnabled.weight ? null : style.inputDisabled} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
                           {
                             errors && editMode && <p>{index === 0 ? errors.weight.min : errors.weight.max}</p>
@@ -310,7 +310,7 @@ function DogDetail ({ store }) {
                     {
                       editMode && inputs.lifeSpan
                         ? Object.values(inputs.lifeSpan).map((value, index) => (
-                          <div key={`lifeSpanContainer ${index}`}>
+                          <div className={style.inputContainer} key={`lifeSpanContainer ${index}`}>
                             <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`lifeSpan ${index}`} value={value} key={`lifeSpan: ${index}`} />
                             {
                               errors && editMode && <p>{index === 0 ? errors.lifeSpan.min : errors.lifeSpan.max}</p>
