@@ -253,6 +253,7 @@ function DogDetail ({ store }) {
                 }
                 </div>
                 {/* Weight */}
+                <div className={style.buttonWeight} />
                 <div className={style.peso}>
                   <h3>Weight (Lb)</h3>
                   {
@@ -270,6 +271,7 @@ function DogDetail ({ store }) {
                 }
                 </div>
                 {/* Years */}
+                <div className={style.buttonYears} />
                 <div className={style.years}>
                   <h3>Years</h3>
                   {
@@ -287,6 +289,7 @@ function DogDetail ({ store }) {
                 }
                 </div>
                 {/* Temperaments */}
+                <div className={style.buttonTemperaments} />
                 <div className={style.temperamentos}>
                   <h3>Temperaments:</h3>
                   {
