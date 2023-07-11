@@ -99,6 +99,7 @@
 .editImageContainer input {
     width: 500px;
     margin: 10px;
+    border: none;
 }
 
 .editImageContainer p {
@@ -150,8 +151,10 @@
 .containerName input {
     width: 100%;
     height: 100%;
-    font-size: 21px;
+    font-size: 41px;
     text-align: center;
+    border: none;
+    font-family: 'Seymour One', sans-serif;
 }
 
 .buttonTemperaments {
@@ -210,6 +213,24 @@
     flex-direction: column;
     align-items: center;
     visibility: hidden;
+}
+
+.alto div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.alto input {
+    width: 50%;
+    margin: 10px 0px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 22px;
+}
+
+.alto p {
+    margin: 5px;
 }
 
 .buttonWeight {
@@ -276,6 +297,7 @@
     margin: 20px;
 }
 
-.inputDisabled {
-    background-color: red;
+.containerInformation input:disabled {
+    background-color: #64A36E;
+    color: #C2F0C9;
 }
