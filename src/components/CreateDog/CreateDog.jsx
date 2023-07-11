@@ -130,9 +130,8 @@ const CreateDog = ({ store }) => {
     }
 
     if (allGood(errorsObj)) {
-      console.log('inputs:', inputs)
       const { data } = prepareRequest(inputs, undefined, 'POST')
-      console.log('data:', data)
+
       const response = await fetch(`${PATH}/dogs`, data)
         .then(data => data.json())
         .then(data => data)
