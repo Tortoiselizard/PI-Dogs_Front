@@ -164,35 +164,6 @@
     color: #C2F0C9;
 }
 
-.buttonTemperaments {
-    width: 136px;
-    height: 155px;
-    position: absolute;
-    top: 68%;
-    right: 3%;
-    background-image: url('../../img/jugarLogo.png');
-    background-size: cover;
-    background-position: center;
-}
-
-.buttonTemperaments:hover + .temperamentos {
-    visibility: visible;
-}
-
-.temperamentos {
-    width: 500px;
-    padding: 15px;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 20px;
-    position: absolute;
-    bottom: 20%;
-    display: flex;
-    flex-direction: column;
-    right: 15%;
-    align-items: center;
-    visibility: hidden;
-}
-
 .buttonHeight {
     width: 136px;
     height: 116px;
@@ -268,7 +239,7 @@
 }
 
 .peso {
-    width: 150px;
+    width: 350px;
     padding: 15px;
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
@@ -285,18 +256,24 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: baseline;
 }
 
 .peso input {
-    width: 50%;
+    width: 45px;
     margin: 10px 0px;
     padding: 5px;
     border-radius: 10px;
     font-size: 22px;
+    text-align: center;
+    align-self: center;
 }
 
 .peso p {
     margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    color: #C2F0C9;
 }
 
 .buttonYears {
@@ -315,7 +292,7 @@
 }
 
 .lifeSpan {
-    width: 150px;
+    width: 350px;
     padding: 15px;
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
@@ -332,18 +309,53 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: baseline;
 }
 
 .lifeSpan input {
-    width: 50%;
+    width: 45px;
     margin: 10px 0px;
     padding: 5px;
     border-radius: 10px;
     font-size: 22px;
+    text-align: center;
+    align-self: center;
 }
 
 .lifeSpan p {
     margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    color: #C2F0C9;
+}
+
+.buttonTemperaments {
+    width: 136px;
+    height: 155px;
+    position: absolute;
+    top: 68%;
+    right: 3%;
+    background-image: url('../../img/jugarLogo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.buttonTemperaments:hover + .temperamentos {
+    visibility: visible;
+}
+
+.temperamentos {
+    width: 500px;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 20px;
+    position: absolute;
+    top: 60%;
+    display: flex;
+    flex-direction: column;
+    right: 15%;
+    align-items: center;
+    visibility: hidden;
 }
 
 .buttonToUpdate {
