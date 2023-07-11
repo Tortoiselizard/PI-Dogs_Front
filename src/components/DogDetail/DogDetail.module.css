@@ -120,6 +120,21 @@
     visibility: hidden;
 }
 
+.buttonTemperaments {
+    width: 136px;
+    height: 155px;
+    position: absolute;
+    top: 68%;
+    right: 3%;
+    background-image: url('../../img/jugarLogo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.buttonTemperaments:hover + .temperamentos {
+    visibility: visible;
+}
+
 .temperamentos {
     width: 500px;
     padding: 15px;
@@ -131,6 +146,7 @@
     flex-direction: column;
     right: 15%;
     align-items: center;
+    visibility: hidden;
 }
 
 .buttonHeight {
@@ -162,6 +178,21 @@
     visibility: hidden;
 }
 
+.buttonWeight {
+    width: 136px;
+    height: 116px;
+    position: absolute;
+    top: 68%;
+    left: 3%;
+    background-image: url('../../img/pesoLogo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.buttonWeight:hover + .peso {
+    visibility: visible;
+}
+
 .peso {
     width: 150px;
     padding: 15px;
@@ -173,6 +204,22 @@
     flex-direction: column;
     left: 20%;
     align-items: center;
+    visibility: hidden;
+}
+
+.buttonYears {
+    width: 136px;
+    height: 116px;
+    position: absolute;
+    top: 35%;
+    right: 3%;
+    background-image: url('../../img/vidaLogo.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.buttonYears:hover + .years {
+    visibility: visible;
 }
 
 .years {
@@ -186,6 +233,7 @@
     flex-direction: column;
     right: 20%;
     align-items: center;
+    visibility: hidden;
 }
 
 .buttonToUpdate {
