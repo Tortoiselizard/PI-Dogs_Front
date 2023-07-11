@@ -82,11 +82,17 @@ function DogDetail ({ store }) {
         input.disabled = true
       }
     })
-    if (!firsTime.current) {
+    if (!firsTime.current && editMode) {
       const arrayContainers = ['alto', 'name', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
         const elemento = document.getElementById(id)
-        elemento.style.visibility = editMode ? 'visible' : 'hidden'
+        elemento.style.visibility = 'visible'
+      })
+    } else if (!firsTime.current) {
+      const arrayContainers = ['alto', 'temperamentos', 'peso', 'lifeSpan']
+      arrayContainers.forEach(id => {
+        const elemento = document.getElementById(id)
+        elemento.style.visibility = ''
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -262,15 +268,14 @@ function DogDetail ({ store }) {
                   {
                   editMode && inputs.height
                     ? Object.values(inputs.height).map((value, index) => (
-                      <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
+                      <div key={`heightContainer ${index}`}>
+                        <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
+                        {
+                          errors && editMode && <p>{errors.height.min}</p>
+                        }
+                      </div>
                     ))
                     : <label>{store.dogDetail[0].height}</label>
-                }
-                  {
-                  errors && editMode && <p>{errors.height.min}</p>
-                }
-                  {
-                  errors && editMode && <p>{errors.height.max}</p>
                 }
                 </div>
                 {/* Weight */}
