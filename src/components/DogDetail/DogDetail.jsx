@@ -265,52 +265,58 @@ function DogDetail ({ store }) {
                 <div className={style.buttonHeight} />
                 <div id='alto' className={style.alto}>
                   <h3>Height (In)</h3>
-                  {
-                  editMode && inputs.height
-                    ? Object.values(inputs.height).map((value, index) => (
-                      <div key={`heightContainer ${index}`}>
-                        <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
-                        {
-                          errors && editMode && <p>{index === 0 ? errors.height.min : errors.height.max}</p>
-                        }
-                      </div>
-                    ))
-                    : <label>{store.dogDetail[0].height}</label>
-                }
+                  <div>
+                    {
+                      editMode && inputs.height
+                        ? Object.values(inputs.height).map((value, index) => (
+                          <div key={`heightContainer ${index}`}>
+                            <input onChange={handleInputs} className={inputEnabled && inputEnabled.height ? null : style.inputDisabled} name={`height ${index}`} value={value} key={`height: ${index}`} />
+                            {
+                            errors && editMode && <p>{index === 0 ? errors.height.min : errors.height.max}</p>
+                          }
+                          </div>
+                        ))
+                        : <label>{store.dogDetail[0].height}</label>
+                    }
+                  </div>
                 </div>
                 {/* Weight */}
                 <div className={style.buttonWeight} />
                 <div id='peso' className={style.peso}>
                   <h3>Weight (Lb)</h3>
-                  {
-                  editMode && inputs.weight
-                    ? Object.values(inputs.weight).map((value, index) => (
-                      <div key={`weightContainer ${index}`}>
-                        <input onChange={handleInputs} className={inputEnabled && inputEnabled.weight ? null : style.inputDisabled} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
-                        {
-                          errors && editMode && <p>{index === 0 ? errors.weight.min : errors.weight.max}</p>
-                        }
-                      </div>
-                    ))
-                    : <label>{store.dogDetail[0].weight}</label>
-                }
+                  <div>
+                    {
+                    editMode && inputs.weight
+                      ? Object.values(inputs.weight).map((value, index) => (
+                        <div key={`weightContainer ${index}`}>
+                          <input onChange={handleInputs} className={inputEnabled && inputEnabled.weight ? null : style.inputDisabled} name={`weight ${index}`} value={value} key={`weight: ${index}`} />
+                          {
+                            errors && editMode && <p>{index === 0 ? errors.weight.min : errors.weight.max}</p>
+                          }
+                        </div>
+                      ))
+                      : <label>{store.dogDetail[0].weight}</label>
+                  }
+                  </div>
                 </div>
                 {/* Years */}
                 <div className={style.buttonYears} />
                 <div id='lifeSpan' className={style.lifeSpan}>
                   <h3>Years</h3>
-                  {
-                  editMode && inputs.lifeSpan
-                    ? Object.values(inputs.lifeSpan).map((value, index) => (
-                      <div key={`lifeSpanContainer ${index}`}>
-                        <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`lifeSpan ${index}`} value={value} key={`lifeSpan: ${index}`} />
-                        {
-                          errors && editMode && <p>{index === 0 ? errors.lifeSpan.min : errors.lifeSpan.max}</p>
-                        }
-                      </div>
-                    ))
-                    : <label>{store.dogDetail[0].lifeSpan}</label>
-                }
+                  <div>
+                    {
+                      editMode && inputs.lifeSpan
+                        ? Object.values(inputs.lifeSpan).map((value, index) => (
+                          <div key={`lifeSpanContainer ${index}`}>
+                            <input onChange={handleInputs} className={inputEnabled && inputEnabled.lifeSpan ? null : style.inputDisabled} name={`lifeSpan ${index}`} value={value} key={`lifeSpan: ${index}`} />
+                            {
+                              errors && editMode && <p>{index === 0 ? errors.lifeSpan.min : errors.lifeSpan.max}</p>
+                            }
+                          </div>
+                        ))
+                        : <label>{store.dogDetail[0].lifeSpan}</label>
+                    }
+                  </div>
                 </div>
                 {/* Temperaments */}
                 <div className={style.buttonTemperaments} />
