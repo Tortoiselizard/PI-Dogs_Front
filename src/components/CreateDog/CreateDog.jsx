@@ -125,6 +125,9 @@ const CreateDog = ({ store }) => {
     event.preventDefault()
     const errorsObj = validate(inputs)
     setErrors(errorsObj)
+    if (whatShow === 'image' && !inputs.image) {
+      return alert('Debes agrear una imagen')
+    }
 
     if (allGood(errorsObj)) {
       const { data } = prepareRequest(inputs, undefined, 'POST')
@@ -183,7 +186,6 @@ const CreateDog = ({ store }) => {
               } else {
                 setWhatShow('image')
                 setDogFinded(data[0])
-                console.log(data[0])
                 setDogDetail(data[0])
               }
             })
@@ -244,7 +246,7 @@ const CreateDog = ({ store }) => {
         <section className={style.contentCreateDog}>
           {/* Fomulario */}
           <div className={style.formCreateDog}>
-            <h1>Create a new dog</h1>
+            <h1>Dog information</h1>
 
             <div className={style.seccioName}>
               <label>Dog's name:</label>
