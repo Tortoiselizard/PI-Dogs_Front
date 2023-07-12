@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 import Nav from '../Nav/Nav'
 import DogsContainer from '../DogsContainer/DogsContainer'
@@ -52,7 +53,7 @@ function Home ({ store }) {
         <Nav />
         <section className={style.Header}>
           <div className={style.containerNewDog}>
-            <button />
+            <NavLink to='/dog/create'><button /></NavLink>
           </div>
           {/* Filtrado */}
           <Filter />
