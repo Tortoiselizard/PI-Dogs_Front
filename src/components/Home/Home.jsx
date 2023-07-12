@@ -21,7 +21,7 @@ function Home ({ store }) {
 
   // Cargar información del estado global "store.dogs"
   useEffect(() => {
-    if (store && store.totaDogs.length) dispatch(keepDogs(store.totaDogs))
+    dispatch(keepDogs(store.totaDogs))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store && store.totaDogs, dispatch])
 
