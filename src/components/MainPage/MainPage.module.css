@@ -30,6 +30,7 @@
 
 .navBarOptionsMainPage {
     margin: 10px;
+    display: flex;
 }
 
 .navBarOptionsMainPage button {
@@ -39,6 +40,30 @@
     font-family: 'Varela Round', sans-serif;
     color: #A3747E;
     font-size: 24px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.navBarOptionsMainPage button::after {
+    content: '';
+    background-color: #A3747E;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 3px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.navBarOptionsMainPage button::after {
+    transform: scaleX(0);
+    transform-origin: bottom center;
+}
+
+.navBarOptionsMainPage button:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom center;
 }
 
 .navBarLoginMainPage {
