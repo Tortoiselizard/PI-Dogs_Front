@@ -6,6 +6,10 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
   const [input, setInput] = useState('')
 
   const [possibleTemperaments, setPossibleTemperaments] = useState([])
+
+  const [showList, setShowList] = useState(false)
+
+  // comentario1
   useEffect(() => {
     if (refresh.refresh && temperaments.length) {
       setPossibleTemperaments(temperaments.map(temperament => temperament.name))
@@ -13,6 +17,7 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
     }
   }, [temperaments, refresh])
 
+  // comentario2
   useEffect(() => {
     if (alreadyAdded && possibleTemperaments.length) {
       handleAlreadyAdded()
@@ -24,6 +29,19 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
     setInput(value)
   }
 
+  function handleFocus () {
+    setShowList(true)
+  }
+
+  function handleBlur () {
+    setTimeout(() => { howHasFocus() }, 100)
+  }
+
+  function howHasFocus () {
+    const element = document.activeElement
+    if (element.name !== 'inputFilter') setShowList(false)
+  }
+
   function selectTemperament (event) {
     const value = event.target.innerText
     setInput(value)
@@ -33,8 +51,6 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
 
   function addTemperament () {
     const input = document.getElementsByName('inputFilter')[0]
-    console.log(input)
-    console.log(input.value)
     if (!input.value) return null
     action()
     handleInput('')
@@ -54,14 +70,16 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
   return (
     <div className={style.DropdownMenu}>
       <div className={style.dropDownMenuOptionsContainer}>
-        <input onKeyPress={(event) => { if (event.key === 'Enter') addTemperament() }} className={style.inputAddTemperament} type='text' placeholder='temperament...' name='inputFilter' value={input} onChange={(event) => { handleInput(event.target.value) }} />
-        {
-        input && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).length && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase()))[0].toLowerCase() !== input.toLowerCase()
-          ? possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).map((temperament, index) => (
-            <label onClick={selectTemperament} key={`temperament${index}`}>{temperament}</label>
-          ))
-          : null
-      }
+        <input onFocus={handleFocus} onBlur={handleBlur} onKeyPress={(event) => { if (event.key === 'Enter') addTemperament() }} className={style.inputAddTemperament} type='text' placeholder='temperament...' name='inputFilter' value={input} onChange={(event) => { handleInput(event.target.value) }} />
+        <div className={showList ? style.showList : style.noShowList}>
+          {
+            input && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).length && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase()))[0].toLowerCase() !== input.toLowerCase()
+              ? possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).map((temperament, index) => (
+                <label name='optionList' onClick={selectTemperament} key={`temperament${index}`}>{temperament}</label>
+              ))
+              : null
+          }
+        </div>
       </div>
       <button onClick={addTemperament} className={style.botonAddTemperament}>+</button>
     </div>
