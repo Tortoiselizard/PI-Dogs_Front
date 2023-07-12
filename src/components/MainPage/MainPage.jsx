@@ -1,11 +1,22 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+
+import Message from '../Message/Message'
+
+import message from '../../controllers/message'
 
 import logo from '../../img/dogWall2.png'
 import style from './MainPage.module.css'
 
 function MainPage ({ sliding }) {
+  const [showMessage, setShowMessage] = useState(false)
   function playSlide () {
     sliding('/', '/home')
+  }
+
+  function handleMessage (event) {
+    const { name } = event.target
+    setShowMessage(message[name])
   }
 
   return (
@@ -14,9 +25,10 @@ function MainPage ({ sliding }) {
       <section className={style.navBarMainPageContainer}>
         <div className={style.navBarMainPage}>
           <div className={style.navBarOptionsMainPage}>
-            <button>API</button>
-            <button>About Me</button>
-            <button>Contact Us</button>
+            <button onClick={handleMessage} name='EXPLORE'>EXPLORE</button>
+            <button onClick={handleMessage} name='API'>API</button>
+            <button onClick={handleMessage} name='ABOUT'>ABOUT ME</button>
+            <button onClick={handleMessage} name='CONTACT'>CONTACT</button>
           </div>
           <label>Dog App</label>
           <div className={style.navBarLoginMainPage}>
@@ -38,6 +50,9 @@ function MainPage ({ sliding }) {
           <h2>Find the unconditional friend that will accompany you all your life</h2>
         </div>
       </section>
+      {
+        showMessage ? <Message setShowMessage={setShowMessage} message={showMessage} /> : null
+      }
     </main>
   )
 }
