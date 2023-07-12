@@ -36,11 +36,16 @@
     height: 40px;
 }
 
+.containerName label {
+    margin-right: 10px;
+}
+
 .containerAllTemperaments {
-    display: flex;
     margin: 5px;
     padding: 5px;
     min-height: 40px;
+    display: flex;
+    align-items: baseline;
 }
 
 .containerTemperaments {
@@ -75,6 +80,7 @@
 
 .addTemperament label{
     height: 20px;
+    margin-right: 20px;
 }
 
 .filterForPlaceContainer{
