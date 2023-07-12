@@ -7,7 +7,6 @@
 }
 
 .dropDownMenuOptionsContainer {
-    max-height: 180px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -15,6 +14,16 @@
     position: absolute;
     left: 0px;
     z-index: 1;
+}
+
+.showList {
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+}
+
+.noShowList {
+    display: none;
 }
 
 .DropdownMenu label {    
@@ -33,7 +42,7 @@
     color: #A1779B;
 }
 
-.inputAddTemperament{
+.inputAddTemperament {
     position: static;
     width: 160px;
     min-height: 30px;
@@ -43,10 +52,6 @@
     color: #FFE8ED;
     border: none;
     border-bottom: thin solid #FFE8ED;
-}
-
-.inputAddTemperament:focus ~ label {
-    display: inline;
 }
 
 .botonAddTemperament{
