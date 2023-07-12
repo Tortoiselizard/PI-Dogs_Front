@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './Message.module.css'
 
 function Message ({ setShowMessage, message }) {
@@ -15,11 +16,19 @@ function Message ({ setShowMessage, message }) {
         <header>
           <h1>{message.title}</h1>
         </header>
-        <sectino>
+        <sectino className={style.messageInformation}>
           {
             // message && message.imageContent ? <img /> : null
             }
-          <p>{message.contentMessage}</p>
+          <p>
+            {
+              message.contentMessage.split('\n').map((line, index) =>
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>)
+            }
+          </p>
         </sectino>
         <footer className={style.footer}>
           <button onClick={closeMessage}>Close</button>
