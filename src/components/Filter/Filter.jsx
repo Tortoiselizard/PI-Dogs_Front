@@ -18,6 +18,7 @@ function Filter () {
 
   const dispatch = useDispatch()
 
+  // Actualizar Filter del store
   useEffect(() => {
     if (Object.keys(globalState.filters).length && !globalState.filters.filteredTemperaments.length && !globalState.filters.locationToFilter) setStateFilter(globalState.filters)
   }, [globalState.filters])
