@@ -32,6 +32,10 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
   }
 
   function addTemperament () {
+    const input = document.getElementsByName('inputFilter')[0]
+    console.log(input)
+    console.log(input.value)
+    if (!input.value) return null
     action()
     handleInput('')
     const newArraytemperaments = [...possibleTemperaments]
