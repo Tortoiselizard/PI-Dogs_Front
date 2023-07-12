@@ -8,24 +8,27 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 2;
 }
 
 .containerMessage {
     width: 500px;
-    height: 500px;
     padding: 20px;
     border-radius: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: #F0ECAA;
+    background-color: rgba(240 , 236, 170, 1);
+}
+
+.messageInformation {
+    margin: 15px;
 }
 
 .footer {
     width: 300px;
-    height: 100px;
+    height: 50px;
     padding: 20px;
     display: flex;
     align-items: center;
