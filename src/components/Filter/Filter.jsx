@@ -113,7 +113,7 @@ function Filter () {
             <div className={style.filterOptionsContainer}>
 
               {
-                stateFilter.filteredTemperaments.length || stateFilter.locationToFilter
+                stateFilter.filteredTemperaments.length || globalState.searchBar
                   ? <h1>Filtering by: </h1>
                   : null
             }
