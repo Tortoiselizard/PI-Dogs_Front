@@ -93,7 +93,7 @@ function Filter () {
       <div className={style.inputsFilterContainer}>
         <h1>Filters</h1>
         <div className={style.addTemperament}>
-          <label>Temperaments: </label>
+          <label>Temperaments:</label>
           <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={globalState.temperaments} action={addTemperamentToFilter} />
         </div>
 
