@@ -96,3 +96,11 @@
     transform: scaleY(0);
     transform-origin: bottom left;    
 }
+
+.butonActiveHome {
+    background-color: #F0C2CC;
+}
+
+.butonActiveCreate {
+    background-color: #AADDF0;
+}
