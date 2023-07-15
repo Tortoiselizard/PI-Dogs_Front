@@ -181,12 +181,16 @@ const CreateDog = ({ store }) => {
                   ...dogDetail,
                   name: newName
                 }))
+                const inputName = document.getElementsByName('name')[0]
+                inputName.disabled = true
               } else if (data[0].image) {
                 alert(`El perro ${newName} ya existe`)
               } else {
                 setWhatShow('image')
                 setDogFinded(data[0])
                 setDogDetail(data[0])
+                const inputName = document.getElementsByName('name')[0]
+                inputName.disabled = true
               }
             })
         } else {
@@ -194,8 +198,6 @@ const CreateDog = ({ store }) => {
         }
       })
       .catch(error => alert(error))
-    const inputName = document.getElementsByName('name')[0]
-    inputName.disabled = true
   }
 
   function changeName () {
