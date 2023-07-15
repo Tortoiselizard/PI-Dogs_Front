@@ -55,7 +55,7 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
     action()
     handleInput('')
     const newArraytemperaments = [...possibleTemperaments]
-    newArraytemperaments.splice(possibleTemperaments.indexOf(input), 1)
+    newArraytemperaments.splice(possibleTemperaments.indexOf(input.value), 1)
     setPossibleTemperaments(newArraytemperaments)
   }
 
