@@ -74,14 +74,26 @@ function DogDetail ({ store }) {
 
   const firsTime = useRef(true)
 
-  // Deshabilitar los inputs correspondientes y volverlos todos visibles
+  // Deshabilitar los inputs y botones correspondientes y volverlos todos visibles
   useEffect(() => {
+    // Deshabilitar los inputs correspondientes
     const allInputs = document.querySelectorAll('input')
     allInputs.forEach(input => {
       if (!Object.keys(inputEnabled).includes(input.name.split(' ')[0]) && input.name !== 'inputFilter') {
         input.disabled = true
       }
     })
+
+    // Deshabilitar los botones correspondientes
+    if (inputEnabled && !inputEnabled.temperament) {
+      const allButtons = document.querySelectorAll('button')
+      allButtons.forEach(button => {
+        if (button.name.includes('temperamentAdded')) {
+          button.disabled = true
+        }
+      })
+    }
+
     if (!firsTime.current && editMode) {
       const arrayContainers = ['alto', 'name', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
