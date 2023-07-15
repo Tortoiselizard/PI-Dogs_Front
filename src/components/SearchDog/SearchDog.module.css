@@ -18,15 +18,19 @@
 }
 
 .buttonSearchAll {
-    width: 100px;
-    height: 35px;
+    width: 130px;
+    height: 50px;
     margin-right: 20px;
-    background-color: #4a4e69;
-    color: #ede0d4;
+    background-color: #FFE8ED;
+    color: #7C99A3;
     border-radius: 10px;
+    border: none;
+    font-family: 'Varela Round', sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .buttonSearchAll:hover {
-    background-color: #f2e9e4;
-    color: #4a4e69;
+    background-color: #7C99A3;
+    color: #FFE8ED;
+    border: 3px solid #FFE8ED;
 }
