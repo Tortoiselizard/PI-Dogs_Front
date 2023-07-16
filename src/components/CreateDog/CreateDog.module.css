@@ -207,20 +207,25 @@
 }
 
 .botonCreateDog{
-    width: 102px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     margin: 20px;
-    background-color: #f2e9e4;
+    background-color: #7C99A3;
     border: 0px;
-    background-image: url("https://www.pngkey.com/png/full/125-1252358_dog-icon.png");
-    background-size: cover;
-    border-radius: 10px;
+    background-image: url("../../img/huellaPerro3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
     padding: 0px;
     align-self: center;
+    transition: background-color 0.3s ease, border 0.3s ease, background-image 0.3s ease;
 }
 
 .botonCreateDog:hover{
-    background-color: #9a8c98;
+    background-color: #AADDF0;
+    border: thin solid #7C99A3;
+    background-image: url("../../img/huellaPerro3Amarillo.png");
 }
 
 .divTemperamentoAnadido {
