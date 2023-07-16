@@ -95,12 +95,12 @@ function Filter () {
       <div className={style.inputsFilterContainer}>
         <h1>Filters</h1>
         <div className={style.addTemperament}>
-          <label>Temperaments:</label>
+          <label className={style.titleFilters}>Temperaments:</label>
           <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={globalState.temperaments} action={addTemperamentToFilter} />
         </div>
 
         <div className={style.filterForPlaceContainer}>
-          <label>Location: </label>
+          <label className={style.titleFilters}>Location: </label>
           <select onChange={() => filter()} id='selectFilterForLocation' className={style.selectFilterForLocation}>
             <option value='Both'>Both</option>
             <option value='API'>API</option>
@@ -124,8 +124,8 @@ function Filter () {
             globalState.searchBar
               ? (
                 <div className={style.containerName}>
-                  <label>Name:</label>
-                  <label>{globalState.searchBar}</label>
+                  <label className={style.titleFilters}>Name:</label>
+                  <label className={style.titleFilters}>{globalState.searchBar}</label>
                 </div>)
               : null
         }
@@ -134,12 +134,12 @@ function Filter () {
                 stateFilter.filteredTemperaments.length
                   ? (
                     <div className={style.containerAllTemperaments}>
-                      <label>Temperaments: </label>
+                      <label className={style.titleFilters}>Temperaments: </label>
                       <div className={style.containerTemperaments}>
                         {
                             stateFilter.filteredTemperaments.map((temperament, index) =>
                               <div key={index} className={style.filtradoTemperamentos}>
-                                <label>{temperament}</label>
+                                <label className={style.titleFilters}>{temperament}</label>
                                 <button onClick={goBack} name={`buttonCloseFilteredT${index}`} className={style.botonCancelarFiltrado}>x</button>
                               </div>)
                         }
