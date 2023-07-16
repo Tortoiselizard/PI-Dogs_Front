@@ -111,7 +111,7 @@ function DogDetail ({ store }) {
       const arrayContainers = ['alto', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
         const elemento = document.getElementById(id)
-        elemento.style.opacity = '0'
+        elemento.style.opacity = ''
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
