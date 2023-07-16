@@ -360,7 +360,7 @@ function DogDetail ({ store }) {
                 inputs && <button onClick={changeEditMode} className={style.buttonToUpdate}>{editMode ? 'Show' : 'Edit'}</button>
               }
                 {
-                editMode && <button onClick={sendUpdate}>Update</button>
+                editMode && <button onClick={sendUpdate} className={style.buttonToUpdate}>Update</button>
               }
               </div>
             </div>)
