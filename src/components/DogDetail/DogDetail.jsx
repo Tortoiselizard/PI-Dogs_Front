@@ -46,7 +46,7 @@ function DogDetail ({ store }) {
           return response.json()
         })
         .then(data => {
-          const dataTemperaments = store.dogDetail[0].temperament.split(', ')
+          const dataTemperaments = store.dogDetail[0].temperament ? store.dogDetail[0].temperament.split(', ') : []
           const dataDog = {
             name: store.dogDetail[0].name,
             height: { min: store.dogDetail[0].height.split('-')[0].trim(), max: store.dogDetail[0].height.split('-')[1].trim() },
