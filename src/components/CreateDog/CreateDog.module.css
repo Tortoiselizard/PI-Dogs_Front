@@ -97,9 +97,10 @@
 
 .seccioName button {
     margin: 10px;
-    height: 50px;
-    width: 100px;
+    height: 75px;
+    width: 120px;
     background-color: #7C99A3;
+    font-size: 18px;
     color: #AADDF0;
     border: none;
     border-radius: 20px;
