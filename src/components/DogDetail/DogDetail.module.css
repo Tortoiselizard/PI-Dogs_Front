@@ -29,10 +29,10 @@
 }
 
 .containerInformation {
-    background-size: cover;
-    background-position: top;
     width: 100%;
     height: 900px;
+    background-size: cover;
+    background-position: top;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
@@ -73,9 +73,26 @@
     font-size: 22px;
 }
 
+/* .containerImage {
+    height: 95%;
+    width: 950px;
+    margin-right: 50px;
+    margin-bottom: 25px;
+    position: relative;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-self: flex-end;
+    border-radius: 20px;
+    z-index: 0;
+} */
+
 .containerInformation img {
     height: 100%;
+    max-width: 950px;
+    object-fit: cover;
     border-radius: 30px;
+    align-self: flex-end;
     box-shadow: 0 0 20px black;
     margin: 40px;
     z-index: 0;
