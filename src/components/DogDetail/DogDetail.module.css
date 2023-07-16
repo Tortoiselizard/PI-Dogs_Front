@@ -197,7 +197,8 @@
     padding: 20px;
     width: 300px;
     position: absolute;
-    top: 220px;
+    top: 5%;
+    right: 20%;
     z-index: 0;
     display: flex;
     flex-direction: column;
@@ -303,7 +304,7 @@
     flex-direction: column;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
 }
 
 .alto div {
@@ -416,6 +417,7 @@
     flex-direction: column;
     align-items: center;
     opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .peso div {
@@ -507,7 +509,7 @@
 }
 
 .buttonYears:hover + .lifeSpan {
-    visibility: visible;
+    opacity: 1;
 }
 
 .lifeSpan {
@@ -521,7 +523,8 @@
     flex-direction: column;
     right: 20%;
     align-items: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .lifeSpan div {
@@ -613,7 +616,7 @@
 }
 
 .buttonTemperaments:hover + .temperamentos {
-    visibility: visible;
+    opacity: 1;
 }
 
 .temperamentos {
@@ -627,7 +630,8 @@
     flex-direction: column;
     right: 15%;
     align-items: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .containerTemperamentos_Input {
