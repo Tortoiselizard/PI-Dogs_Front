@@ -14,44 +14,93 @@
 
 .links {
     height: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
-.imagen {
-    width: 100px;
+.containerButton {
+    height: 60px;
+    width: 60px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: white;
+    border: 3px solid white;
 }
 
-.label {
-    background-image: "../../../img/home.png";
+.links button {
+    height:60px;
+    width:60px;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    background-size: 38px 38px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border-radius: 50px;
+    border: none;
+    overflow: hidden;
+}
+
+.links img {
+    width: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+}
+
+.buttonHome::before {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
     width: 60px;
     height: 60px;
+    z-index: 1;
+    background-color: #F0C2CC;
+    transition: transform 0.5s ease;
 }
 
-.buttonHome {
-    height:50px;
-    width:50px;
-    background-image: url("https://cdn-icons-png.flaticon.com/512/25/25694.png");
-    background-size: cover;
-    background-color: #edede9;
-    border-radius: 50px;
-    margin-right: 10px;
-    margin-left: 10px;
+.buttonHome:hover::before {
+    transform: scaleY(1);
+    transform-origin: bottom left;    
 }
 
-.buttonHome:hover {
-    background-color: #9a8c98;;
+.buttonHome::before {
+    transform: scaleY(0);
+    transform-origin: bottom left;    
 }
 
-.buttonDog {
-    height:50px;
-    width:50px;
-    background-image: url("https://aux.iconspalace.com/uploads/dog-paw-icon-256.png");
-    background-size: cover;
-    background-color: #edede9;
-    border-radius: 50px;
-    margin-right: 10px;
-    margin-left: 10px;
+.buttonDog::before {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 60px;
+    height: 60px;
+    z-index: 1;
+    background-color: #AADDF0;
+    transition: transform 0.5s ease;
 }
 
-.buttonDog:hover{
-    background-color: #9a8c98;
+.buttonDog:hover::before {
+    transform: scaleY(1);
+    transform-origin: bottom left;    
+}
+
+.buttonDog::before {
+    transform: scaleY(0);
+    transform-origin: bottom left;    
+}
+
+.butonActiveHome {
+    background-color: #F0C2CC;
+}
+
+.butonActiveCreate {
+    background-color: #AADDF0;
 }

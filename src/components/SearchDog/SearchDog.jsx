@@ -31,8 +31,10 @@ function SearchDog ({ setLoad }) {
   return (
     <div className={style.SearchDog}>
       <button className={style.buttonSearchAll} onClick={showAllDogs}>More Popular</button>
-      <input type='text' onChange={handleChange} value={input.search} placeholder='Search...' onKeyPress={(event) => { if (event.key === 'Enter') searchDispatch() }} className={style.input} />
-      <button onClick={searchDispatch} className={style.buttonToSearch}>🔍</button>
+      <div>
+        <input type='text' onChange={handleChange} value={input.search} placeholder='Search...' onKeyPress={(event) => { if (event.key === 'Enter') searchDispatch() }} className={style.input} />
+        <button onClick={searchDispatch} className={style.buttonToSearch} />
+      </div>
     </div>
   )
 }

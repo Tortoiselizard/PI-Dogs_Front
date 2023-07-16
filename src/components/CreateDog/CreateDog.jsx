@@ -181,12 +181,16 @@ const CreateDog = ({ store }) => {
                   ...dogDetail,
                   name: newName
                 }))
+                const inputName = document.getElementsByName('name')[0]
+                inputName.disabled = true
               } else if (data[0].image) {
                 alert(`El perro ${newName} ya existe`)
               } else {
                 setWhatShow('image')
                 setDogFinded(data[0])
                 setDogDetail(data[0])
+                const inputName = document.getElementsByName('name')[0]
+                inputName.disabled = true
               }
             })
         } else {
@@ -194,8 +198,6 @@ const CreateDog = ({ store }) => {
         }
       })
       .catch(error => alert(error))
-    const inputName = document.getElementsByName('name')[0]
-    inputName.disabled = true
   }
 
   function changeName () {
@@ -251,7 +253,7 @@ const CreateDog = ({ store }) => {
             <div className={style.seccioName}>
               <label>Dog's name:</label>
               <div>
-                <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Escribe el nombre...' />
+                <input onKeyPress={(event) => { if (event.key === 'Enter') searchDog() }} className={errors.name && style.warning} onChange={handleChange} value={inputs.name} name='name' type='text' placeholder='Write the name...' />
                 <p className={style.danger}>{errors.name}</p>
               </div>
 
@@ -325,7 +327,7 @@ const CreateDog = ({ store }) => {
           <>
             <div className={style.seccionTemperamentos}>
               <div className={style.containerTemperamentsSecction}>
-                <label>Temperamentos:</label>
+                <label className={style.titleTemperamentsSection}>Temperamentos:</label>
                 <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} />
               </div>
               <div className={style.containerTemperaments}>

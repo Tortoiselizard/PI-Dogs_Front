@@ -5,28 +5,60 @@
     align-items: baseline;
 }
 
-.input{
-    width: 50%;
-    height: 30px;
-    border-radius: 5px;
+.SearchDog div {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 50px;
 }
 
-.buttonToSearch {
-    background-color: white;
-    height: 37px;
+.input{
+    width: 100px;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 5px;
     border: none;
 }
 
-.buttonSearchAll {
-    width: 100px;
+.buttonToSearch {
+    width: 35px;
     height: 35px;
+    background-color: white;
+    margin: 0px 10px;
+    position: relative;
+    background-image: url('../../img/searchLogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+.buttonToSearch::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 27px;
+    left: -3px;
+    top: 6px;
+    background-color: silver;
+}
+
+.buttonSearchAll {
+    width: 130px;
+    height: 50px;
     margin-right: 20px;
-    background-color: #4a4e69;
-    color: #ede0d4;
+    background-color: #FFE8ED;
+    color: #7C99A3;
     border-radius: 10px;
+    border: none;
+    font-family: 'Varela Round', sans-serif;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .buttonSearchAll:hover {
-    background-color: #f2e9e4;
-    color: #4a4e69;
+    background-color: #7C99A3;
+    color: #FFE8ED;
+    border: 3px solid #FFE8ED;
 }

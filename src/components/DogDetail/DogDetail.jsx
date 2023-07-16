@@ -52,7 +52,12 @@ function DogDetail ({ store }) {
             height: { min: store.dogDetail[0].height.split('-')[0].trim(), max: store.dogDetail[0].height.split('-')[1].trim() },
             weight: { min: store.dogDetail[0].weight.split('-')[0].trim(), max: store.dogDetail[0].weight.split('-')[1].trim() },
             lifeSpan: store.dogDetail[0].lifeSpan
-              ? { min: store.dogDetail[0].lifeSpan.split('-')[0].trim(), max: store.dogDetail[0].lifeSpan.split('-')[1].trim() }
+              ? {
+                  min: store.dogDetail[0].lifeSpan.split('-')[0].trim(),
+                  max: !store.dogDetail[0].lifeSpan.split('-')[1].includes('y')
+                    ? store.dogDetail[0].lifeSpan.split('-')[1].trim()
+                    : store.dogDetail[0].lifeSpan.split('-')[1].split('y')[0].trim()
+                }
               : { min: '', max: '' },
             image: store.dogDetail[0].image,
             temperament: store.temperaments.filter(t => dataTemperaments.includes(t.name))
@@ -66,6 +71,8 @@ function DogDetail ({ store }) {
             setInputEnabled({
               image: store.dogDetail[0].image
             })
+          } else {
+            setInputEnabled({})
           }
         })
         .catch(error => alert(error.message))
@@ -74,25 +81,37 @@ function DogDetail ({ store }) {
 
   const firsTime = useRef(true)
 
-  // Deshabilitar los inputs correspondientes y volverlos todos visibles
+  // Deshabilitar los inputs y botones correspondientes y volverlos todos visibles
   useEffect(() => {
+    // Deshabilitar los inputs correspondientes
     const allInputs = document.querySelectorAll('input')
     allInputs.forEach(input => {
       if (!Object.keys(inputEnabled).includes(input.name.split(' ')[0]) && input.name !== 'inputFilter') {
         input.disabled = true
       }
     })
+
+    // Deshabilitar los botones correspondientes
+    if ((inputEnabled || !inputEnabled) && !inputEnabled.temperament) {
+      const allButtons = document.querySelectorAll('button')
+      allButtons.forEach(button => {
+        if (button.name.includes('temperamentAdded')) {
+          button.disabled = true
+        }
+      })
+    }
+
     if (!firsTime.current && editMode) {
       const arrayContainers = ['alto', 'name', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
         const elemento = document.getElementById(id)
-        elemento.style.visibility = 'visible'
+        elemento.style.opacity = '1'
       })
     } else if (!firsTime.current) {
       const arrayContainers = ['alto', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
         const elemento = document.getElementById(id)
-        elemento.style.visibility = ''
+        elemento.style.opacity = ''
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -348,7 +367,7 @@ function DogDetail ({ store }) {
                 inputs && <button onClick={changeEditMode} className={style.buttonToUpdate}>{editMode ? 'Show' : 'Edit'}</button>
               }
                 {
-                editMode && <button onClick={sendUpdate}>Update</button>
+                editMode && <button onClick={sendUpdate} className={style.buttonToUpdate}>Update</button>
               }
               </div>
             </div>)

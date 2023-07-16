@@ -29,10 +29,10 @@
 }
 
 .containerInformation {
-    background-size: cover;
-    background-position: top;
     width: 100%;
     height: 900px;
+    background-size: cover;
+    background-position: top;
     border-radius: 100px;
     display: flex;
     flex-direction: column;
@@ -74,8 +74,11 @@
 }
 
 .containerInformation img {
-    width: 900px;
+    height: 100%;
+    max-width: 950px;
+    object-fit: cover;
     border-radius: 30px;
+    align-self: flex-end;
     box-shadow: 0 0 20px black;
     margin: 40px;
     z-index: 0;
@@ -87,11 +90,13 @@
 
 .editImageContainer {
     padding: 5px;
+    align-self: flex-end;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 0;
     margin: 10px;
+    margin-right: 15%;
     background-color: rgba(0,0,0,0.5);
     border-radius: 10px;
 }
@@ -109,17 +114,71 @@
 }
 
 .buttonName {
-    width: 136px;
-    height: 116px;
+    width: 125px;
+    height: 125px;
     position: absolute;
     top: 5%;
+    left: 5%;
     background-image: url('../../img/nameLogo.png');
-    background-size: cover;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
     background-position: center;
+    border: thin solid transparent;
+    transition: border 1s ease;
+}
+
+.buttonName:hover {
+    border: thin solid black;
+}
+
+.buttonName:hover::before {
+    border-left: thin solid rgba(255,255,255,0.7);
+    border-right: thin solid rgba(255,255,255,0.7);
+    transform: scaleY(1);
+}
+
+.buttonName::before {
+    border-left: thin solid transparent;
+    border-right: thin solid transparent;
+    transform: scaleY(0);
+}
+
+.buttonName::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -1px;
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+    transition: border-left 1s ease, border-right 1s ease, transform 1s ease;
+}
+
+.buttonName:hover::after {
+    border-bottom: thin solid rgba(255,255,255,0.7);
+    border-top: thin solid rgba(255,255,255,0.7);
+    transform: scaleX(1);
+}
+
+.buttonName::after {
+    border-bottom: thin solid transparent;
+    border-top: thin solid transparent;
+    transform: scaleX(0);
+}
+
+.buttonName::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    z-index: 1;
+    transition: border-bottom 1s ease, border-top 1s ease, transform 1s ease;
 }
 
 .buttonName:hover + .name {
-    visibility: visible;
+    opacity: 1;
 }
 
 .name {
@@ -128,9 +187,11 @@
     margin: 0px;
     border-radius: 20px;
     position: absolute;
-    top: 220px;
+    top: 5%;
+    right: 20%;
     font-family: 'Seymour One', sans-serif;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .containerName {
@@ -138,7 +199,8 @@
     padding: 20px;
     width: 300px;
     position: absolute;
-    top: 220px;
+    top: 5%;
+    right: 20%;
     z-index: 0;
     display: flex;
     flex-direction: column;
@@ -165,18 +227,71 @@
 }
 
 .buttonHeight {
-    width: 136px;
-    height: 116px;
+    width: 125px;
+    height: 125px;
     position: absolute;
-    top: 35%;
-    left: 3%;
+    top: 20%;
+    left: 5%;
     background-image: url('../../img/altoLogo.png');
-    background-size: cover;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
     background-position: center;
+    border: thin solid transparent;
+    transition: border 1s ease;
+}
+
+.buttonHeight:hover {
+    border: thin solid black;
+}
+
+.buttonHeight:hover::before {
+    border-left: thin solid rgba(255,255,255,0.7);
+    border-right: thin solid rgba(255,255,255,0.7);
+    transform: scaleY(1);
+}
+
+.buttonHeight::before {
+    border-left: thin solid transparent;
+    border-right: thin solid transparent;
+    transform: scaleY(0);
+}
+
+.buttonHeight::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -1px;
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+    transition: border-left 1s ease, border-right 1s ease, transform 1s ease;
+}
+
+.buttonHeight:hover::after {
+    border-bottom: thin solid rgba(255,255,255,0.7);
+    border-top: thin solid rgba(255,255,255,0.7);
+    transform: scaleX(1);
+}
+
+.buttonHeight::after {
+    border-bottom: thin solid transparent;
+    border-top: thin solid transparent;
+    transform: scaleX(0);
+}
+
+.buttonHeight::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    z-index: 1;
+    transition: border-bottom 1s ease, border-top 1s ease, transform 1s ease;
 }
 
 .buttonHeight:hover + .alto {
-    visibility: visible;
+    opacity: 1;
 }
 
 .alto {
@@ -185,12 +300,13 @@
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
-    top: 35%;
-    left: 20%;
+    top: 21%;
+    right: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .alto div {
@@ -224,18 +340,71 @@
 }
 
 .buttonWeight {
-    width: 136px;
-    height: 116px;
+    width: 125px;
+    height: 125px;
     position: absolute;
-    top: 68%;
-    left: 3%;
+    top: 35%;
+    left: 5%;
     background-image: url('../../img/pesoLogo.png');
-    background-size: cover;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
     background-position: center;
+    border: thin solid transparent;
+    transition: border 1s ease;
+}
+
+.buttonWeight:hover {
+    border: thin solid black;
+}
+
+.buttonWeight:hover::before {
+    border-left: thin solid rgba(255,255,255,0.7);
+    border-right: thin solid rgba(255,255,255,0.7);
+    transform: scaleY(1);
+}
+
+.buttonWeight::before {
+    border-left: thin solid transparent;
+    border-right: thin solid transparent;
+    transform: scaleY(0);
+}
+
+.buttonWeight::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -1px;
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+    transition: border-left 1s ease, border-right 1s ease, transform 1s ease;
+}
+
+.buttonWeight:hover::after {
+    border-bottom: thin solid rgba(255,255,255,0.7);
+    border-top: thin solid rgba(255,255,255,0.7);
+    transform: scaleX(1);
+}
+
+.buttonWeight::after {
+    border-bottom: thin solid transparent;
+    border-top: thin solid transparent;
+    transform: scaleX(0);
+}
+
+.buttonWeight::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    z-index: 1;
+    transition: border-bottom 1s ease, border-top 1s ease, transform 1s ease;
 }
 
 .buttonWeight:hover + .peso {
-    visibility: visible;
+    opacity: 1;
 }
 
 .peso {
@@ -244,12 +413,13 @@
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
-    bottom: 20%;
+    top: 21%;
+    right: 5%;
     display: flex;
     flex-direction: column;
-    left: 20%;
     align-items: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .peso div {
@@ -277,18 +447,71 @@
 }
 
 .buttonYears {
-    width: 136px;
-    height: 116px;
+    width: 125px;
+    height: 125px;
     position: absolute;
-    top: 35%;
-    right: 3%;
+    top: 50%;
+    left: 5%;
     background-image: url('../../img/vidaLogo.png');
-    background-size: cover;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
     background-position: center;
+    border: thin solid transparent;
+    transition: border 1s ease;
+}
+
+.buttonYears:hover {
+    border: thin solid black;
+}
+
+.buttonYears:hover::before {
+    border-left: thin solid rgba(255,255,255,0.7);
+    border-right: thin solid rgba(255,255,255,0.7);
+    transform: scaleY(1);
+}
+
+.buttonYears::before {
+    border-left: thin solid transparent;
+    border-right: thin solid transparent;
+    transform: scaleY(0);
+}
+
+.buttonYears::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -1px;
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+    transition: border-left 1s ease, border-right 1s ease, transform 1s ease;
+}
+
+.buttonYears:hover::after {
+    border-bottom: thin solid rgba(255,255,255,0.7);
+    border-top: thin solid rgba(255,255,255,0.7);
+    transform: scaleX(1);
+}
+
+.buttonYears::after {
+    border-bottom: thin solid transparent;
+    border-top: thin solid transparent;
+    transform: scaleX(0);
+}
+
+.buttonYears::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    z-index: 1;
+    transition: border-bottom 1s ease, border-top 1s ease, transform 1s ease;
 }
 
 .buttonYears:hover + .lifeSpan {
-    visibility: visible;
+    opacity: 1;
 }
 
 .lifeSpan {
@@ -297,12 +520,13 @@
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
-    top: 35%;
+    top: 40%;
     display: flex;
     flex-direction: column;
     right: 20%;
     align-items: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .lifeSpan div {
@@ -330,18 +554,71 @@
 }
 
 .buttonTemperaments {
-    width: 136px;
-    height: 155px;
+    width: 125px;
+    height: 130px;
     position: absolute;
-    top: 68%;
-    right: 3%;
+    top: 65%;
+    left: 5%;
     background-image: url('../../img/jugarLogo.png');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
+    border: thin solid transparent;
+    transition: border 1s ease;
+}
+
+.buttonTemperaments:hover {
+    border: thin solid black;
+}
+
+.buttonTemperaments:hover::before {
+    border-left: thin solid rgba(255,255,255,0.7);
+    border-right: thin solid rgba(255,255,255,0.7);
+    transform: scaleY(1);
+}
+
+.buttonTemperaments::before {
+    border-left: thin solid transparent;
+    border-right: thin solid transparent;
+    transform: scaleY(0);
+}
+
+.buttonTemperaments::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -1px;
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+    transition: border-left 1s ease, border-right 1s ease, transform 1s ease;
+}
+
+.buttonTemperaments:hover::after {
+    border-bottom: thin solid rgba(255,255,255,0.7);
+    border-top: thin solid rgba(255,255,255,0.7);
+    transform: scaleX(1);
+}
+
+.buttonTemperaments::after {
+    border-bottom: thin solid transparent;
+    border-top: thin solid transparent;
+    transform: scaleX(0);
+}
+
+.buttonTemperaments::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    z-index: 1;
+    transition: border-bottom 1s ease, border-top 1s ease, transform 1s ease;
 }
 
 .buttonTemperaments:hover + .temperamentos {
-    visibility: visible;
+    opacity: 1;
 }
 
 .temperamentos {
@@ -350,12 +627,13 @@
     background-color: rgba(0,0,0,0.5);
     border-radius: 20px;
     position: absolute;
-    top: 53%;
+    top: 60%;
     display: flex;
     flex-direction: column;
-    left: 55%;
+    right: 15%;
     align-items: center;
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .containerTemperamentos_Input {
@@ -390,6 +668,18 @@
     width: 100px;
     height: 50px;
     margin: 20px;
+    background-color: #64A36E;
+    color: #C2F0C9;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+.buttonToUpdate:hover {
+    background-color: #C2F0C9;
+    color: #64A36E;
+    border: thin solid #64A36E;
 }
 
 .containerInformation input:disabled {
