@@ -15,9 +15,17 @@ import style from './Home.module.css'
 function Home ({ store }) {
   const dispatch = useDispatch()
 
-  const [showDogs, setShowDogs] = useState({
-    start: 0,
-    list: []
+  const [showDogs, setShowDogs] = useState(() => {
+    if (store.showDogs.list && store.showDogs.list) {
+      return {
+        ...store.showDogs
+      }
+    } else {
+      return {
+        start: 0,
+        list: []
+      }
+    }
   })
 
   // Cargar información del estado global "store.dogs"
@@ -28,10 +36,12 @@ function Home ({ store }) {
 
   // Cargar información del estado global "showDogs"
   useEffect(() => {
-    setShowDogs({
-      list: (store && store.dogs.slice(0, 9)) || [],
-      start: 0
-    })
+    if (!showDogs.list.length) {
+      setShowDogs({
+        list: (store && store.dogs.slice(0, 9)) || [],
+        start: 0
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store && store.dogs])
 
