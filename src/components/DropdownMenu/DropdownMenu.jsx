@@ -81,7 +81,7 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
           }
         </div>
       </div>
-      <button onClick={addTemperament} className={style.botonAddTemperament}>+</button>
+      <button onClick={addTemperament} className={style.botonAddTemperament} />
     </div>
   )
 }
