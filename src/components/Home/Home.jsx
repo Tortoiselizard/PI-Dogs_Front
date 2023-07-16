@@ -36,7 +36,7 @@ function Home ({ store }) {
 
   // Cargar información del estado global "showDogs"
   useEffect(() => {
-    if (!showDogs.list.length) {
+    if (!showDogs.list.length || (store && !store.showDogs.list.length)) {
       setShowDogs({
         list: (store && store.dogs.slice(0, 9)) || [],
         start: 0
