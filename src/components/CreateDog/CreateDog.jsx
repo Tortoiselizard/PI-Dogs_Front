@@ -327,7 +327,7 @@ const CreateDog = ({ store }) => {
           <>
             <div className={style.seccionTemperamentos}>
               <div className={style.containerTemperamentsSecction}>
-                <label>Temperamentos:</label>
+                <label className={style.titleTemperamentsSection}>Temperamentos:</label>
                 <DropdownMenu refresh={{ refresh, setRefresh }} temperaments={store.temperaments} action={addTemperament} />
               </div>
               <div className={style.containerTemperaments}>
