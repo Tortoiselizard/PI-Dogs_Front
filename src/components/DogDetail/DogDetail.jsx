@@ -46,19 +46,29 @@ function DogDetail ({ store }) {
           return response.json()
         })
         .then(data => {
-          const dataTemperaments = store.dogDetail[0].temperament.split(', ')
+          const dataTemperaments = store.dogDetail[0].temperament ? store.dogDetail[0].temperament.split(', ') : []
           const dataDog = {
             name: store.dogDetail[0].name,
             height: { min: store.dogDetail[0].height.split('-')[0].trim(), max: store.dogDetail[0].height.split('-')[1].trim() },
             weight: { min: store.dogDetail[0].weight.split('-')[0].trim(), max: store.dogDetail[0].weight.split('-')[1].trim() },
-            lifeSpan: store.dogDetail[0].lifeSpan
+            lifeSpan: store.dogDetail[0].lifeSpan && store.dogDetail[0].lifeSpan.includes('-')
               ? {
                   min: store.dogDetail[0].lifeSpan.split('-')[0].trim(),
                   max: !store.dogDetail[0].lifeSpan.split('-')[1].includes('y')
                     ? store.dogDetail[0].lifeSpan.split('-')[1].trim()
                     : store.dogDetail[0].lifeSpan.split('-')[1].split('y')[0].trim()
                 }
-              : { min: '', max: '' },
+              : store.dogDetail[0].lifeSpan && store.dogDetail[0].lifeSpan.includes('–')
+                ? {
+                    min: store.dogDetail[0].lifeSpan.split('–')[0].trim(),
+                    max: !store.dogDetail[0].lifeSpan.split('–')[1].includes('y')
+                      ? store.dogDetail[0].lifeSpan.split('–')[1].trim()
+                      : store.dogDetail[0].lifeSpan.split('–')[1].split('y')[0].trim()
+                  }
+                : {
+                    min: '',
+                    max: ''
+                  },
             image: store.dogDetail[0].image,
             temperament: store.temperaments.filter(t => dataTemperaments.includes(t.name))
           }
