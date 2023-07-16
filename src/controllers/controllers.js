@@ -50,7 +50,6 @@ module.exports = {
     return allGood
   },
   prepareRequest: (dog, id, type) => {
-    console.log(dog)
     const newDog = {
       id,
       name: dog.name.includes(' ')
