@@ -98,13 +98,13 @@ function DogDetail ({ store }) {
       const arrayContainers = ['alto', 'name', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
         const elemento = document.getElementById(id)
-        elemento.style.visibility = 'visible'
+        elemento.style.opacity = '1'
       })
     } else if (!firsTime.current) {
       const arrayContainers = ['alto', 'temperamentos', 'peso', 'lifeSpan']
       arrayContainers.forEach(id => {
         const elemento = document.getElementById(id)
-        elemento.style.visibility = ''
+        elemento.style.opacity = '0'
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
