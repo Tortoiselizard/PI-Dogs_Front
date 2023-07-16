@@ -13,7 +13,7 @@ module.exports = {
     }
     const { name, height, weight, lifeSpan, image } = inputs
 
-    if (name[0] === ' ') { errors.name = 'El nombre debe comenzar por una letra' } else if (regexName.test(name)) { errors.name = 'El nombre solo puede contener letras y/o espacios' } else if (name.length < 3 || name.length > 20) { errors.name = 'El nombre debe estar comprendido entre 3-20 caracteres' }
+    if (name[0] === ' ') { errors.name = 'El nombre debe comenzar por una letra' } else if (regexName.test(name)) { errors.name = 'El nombre solo puede contener letras y/o espacios' } else if (name.length < 3 || name.length > 50) { errors.name = 'El nombre debe estar comprendido entre 3-20 caracteres' }
 
     if (!height.min) { errors.height.min = 'Este espacio no puede estar vacio' } else if (regexNumber.test(height.min)) { errors.height.min = 'Debes escribir solo números en esta casilla' } else if (height.min <= 0) { errors.height.min = 'La altura mínima del perro no puede ser un número negativo o cero' }
 
