@@ -66,6 +66,8 @@ function DogDetail ({ store }) {
             setInputEnabled({
               image: store.dogDetail[0].image
             })
+          } else {
+            setInputEnabled({})
           }
         })
         .catch(error => alert(error.message))
@@ -85,7 +87,7 @@ function DogDetail ({ store }) {
     })
 
     // Deshabilitar los botones correspondientes
-    if (inputEnabled && !inputEnabled.temperament) {
+    if ((inputEnabled || !inputEnabled) && !inputEnabled.temperament) {
       const allButtons = document.querySelectorAll('button')
       allButtons.forEach(button => {
         if (button.name.includes('temperamentAdded')) {
