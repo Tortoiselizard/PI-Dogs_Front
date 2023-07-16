@@ -75,7 +75,7 @@ function DropdownMenu ({ refresh, temperaments, action, alreadyAdded }) {
           {
             input && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).length && possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase()))[0].toLowerCase() !== input.toLowerCase()
               ? possibleTemperaments.filter(temperament => temperament.toLowerCase().includes(input.toLocaleLowerCase())).map((temperament, index) => (
-                <label name='optionList' onClick={selectTemperament} key={`temperament${index}`}>{temperament}</label>
+                <label className={style.labelOptions} name='optionList' onClick={selectTemperament} key={`temperament${index}`}>{temperament}</label>
               ))
               : null
           }
