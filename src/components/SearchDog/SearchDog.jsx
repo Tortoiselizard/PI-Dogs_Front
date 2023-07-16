@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { getAllDogs2, updateSearchBar, updateFilters } from '../../redux/actions/index'
+import { getAllDogs2, updateSearchBar, updateFilters, updateShowDogs } from '../../redux/actions/index'
 import style from './SearchDog.module.css'
 
 function SearchDog ({ setLoad }) {
@@ -15,6 +15,10 @@ function SearchDog ({ setLoad }) {
   }
 
   async function searchDispatch () {
+    dispatch(updateShowDogs({
+      start: 0,
+      list: []
+    }))
     dispatch(updateSearchBar(input.search))
     dispatch(getAllDogs2(input.search, setLoad))
   }
