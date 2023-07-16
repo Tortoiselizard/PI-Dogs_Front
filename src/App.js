@@ -15,7 +15,7 @@ import './App.css'
 
 function App () {
   const dispatch = useDispatch()
-  const { totaDogs, dogs, dogDetail, temperaments } = useSelector(state => state)
+  const { totaDogs, dogs, dogDetail, temperaments, showDogs } = useSelector(state => state)
   const [sliding, setSliding] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -24,7 +24,6 @@ function App () {
       come,
       go
     })
-    console.log(sliding)
   }
 
   // Hacer solicitudes a la DB para buscar los perros más populares
@@ -33,25 +32,17 @@ function App () {
     dispatch(getAllTemperaments())
   }, [dispatch])
 
-  // useEffect(() => {
-  //   if (sliding) {
-  //     setTimeout(() => setSliding(false), 1500)
-  //   }
-  // }, [sliding])
-
   return (
     <>
       {
       false && sliding && <SlideComponents routes={sliding} />
     }
-      <div className=''>
-        <Routes>
-          <Route path='/' element={<MainPage sliding={handleSliding} />} />
-          <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments }} />} />
-          <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} store={{ dogDetail, temperaments }} />} />
-          <Route path='/dog/create' element={<CreateDog sliding={handleSliding} store={{ temperaments }} />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path='/' element={<MainPage sliding={handleSliding} />} />
+        <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments, showDogs }} />} />
+        <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} store={{ dogDetail, temperaments }} />} />
+        <Route path='/dog/create' element={<CreateDog sliding={handleSliding} store={{ temperaments }} />} />
+      </Routes>
       <Loading loading={loading} />
     </>
   )
