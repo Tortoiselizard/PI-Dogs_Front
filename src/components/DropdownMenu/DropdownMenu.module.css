@@ -11,7 +11,7 @@
 }
 
 .dropDownMenuOptionsContainer {
-    width: 190px;
+    width: 185px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -21,6 +21,7 @@
     left: 0px;
     border-radius: 20px;
     z-index: 1;
+    font-size: 18px;
 }
 
 .showList {
@@ -33,18 +34,20 @@
     display: none;
 }
 
-.DropdownMenu label {    
+.labelOptions {    
     position: relative;
     border-radius: 0px;
     border-bottom: thin solid #FFE8ED;
     width: 160px;
-    padding: 3px 7px;
+    padding: 0px;
+    margin: 0px;
+    padding-left: 10px;
     text-align: left;
     background-color: #A1779B;
     color: #FFE8ED;
 }
 
-.DropdownMenu label:hover {
+.labelOptions:hover {
     background-color: #F0ECAA;
     color: #A1779B;
 }
@@ -58,7 +61,7 @@
     background-color: #A1779B;
     color: #FFE8ED;
     border: none;
-    border-bottom: thin solid #FFE8ED;
+    /* border-bottom: thin solid #FFE8ED; */
 }
 
 .botonAddTemperament{
