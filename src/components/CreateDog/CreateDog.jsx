@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 
 import Nav from '../Nav/Nav'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { validate, allGood, prepareRequest, restartState } from '../../controllers/controllers'
+import Loading from '../Loading/Loading'
+import { validate, allGood, prepareRequest, restartState, getAllDogs2 } from '../../controllers/controllers'
 
 import style from './CreateDog.module.css'
 import smallDog from '../../img/smallDog.png'
@@ -48,6 +50,10 @@ const CreateDog = ({ store }) => {
 
   const [dogDetail, setDogDetail] = useState(false)
 
+  const [loading, setLoading] = useState(false)
+
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (whatShow === 'image') {
       const arrayTemperamentsFrom = dogFinded.temperament.split(', ')
@@ -67,6 +73,17 @@ const CreateDog = ({ store }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dogFinded])
+
+  const updateTotaDogs = useRef(false)
+
+  // Actualiza la lista con el nuevo perro creado
+  useEffect(() => {
+    if (updateTotaDogs.current) {
+      dispatch(getAllDogs2(null, setLoading))
+      updateTotaDogs.current(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateTotaDogs.current])
 
   function handleChange (event) {
     const { name, value } = event.target
@@ -146,6 +163,7 @@ const CreateDog = ({ store }) => {
         setRefresh(true)
         const inputName = document.getElementsByName('name')[0]
         inputName.disabled = ''
+        updateTotaDogs.current = true
       }
     } else {
       alert('You must correct the errors before creating the new dog')
@@ -385,6 +403,7 @@ const CreateDog = ({ store }) => {
       }
         </section>
       </main>
+      <Loading loading={loading} />
     </div>
   )
 }
