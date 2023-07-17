@@ -80,7 +80,7 @@ const CreateDog = ({ store }) => {
   useEffect(() => {
     if (updateTotaDogs.current) {
       dispatch(getAllDogs2(null, setLoading))
-      updateTotaDogs.current(false)
+      updateTotaDogs.current = false
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateTotaDogs.current])
