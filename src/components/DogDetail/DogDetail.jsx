@@ -9,8 +9,8 @@ import { getDogDetail, cleanDetail, getAllDogs2 } from '../../redux/actions/inde
 import { validate, allGood, prepareRequest } from '../../controllers/controllers'
 import style from './DogDetail.module.css'
 
-const PATH = 'http://localhost:3001'
-// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+// const PATH = 'http://localhost:3001'
+const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 function DogDetail ({ store }) {
   const { razaPerro } = useParams()
