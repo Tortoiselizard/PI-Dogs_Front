@@ -12,8 +12,8 @@ import mediumDog from '../../img/mediumDog.png'
 import bigDog from '../../img/bigDog2.png'
 import defaultDog from '../../img/defaultDog.png'
 
-const PATH = 'http://localhost:3001'
-// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+// const PATH = 'http://localhost:3001'
+const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 const initialStateInputs = {
   name: '',
