@@ -4,6 +4,15 @@ import DogCard from '../DogCard/DogCard'
 import DogNotFound from '../DogNotFound/DogNotFound'
 
 import style from './DogsContainer.module.css'
+import smallDog from '../../img/smallDog.png'
+import mediumDog from '../../img/mediumDog.png'
+import bigDog from '../../img/bigDog2.png'
+
+const typeDog = {
+  smallDog,
+  mediumDog,
+  bigDog
+}
 
 function DogsContainer ({ dogs }) {
   const [showNotFound, setShowNotFound] = useState(false)
@@ -28,7 +37,7 @@ function DogsContainer ({ dogs }) {
                   ? dogs.list.filter(dog => dog.image).map(dog => (
                     <DogCard
                       name={dog.name}
-                      image={dog.image}
+                      image={Object.keys(typeDog).includes(dog.image) ? typeDog[dog.image] : dog.image}
                       temperament={dog.temperament}
                       weight={dog.weight}
                       id={dog.id}
