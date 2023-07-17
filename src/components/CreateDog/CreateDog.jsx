@@ -101,10 +101,10 @@ const CreateDog = ({ store }) => {
         setInputs(newInputs)
         setDogDetail(changeDogDetail(newInputs))
       } else {
-        alert('Este temperamento ya se agregó')
+        alert('This temperament has already been added')
       }
     } else {
-      alert('Este temperamento no existe')
+      alert('This temperament does not exist')
     }
   }
 
@@ -126,7 +126,7 @@ const CreateDog = ({ store }) => {
     const errorsObj = validate(inputs)
     setErrors(errorsObj)
     if (whatShow === 'image' && !inputs.image) {
-      return alert('Debes agrear una imagen')
+      return alert('You must add an image')
     }
 
     if (allGood(errorsObj)) {
@@ -137,16 +137,18 @@ const CreateDog = ({ store }) => {
         .then(data => data)
         .catch(error => error.message)
       if (typeof (response) === 'string') { return alert(response) } else {
-        alert(`La raza de perro ${inputs.name} fue creada exitosamente`)
+        alert(`The ${inputs.name} dog breed was successfully created`)
 
         restartState(initialStateInputs, setInputs)
         restartState(initialStateErrors, setErrors)
         setWhatShow(false)
         setDogFinded({})
         setRefresh(true)
+        const inputName = document.getElementsByName('name')[0]
+        inputName.disabled = ''
       }
     } else {
-      alert('Debes corregir los errores antes de crear el nuevo perro')
+      alert('You must correct the errors before creating the new dog')
     }
   }
 
