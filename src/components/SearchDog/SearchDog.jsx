@@ -24,6 +24,10 @@ function SearchDog ({ setLoad }) {
   }
 
   async function showAllDogs () {
+    dispatch(updateShowDogs({
+      start: 0,
+      list: []
+    }))
     dispatch(updateSearchBar(''))
     dispatch(updateFilters({
       filteredTemperaments: [],

@@ -1,3 +1,5 @@
+import { typeDogs } from '../../controllers/controllers'
+
 export const GET_ALL_DOGS = 'GET_ALL_DOGS'
 export const GET_DOG_DETAILS = 'GET_DOG_DETAILS'
 export const CREATE_DOG = 'CREATE_DOG'
@@ -19,29 +21,6 @@ export const UPDATE_SHOWDOGS = 'UPDATE_SHOWDOGS'
 // const PATH = 'http://localhost:3001'
 const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
-export const getAllDogs = (name) => {
-  if (!name) {
-    return fetch(`${PATH}/dogs`)
-      .then(data => data.json())
-      .then(data => {
-        if (typeof (data) === 'string') {
-          return ({ payload: data })
-        } else {
-          return { type: GET_ALL_DOGS, payload: data }
-        }
-      })
-  } else {
-    return fetch(`${PATH}/dogs?name=${name}`)
-      .then((response) => response.json())
-      .then((data) => {
-        return { type: GET_ALL_DOGS, payload: data }
-      })
-      .catch(data => {
-        return { payload: 'Ha ocurrido un problema en el enlace con el servidor de la aplicación' }
-      })
-  }
-}
-
 export const getAllDogs2 = (name, setLoading) => {
   showLoading(setLoading)
   if (!name) {
@@ -52,7 +31,14 @@ export const getAllDogs2 = (name, setLoading) => {
           if (typeof (data) === 'string') {
             return alert(data)
           } else {
-            dispatch({ type: GET_ALL_DOGS, payload: data })
+            const newList = data.map(dog => {
+              if (dog.image) return dog
+              return {
+                ...dog,
+                image: typeDogs(dog)
+              }
+            })
+            dispatch({ type: GET_ALL_DOGS, payload: newList })
           }
           quitLoading(setLoading)
         })
@@ -68,7 +54,14 @@ export const getAllDogs2 = (name, setLoading) => {
         .then((data) => {
           if (typeof (data) === 'string') alert(data)
           else {
-            dispatch({ type: GET_ALL_DOGS, payload: data })
+            const newList = data.map(dog => {
+              if (dog.image) return dog
+              return {
+                ...dog,
+                image: typeDogs(dog)
+              }
+            })
+            dispatch({ type: GET_ALL_DOGS, payload: newList })
           }
           quitLoading(setLoading)
         })

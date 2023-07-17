@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
+import { getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters, updateShowDogs } from '../../redux/actions/index'
 
 import style from './Filter.module.css'
 
@@ -49,14 +49,9 @@ function Filter () {
 
   function filterForLocation (listDogs, state) {
     const dogsToFilter = [...listDogs]
-    const filterLocationSelected = document.getElementById('selectFilterForLocation')
 
     if (dogsToFilter.length) {
-      state = {
-        ...state,
-        locationToFilter: filterLocationSelected.value
-      }
-      const action = getDogsForLocation2(filterLocationSelected.value, dogsToFilter)
+      const action = getDogsForLocation2(state.locationToFilter, dogsToFilter)
       return [action, state]
     }
     return [{ payload: listDogs }, state]
@@ -71,6 +66,10 @@ function Filter () {
       acc = listDogsFiltered
       action = acc
     }
+    dispatch(updateShowDogs({
+      start: 0,
+      list: []
+    }))
     setStateFilter(action[1])
     dispatch(updateFilters(action[1]))
     dispatch(keepDogs(action[0].payload))
@@ -101,7 +100,7 @@ function Filter () {
 
         <div className={style.filterForPlaceContainer}>
           <label className={style.titleFilters}>Location: </label>
-          <select onChange={() => filter()} id='selectFilterForLocation' className={style.selectFilterForLocation}>
+          <select onChange={(event) => { filter({ ...stateFilter, locationToFilter: event.target.value }) }} id='selectFilterForLocation' className={style.selectFilterForLocation}>
             <option value='Both'>Both</option>
             <option value='API'>API</option>
             <option value='DB'>DB</option>

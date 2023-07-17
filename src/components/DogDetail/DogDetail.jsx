@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux'
 
 import Nav from '../Nav/Nav'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getDogDetail, cleanDetail } from '../../redux/actions/index'
+import Loading from '../Loading/Loading'
+import { getDogDetail, cleanDetail, getAllDogs2 } from '../../redux/actions/index'
 import { validate, allGood, prepareRequest } from '../../controllers/controllers'
 import style from './DogDetail.module.css'
 
-const PATH = 'http://localhost:3001'
-// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+// const PATH = 'http://localhost:3001'
+const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 function DogDetail ({ store }) {
   const { razaPerro } = useParams()
@@ -24,6 +25,8 @@ function DogDetail ({ store }) {
   const [refresh, setRefresh] = useState(true)
 
   const [inputEnabled, setInputEnabled] = useState(false)
+
+  const [loading, setLoading] = useState(false)
 
   // Cargar información del detalle del perro proveniente de servidor
   useEffect(() => {
@@ -126,6 +129,16 @@ function DogDetail ({ store }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode])
+
+  const updateTotaDogs = useRef(false)
+
+  useEffect(() => {
+    if (updateTotaDogs.current) {
+      dispatch(getAllDogs2(null, setLoading))
+      updateTotaDogs.current = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateTotaDogs.current])
 
   function changeEditMode () {
     setEditMode(editMode => !editMode)
@@ -250,6 +263,7 @@ function DogDetail ({ store }) {
           alert(data.message)
           dispatch(getDogDetail(razaPerro))
           setEditMode(false)
+          updateTotaDogs.current = true
         })
         .catch(error => {
           alert(error.message)
@@ -383,6 +397,7 @@ function DogDetail ({ store }) {
             </div>)
           : null}
       </main>
+      <Loading loading={loading} />
     </div>
   )
 };
