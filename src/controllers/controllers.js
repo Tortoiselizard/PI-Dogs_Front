@@ -70,5 +70,16 @@ module.exports = {
   },
   restartState: (initialState, setState) => {
     setState(initialState)
+  },
+  typeDogs: (dog) => {
+    const maxWeight = dog.weight.split('-')[1].trim()
+    const numberMaxWeight = Number(maxWeight)
+    if (!isNaN(numberMaxWeight) && numberMaxWeight <= 25) {
+      return 'smallDog'
+    } else if (!isNaN(numberMaxWeight) && numberMaxWeight > 25) {
+      return 'mediumDog'
+    } else if (!isNaN(numberMaxWeight) && numberMaxWeight > 75) {
+      return 'bigDog'
+    }
   }
 }
