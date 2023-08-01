@@ -1,4 +1,4 @@
-import { typeDogs } from '../../controllers/controllers'
+import { typeDogs, fixingDetail } from '../../controllers/controllers.js'
 
 export const GET_ALL_DOGS = 'GET_ALL_DOGS'
 export const GET_DOG_DETAILS = 'GET_DOG_DETAILS'
@@ -117,10 +117,18 @@ export const getDogsForLocation2 = (location, dogs) => {
 
 export const getDogDetail = (razaPerro) => {
   return function (dispatch) {
-    fetch(`${PATH}/dogs/${razaPerro}`)
+    fetch(`${PATH}/dogs/?name=${razaPerro}`)
       .then((response) => response.json())
       .then(data => {
-        if (typeof (data) === 'string') { throw new Error(data) } else { dispatch({ type: GET_DOG_DETAILS, payload: data }) }
+        if (typeof (data) === 'string') {
+          throw new Error(data)
+        } else {
+          const newDogDetail = fixingDetail(data[0])
+          if (!newDogDetail.image) {
+            newDogDetail.image = typeDogs(newDogDetail)
+          }
+          dispatch({ type: GET_DOG_DETAILS, payload: [newDogDetail] })
+        }
       })
       .catch(error => alert(error.message))
   }
