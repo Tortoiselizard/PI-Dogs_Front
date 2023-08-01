@@ -120,7 +120,15 @@ export const getDogDetail = (razaPerro) => {
     fetch(`${PATH}/dogs/${razaPerro}`)
       .then((response) => response.json())
       .then(data => {
-        if (typeof (data) === 'string') { throw new Error(data) } else { dispatch({ type: GET_DOG_DETAILS, payload: data }) }
+        if (typeof (data) === 'string') {
+          throw new Error(data)
+        } else {
+          const newDogDetail = data[0]
+          if (!newDogDetail.image) {
+            newDogDetail.image = typeDogs(newDogDetail)
+          }
+          dispatch({ type: GET_DOG_DETAILS, payload: [newDogDetail] })
+        }
       })
       .catch(error => alert(error.message))
   }
