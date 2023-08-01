@@ -33,7 +33,6 @@ function Filter () {
   }, [globalState.totaDogs])
 
   useEffect(() => {
-    // console.log(globalState.filters)
     if (Object.keys(globalState.filters).length) setStateFilter(globalState.filters)
   }, [globalState.filters])
 
