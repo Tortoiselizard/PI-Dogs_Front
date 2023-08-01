@@ -8,8 +8,7 @@ import Filter from '../Filter/Filter'
 import Order from '../Order/Order'
 import Paginated from '../Paginated/Paginated'
 
-import { keepDogs, updateShowDogs } from '../../redux/actions/index'
-// import { keepDogs } from '../../redux/actions/index'
+import { updateShowDogs } from '../../redux/actions/index'
 
 import style from './Home.module.css'
 
@@ -29,42 +28,35 @@ function Home ({ store }) {
     }
   })
 
-  const firstTime = useRef(true)
-
-  // Cargar información del estado global "store.dogs"
-  useEffect(() => {
-    dispatch(keepDogs(store.totaDogs))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store && store.totaDogs])
-
-  // Actualizando showDogs
-  useEffect(() => {
-    console.log(firstTime.current)
-    if (!firstTime.current) {
-      setShowDogs({
-        list: (store && store.dogs.slice(0, 9)) || [],
-        start: 0
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.filters, store.searBar, store.order])
-
-  // Cargar información del estado global "showDogs"
-  useEffect(() => {
-    if (!showDogs.list.length) {
-      setShowDogs({
-        list: (store && store.dogs.slice(0, 9)) || [],
-        start: 0
-      })
-    }
-    if (store && store.dogs.length && firstTime.current) firstTime.current = false
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.dogs])
+  const currentShowDogs = useRef(showDogs)
 
   useEffect(() => {
-    dispatch(updateShowDogs(showDogs))
+    currentShowDogs.current = showDogs
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showDogs])
+
+  useEffect(() => {
+    function compare (array1, array2) {
+      if (array1.length !== array2.length) return true
+      for (let index = 0; index < array1.length; index++) {
+        if (array1[index].name !== array2[index].name) return true
+      }
+      return false
+    }
+    if (compare(showDogs.list, store.showDogs.list)) {
+      setShowDogs({
+        ...store.showDogs
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.showDogs])
+
+  useEffect(() => {
+    return () => {
+      dispatch(updateShowDogs(currentShowDogs.current))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={style.BackgroundHome}>
