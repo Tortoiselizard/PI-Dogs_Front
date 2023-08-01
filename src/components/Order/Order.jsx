@@ -8,16 +8,16 @@ import style from './Order.module.css'
 const regNumber = /[^0-9-. ]/
 
 function Order () {
-  const { dogs, order, filters, searchBar } = useSelector(state => state)
+  const { dogs, order } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
   const [typeOrder, setTypeOrder] = useState(() => order.type ? order.type : '')
 
-  useEffect(() => {
-    orderDispatch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typeOrder, filters, searchBar])
+  // useEffect(() => {
+  //   orderDispatch()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [typeOrder, filters, searchBar])
 
   // Actualizar el select en la casilla correcta
   useEffect(() => {
@@ -29,7 +29,7 @@ function Order () {
       setTypeOrder(select.value)
     } else {
       select.selectedIndex = index
-      orderDispatch()
+      // orderDispatch()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -106,6 +106,7 @@ function Order () {
 
   function handleOrder (event) {
     setTypeOrder(event.target.value)
+    orderDispatch()
   }
 
   return (
