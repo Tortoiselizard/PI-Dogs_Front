@@ -18,6 +18,7 @@ function SearchDog ({ setLoad }) {
   async function searchDispatch () {
     dispatch(updateSearchBar(input.search))
     dispatch(getAllDogs2(input.search, setLoad))
+    setInput({ search: '' })
   }
 
   async function showAllDogs () {
