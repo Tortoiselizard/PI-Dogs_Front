@@ -13,8 +13,8 @@ import smallDog from '../../img/smallDog.png'
 import mediumDog from '../../img/mediumDog.png'
 import bigDog from '../../img/bigDog2.png'
 
-const PATH = 'http://localhost:3001'
-// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+// const PATH = 'http://localhost:3001'
+const PATH = 'https://pi-dogs-back-90f5.onrender.com'
 
 const pictures = {
   smallDog,
