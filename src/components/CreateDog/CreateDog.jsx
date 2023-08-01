@@ -5,7 +5,7 @@ import Nav from '../Nav/Nav'
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
 import Loading from '../Loading/Loading'
 import { validate, allGood, prepareRequest, restartState } from '../../controllers/controllers'
-import { getAllDogs2 } from '../../redux/actions/index'
+import { getAllDogs2, updateSearchBar, updateFilters, updateOrder } from '../../redux/actions/index'
 
 import style from './CreateDog.module.css'
 import smallDog from '../../img/smallDog.png'
@@ -78,6 +78,12 @@ const CreateDog = ({ store }) => {
   // Actualiza la lista con el nuevo perro creado
   useEffect(() => {
     return () => {
+      dispatch(updateSearchBar(''))
+      dispatch(updateFilters({
+        filteredTemperaments: [],
+        locationToFilter: ''
+      }))
+      dispatch(updateOrder({ type: 'A-Z' }))
       dispatch(getAllDogs2(null, setLoading))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
