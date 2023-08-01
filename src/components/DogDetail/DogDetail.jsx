@@ -9,8 +9,18 @@ import { getDogDetail, cleanDetail, getAllDogs2 } from '../../redux/actions/inde
 import { validate, allGood, prepareRequest } from '../../controllers/controllers'
 import style from './DogDetail.module.css'
 
-// const PATH = 'http://localhost:3001'
-const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+import smallDog from '../../img/smallDog.png'
+import mediumDog from '../../img/mediumDog.png'
+import bigDog from '../../img/bigDog2.png'
+
+const PATH = 'http://localhost:3001'
+// const PATH = 'https://pi-dogs-back-90f5.onrender.com'
+
+const pictures = {
+  smallDog,
+  mediumDog,
+  bigDog
+}
 
 function DogDetail ({ store }) {
   const { razaPerro } = useParams()
@@ -283,7 +293,7 @@ function DogDetail ({ store }) {
               <div className={style.containerInformation} style={{ backgroundImage: `url(${store.dogDetail[0].image})` }}>
 
                 {/* Image */}
-                <img src={store.dogDetail[0].image} alt={store.dogDetail.name} />
+                <img src={store.dogDetail[0].image === 'smallDog' || store.dogDetail[0].image === 'mediumDog' || store.dogDetail[0].image === 'bigDog' ? pictures[store.dogDetail[0].image] : store.dogDetail[0].image} alt={store.dogDetail.name} />
                 {
                 editMode && inputs.image && (
                   <div className={style.editImageContainer}>
