@@ -39,7 +39,9 @@ function App () {
     }
       <Routes>
         <Route path='/' element={<MainPage sliding={handleSliding} />} />
-        <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments, showDogs, searchBar, filters, order }} />} />
+        {
+          showDogs && showDogs.list ? <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments, showDogs, searchBar, filters, order }} />} /> : null
+        }
         <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} store={{ dogDetail, temperaments }} />} />
         <Route path='/dog/create' element={<CreateDog sliding={handleSliding} store={{ temperaments }} />} />
       </Routes>
