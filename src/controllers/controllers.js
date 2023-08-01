@@ -76,7 +76,7 @@ module.exports = {
     const numberMaxWeight = Number(maxWeight)
     if (!isNaN(numberMaxWeight) && numberMaxWeight <= 25) {
       return 'smallDog'
-    } else if (!isNaN(numberMaxWeight) && numberMaxWeight > 25) {
+    } else if (!isNaN(numberMaxWeight) && numberMaxWeight <= 75) {
       return 'mediumDog'
     } else if (!isNaN(numberMaxWeight) && numberMaxWeight > 75) {
       return 'bigDog'
