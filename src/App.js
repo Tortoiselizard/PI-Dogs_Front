@@ -15,7 +15,7 @@ import './App.css'
 
 function App () {
   const dispatch = useDispatch()
-  const { totaDogs, dogs, dogDetail, temperaments, showDogs } = useSelector(state => state)
+  const { totaDogs, dogs, dogDetail, temperaments, showDogs, searchBar, filters, order } = useSelector(state => state)
   const [sliding, setSliding] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -39,7 +39,7 @@ function App () {
     }
       <Routes>
         <Route path='/' element={<MainPage sliding={handleSliding} />} />
-        <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments, showDogs }} />} />
+        <Route path='/home' element={<Home sliding={handleSliding} store={{ totaDogs, dogs, temperaments, showDogs, searchBar, filters, order }} />} />
         <Route path='/dog/:razaPerro' element={<DogDetail sliding={handleSliding} store={{ dogDetail, temperaments }} />} />
         <Route path='/dog/create' element={<CreateDog sliding={handleSliding} store={{ temperaments }} />} />
       </Routes>
