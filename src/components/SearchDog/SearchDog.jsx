@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { getAllDogs2, updateSearchBar, updateFilters } from '../../redux/actions/index'
+import { getAllDogs2, updateSearchBar, updateFilters, updateOrder } from '../../redux/actions/index'
 import style from './SearchDog.module.css'
 
 function SearchDog ({ setLoad }) {
@@ -26,6 +26,7 @@ function SearchDog ({ setLoad }) {
       filteredTemperaments: [],
       locationToFilter: ''
     }))
+    dispatch(updateOrder({ type: 'A-Z' }))
     dispatch(getAllDogs2(null, setLoad))
   }
 
