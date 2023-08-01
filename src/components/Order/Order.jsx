@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { orderAlfabetic, orderWeight, updateOrder, updateShowDogs } from '../../redux/actions/index'
+import { orderAlfabetic, orderWeight, updateOrder } from '../../redux/actions/index'
 
 import style from './Order.module.css'
 
@@ -18,6 +18,21 @@ function Order () {
     orderDispatch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeOrder, filters, searchBar])
+
+  // Actualizar el select en la casilla correcta
+  useEffect(() => {
+    const arraySelect = ['A-Z', 'Z-A', 'Mayor peso', 'Menor peso']
+    const select = document.getElementById('selectOrder')
+    const index = arraySelect.indexOf(typeOrder)
+    if (index === -1) {
+      select.selectedIndex = 0
+      setTypeOrder(select.value)
+    } else {
+      select.selectedIndex = index
+      orderDispatch()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const mergeSort = (array) => {
     const pivote = Math.round(array.length / 2)
@@ -69,10 +84,6 @@ function Order () {
     if (orderSelected.value === 'Mayor peso' || orderSelected.value === 'Menor peso') {
       let sortData = mergeSort(data)
       sortData = orderSelected.value === 'Mayor peso' ? sortData.reverse() : sortData
-      dispatch(updateShowDogs({
-        start: 0,
-        list: []
-      }))
       dispatch(orderWeight(sortData))
     } else if (orderSelected.value === 'A-Z' || orderSelected.value === 'Z-A') {
       let sortData = [...dogs]
@@ -86,10 +97,6 @@ function Order () {
         return null
       })
       sortData = orderSelected.value === 'Z-A' ? sortData.reverse() : sortData
-      dispatch(updateShowDogs({
-        start: 0,
-        list: []
-      }))
       dispatch(orderAlfabetic(sortData))
     }
     dispatch(updateOrder({
