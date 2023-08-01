@@ -63,7 +63,7 @@ const rootReducer = (state = initialState, action) => {
     case ORDER_ABC:
       return {
         ...state,
-        dogs: payload
+        totaDogs: payload
       }
     case ORDER_ABC_TOTAL:
       return {
@@ -73,7 +73,7 @@ const rootReducer = (state = initialState, action) => {
     case ORDER_WEIGHT:
       return {
         ...state,
-        dogs: payload
+        totaDogs: payload
       }
     case ORDER_WEIGHT_TOTAL:
       return {
