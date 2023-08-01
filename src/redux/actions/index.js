@@ -39,6 +39,7 @@ export const getAllDogs2 = (name, setLoading) => {
               }
             })
             dispatch({ type: GET_ALL_DOGS, payload: newList })
+            dispatch(keepDogs(newList))
           }
           quitLoading(setLoading)
         })
@@ -62,6 +63,7 @@ export const getAllDogs2 = (name, setLoading) => {
               }
             })
             dispatch({ type: GET_ALL_DOGS, payload: newList })
+            dispatch(keepDogs(newList))
           }
           quitLoading(setLoading)
         })
@@ -214,7 +216,17 @@ export const addTemperamentsFilter = (temperament) => {
 }
 
 export const orderAlfabetic = (data) => {
-  return { type: ORDER_ABC, payload: data }
+  return function (dispatch) {
+    dispatch({ type: ORDER_ABC, payload: data })
+    const newList = data.map(dog => {
+      if (dog.image) return dog
+      return {
+        ...dog,
+        image: typeDogs(dog)
+      }
+    })
+    dispatch(keepDogs(newList))
+  }
 }
 
 export const orderAlfabeticTotal = (data) => {
@@ -222,15 +234,32 @@ export const orderAlfabeticTotal = (data) => {
 }
 
 export const orderWeight = (data) => {
-  return { type: ORDER_WEIGHT, payload: data }
+  return function (dispatch) {
+    dispatch({ type: ORDER_WEIGHT, payload: data })
+    const newList = data.map(dog => {
+      if (dog.image) return dog
+      return {
+        ...dog,
+        image: typeDogs(dog)
+      }
+    })
+    dispatch(keepDogs(newList))
+  }
 }
 
 export const orderWeightTotal = (data) => {
   return { type: ORDER_WEIGHT_TOTAL, payload: data }
 }
 
-export const keepDogs = (dogs) => {
-  return { type: KEE_DOGS, payload: dogs }
+export const keepDogs = (dogs, currentShowDogs) => {
+  return function (dispatch) {
+    dispatch({ type: KEE_DOGS, payload: dogs })
+    const showDogs = {
+      list: dogs.slice(0, 9),
+      start: 0
+    }
+    dispatch(updateShowDogs(showDogs))
+  }
 }
 
 export const updateFilters = (filters) => {

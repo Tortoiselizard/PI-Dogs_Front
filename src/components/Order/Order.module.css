@@ -13,7 +13,7 @@
 }
 
 .Order select {
-    width: 80px;
+    width: auto;
     height: 30px;
     background-color: #A1779B;
     color: #FFE8ED;

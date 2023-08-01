@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { orderAlfabetic, orderWeight, updateOrder } from '../../redux/actions/index'
@@ -8,16 +8,22 @@ import style from './Order.module.css'
 const regNumber = /[^0-9-. ]/
 
 function Order () {
-  const { dogs, order } = useSelector(state => state)
+  const { totaDogs, order } = useSelector(state => state)
 
   const dispatch = useDispatch()
 
-  const [typeOrder, setTypeOrder] = useState(() => order.type ? order : { type: '' })
-
+  // Actualizar el select en la casilla correcta
   useEffect(() => {
-    orderDispatch()
+    const arraySelect = ['A-Z', 'Z-A', 'Mayor peso', 'Menor peso']
+    const select = document.getElementById('selectOrder')
+    const index = arraySelect.indexOf(order.type)
+    if (index === -1) {
+      select.selectedIndex = 0
+    } else {
+      select.selectedIndex = index
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typeOrder])
+  }, [order])
 
   const mergeSort = (array) => {
     const pivote = Math.round(array.length / 2)
@@ -64,14 +70,14 @@ function Order () {
 
   function orderDispatch () {
     const orderSelected = document.getElementById('selectOrder')
-    const data = [...dogs]
+    const data = [...totaDogs]
 
     if (orderSelected.value === 'Mayor peso' || orderSelected.value === 'Menor peso') {
       let sortData = mergeSort(data)
       sortData = orderSelected.value === 'Mayor peso' ? sortData.reverse() : sortData
       dispatch(orderWeight(sortData))
     } else if (orderSelected.value === 'A-Z' || orderSelected.value === 'Z-A') {
-      let sortData = [...dogs]
+      let sortData = [...totaDogs]
       sortData.sort((a, b) => {
         for (let i = 0; i < (a.name.length < b.name.length ? b.name.length : a.name.length); i++) {
           if (a.name.charCodeAt(i) - b.name.charCodeAt(i) === 0) {
@@ -90,7 +96,7 @@ function Order () {
   }
 
   function handleOrder (event) {
-    setTypeOrder(event.target.value)
+    orderDispatch()
   }
 
   return (

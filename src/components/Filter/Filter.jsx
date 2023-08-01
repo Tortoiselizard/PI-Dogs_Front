@@ -1,26 +1,40 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import DropdownMenu from '../DropdownMenu/DropdownMenu'
-import { getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters, updateShowDogs } from '../../redux/actions/index'
+import { getDogsForTemperaments2, getDogsForLocation2, keepDogs, updateFilters } from '../../redux/actions/index'
 
 import style from './Filter.module.css'
 
 function Filter () {
   const globalState = useSelector(state => state)
 
-  const [stateFilter, setStateFilter] = useState({
-    filteredTemperaments: [],
-    locationToFilter: ''
+  const [stateFilter, setStateFilter] = useState(() => {
+    if (globalState.filters && Object.keys(globalState.filters).length) {
+      return globalState.filters
+    } else {
+      return {
+        filteredTemperaments: [],
+        locationToFilter: ''
+      }
+    }
   })
 
   const [refresh, setRefresh] = useState(true)
 
   const dispatch = useDispatch()
 
-  // Actualizar Filter del store
+  const firstTime = useRef(true)
+
   useEffect(() => {
-    if (Object.keys(globalState.filters).length && !globalState.filters.filteredTemperaments.length && !globalState.filters.locationToFilter) setStateFilter(globalState.filters)
+    if (!firstTime.current) filter()
+    firstTime.current = false
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [globalState.totaDogs])
+
+  useEffect(() => {
+    // console.log(globalState.filters)
+    if (Object.keys(globalState.filters).length) setStateFilter(globalState.filters)
   }, [globalState.filters])
 
   function addTemperamentToFilter () {
@@ -66,10 +80,6 @@ function Filter () {
       acc = listDogsFiltered
       action = acc
     }
-    dispatch(updateShowDogs({
-      start: 0,
-      list: []
-    }))
     setStateFilter(action[1])
     dispatch(updateFilters(action[1]))
     dispatch(keepDogs(action[0].payload))
