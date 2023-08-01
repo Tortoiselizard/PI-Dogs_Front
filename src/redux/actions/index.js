@@ -1,4 +1,4 @@
-import { typeDogs, fixingDetail } from '../../controllers/controllers'
+import { typeDogs, fixingDetail } from '../../controllers/controllers.js'
 
 export const GET_ALL_DOGS = 'GET_ALL_DOGS'
 export const GET_DOG_DETAILS = 'GET_DOG_DETAILS'
