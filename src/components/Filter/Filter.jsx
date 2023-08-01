@@ -34,6 +34,14 @@ function Filter () {
 
   useEffect(() => {
     if (Object.keys(globalState.filters).length) setStateFilter(globalState.filters)
+    const arraySelect = ['Both', 'API', 'DB']
+    const select = document.getElementById('selectFilterForLocation')
+    const index = arraySelect.indexOf(globalState.filters.locationToFilter)
+    if (index === -1) {
+      select.selectedIndex = 0
+    } else {
+      select.selectedIndex = index
+    }
   }, [globalState.filters])
 
   function addTemperamentToFilter () {
