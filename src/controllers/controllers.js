@@ -81,5 +81,28 @@ module.exports = {
     } else if (!isNaN(numberMaxWeight) && numberMaxWeight > 75) {
       return 'bigDog'
     }
+  },
+  fixingDetail: (dog) => {
+    const newDog = {}
+    Object.keys(dog).forEach(prop => {
+      if (prop === 'weight' || prop === 'height') {
+        const [min, max] = dog[prop].split('-').map(n => !isNaN(Number(n)) ? n : '')
+        const newMin = min || (max || '')
+        const newMax = max || (min || '')
+        if (newMin && newMax) {
+          newDog[prop] = `${newMin} - ${newMax}`
+        }
+      } else if (prop === 'lifeSpan') {
+        const [min, max] = dog[prop].split('years')[0].split('-').map(n => !isNaN(Number(n)) ? n : '')
+        const newMin = min || (max || '')
+        const newMax = max || (min || '')
+        if (newMin && newMax) {
+          newDog[prop] = `${newMin} - ${newMax} years`
+        }
+      } else {
+        newDog[prop] = dog[prop]
+      }
+    })
+    return newDog
   }
 }
